@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --border: 0 0% 90%;
-    --accent: 0 0% 96%;
-    --muted: 0 0% 40%;
+    --background: 0 0% 98%; /* slightly off-white for less glare */
+    --foreground: 0 0% 10%; /* darker text for better readability */
+    --border: 0 0% 85%;
+    --accent: 220 60% 98%; /* subtle blue-tinted accent */
+    --muted: 220 10% 40%; /* cool muted gray */
   }
 
   .dark {
