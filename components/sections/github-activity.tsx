@@ -16,7 +16,10 @@ export default function GitHubActivity() {
   }, []);
 
   return (
-    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+    <section
+      id="github"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
+    >
       <div className="max-w-5xl mx-auto">
         {/* Section Title */}
         <motion.div

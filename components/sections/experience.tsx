@@ -6,7 +6,10 @@ import { siteConfig } from "@/config/site";
 
 export default function Experience() {
   return (
-    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+    <section
+      id="experience"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
+    >
       <div className="max-w-5xl mx-auto">
         {/* Section Title */}
         <motion.h2

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Github, Twitter, Mail, FileText, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { ThemeToggle } from "@/components/theme-toggle";
+import VisitorCounter from "@/components/visitor-counter";
 
 export default function Hero() {
   const socialButtons = [
@@ -14,10 +14,13 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24">
-      {/* Theme Toggle - Top Right */}
-      <div className="fixed top-6 right-6 z-50">
-        <ThemeToggle />
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24"
+    >
+      {/* Visitor Counter - Top Right */}
+      <div className="absolute top-6 right-6">
+        <VisitorCounter />
       </div>
 
       <div className="max-w-5xl w-full mx-auto">
