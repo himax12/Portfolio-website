@@ -2,7 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, Twitter, Mail, FileText, ArrowUpRight, Calendar } from "lucide-react";
+import {
+  Github,
+  Twitter,
+  Mail,
+  FileText,
+  ArrowUpRight,
+  Calendar,
+} from "lucide-react";
 import { siteConfig } from "@/config/site";
 import VisitorCounter from "@/components/visitor-counter";
 
@@ -73,7 +80,10 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.25 }}
           className="mb-12 text-sm sm:text-base max-w-2xl"
         >
-          <span className="text-foreground font-medium">Open to freelance AI & full-stack projects</span>
+          <span className="text-foreground font-medium">
+            Open to freelance AI & full-stack projects, as well as full-time
+            roles
+          </span>
         </motion.div>
 
         {/* Social Links - Minimal */}

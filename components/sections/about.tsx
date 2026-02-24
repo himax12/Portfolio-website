@@ -58,7 +58,11 @@ export default function About() {
           </p>
 
           <p className="text-base leading-relaxed">
-            <span className="font-medium">Open to freelance and contract work</span>—if you're building something with AI or need help shipping production systems, let's talk.
+            <span className="font-medium">
+              Open to freelance, contract work, and full-time roles
+            </span>
+            —if you're building something with AI or need help shipping
+            production systems, let's talk.
           </p>
         </motion.div>
       </div>
