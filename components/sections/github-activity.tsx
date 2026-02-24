@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import GitHubCalendar from "react-github-calendar";
 import { useTheme } from "next-themes";
@@ -15,85 +15,49 @@ export default function GitHubActivity() {
     setMounted(true);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <section className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Title */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-12 flex items-center justify-between"
         >
-          {/* Section Title */}
-          <motion.h2
-            variants={itemVariants}
-            className="mb-4 text-xs font-semibold uppercase tracking-wider text-foreground/60"
+          <h2 className="text-sm font-medium uppercase tracking-wider text-muted">
+            GitHub Activity
+          </h2>
+          <a
+            href={`https://github.com/${siteConfig.githubUsername}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
           >
-            GITHUB
-          </motion.h2>
+            View Profile
+            <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+        </motion.div>
 
-          {/* Contribution Title */}
-          <motion.div variants={itemVariants} className="mb-8">
-            <h3 className="mb-2 text-2xl font-bold">Contribution Activity</h3>
-            <a
-              href={`https://github.com/${siteConfig.githubUsername}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-base font-medium transition-colors hover:border-foreground/60"
-            >
-              View Profile
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          </motion.div>
-
-          {/* GitHub Calendar */}
-          <motion.div
-            variants={itemVariants}
-            className="overflow-hidden rounded-2xl border border-border bg-card p-6"
-          >
-            {mounted && (
-              <GitHubCalendar
-                username={siteConfig.githubUsername}
-                colorScheme={theme === "dark" ? "dark" : "light"}
-                fontSize={14}
-                blockSize={12}
-                blockMargin={4}
-                hideColorLegend={false}
-                showWeekdayLabels
-                style={{
-                  width: "100%",
-                }}
-              />
-            )}
-          </motion.div>
-
-          {/* Additional Info */}
-          <motion.div variants={itemVariants} className="mt-8">
-            <p className="text-base text-foreground/60">
-              Building in public · 2026 Contributions
-            </p>
-          </motion.div>
+        {/* GitHub Calendar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="border border-border p-6 bg-accent"
+        >
+          {mounted && (
+            <GitHubCalendar
+              username={siteConfig.githubUsername}
+              colorScheme={theme === "dark" ? "dark" : "light"}
+              fontSize={14}
+              blockSize={12}
+              blockMargin={4}
+              hideColorLegend
+              style={{ width: "100%" }}
+            />
+          )}
         </motion.div>
       </div>
     </section>

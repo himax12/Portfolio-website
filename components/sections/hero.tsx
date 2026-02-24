@@ -2,114 +2,76 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, Twitter, Mail, FileText } from "lucide-react";
+import { Github, Twitter, Mail, FileText, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { TextReveal } from "@/components/ui/text-reveal";
 
 export default function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   const socialButtons = [
-    { icon: FileText, label: "Resume", href: siteConfig.links.resume },
     { icon: Mail, label: "Email", href: `mailto:${siteConfig.links.email}` },
-    { icon: Twitter, label: "Twitter", href: siteConfig.links.twitter },
     { icon: Github, label: "GitHub", href: siteConfig.links.github },
+    { icon: Twitter, label: "X", href: siteConfig.links.twitter },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24">
       {/* Theme Toggle - Top Right */}
-      <div className="absolute top-6 right-6 z-20">
+      <div className="fixed top-6 right-6 z-50">
         <ThemeToggle />
       </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-4xl w-full text-center"
-      >
-        {/* Profile Image */}
+      <div className="max-w-5xl w-full mx-auto">
+        {/* Profile Image - Minimal */}
         <motion.div
-          variants={itemVariants}
-          className="mb-8 flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="relative h-40 w-40 sm:h-52 sm:w-52"
-          >
-            <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-r from-cyan-500 to-purple-500 opacity-75 blur-xl" />
-            <Image
-              src={siteConfig.profileImage}
-              alt={siteConfig.name}
-              width={208}
-              height={208}
-              className="relative z-10 h-full w-full rounded-[2.5rem] object-cover"
-              priority
-            />
-          </motion.div>
+          <Image
+            src={siteConfig.profileImage}
+            alt={siteConfig.name}
+            width={120}
+            height={120}
+            className="rounded-full border-2 border-border"
+            priority
+          />
         </motion.div>
 
-        {/* Name */}
-        <motion.h1
-          variants={itemVariants}
-          className="mb-4 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight"
-        >
-          {siteConfig.name}
-        </motion.h1>
-
-        {/* Title */}
-        <motion.p
-          variants={itemVariants}
-          className="mb-8 text-xl sm:text-2xl text-foreground/60"
-        >
-          {siteConfig.title}
-        </motion.p>
-
-        {/* Tech Stack Tags */}
+        {/* Name & Title - Typography focused */}
         <motion.div
-          variants={itemVariants}
-          className="mb-12 flex flex-wrap items-center justify-center gap-2 text-sm sm:text-base text-foreground/60"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-8 space-y-4"
         >
-          <span>TypeScript</span>
-          <span>·</span>
-          <span>React.js</span>
-          <span>·</span>
-          <span>Node.js</span>
-          <span>·</span>
-          <span>Python</span>
-          <span>·</span>
-          <span>AI/ML</span>
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+            {siteConfig.name}
+          </h1>
+          <p className="text-xl sm:text-2xl text-muted max-w-2xl">
+            {siteConfig.title}
+          </p>
         </motion.div>
 
-        {/* Social Buttons */}
+        {/* Tech Stack - Minimal */}
         <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12 text-sm sm:text-base text-muted max-w-2xl"
+        >
+          TypeScript / React / Node.js / Python / AI/ML
+        </motion.div>
+
+        {/* Social Links - Minimal */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-wrap gap-4 text-sm"
         >
           {socialButtons.map((button) => (
-            <motion.a
+            <a
               key={button.label}
               href={button.href}
               target={button.href.startsWith("http") ? "_blank" : undefined}
@@ -118,16 +80,24 @@ export default function Hero() {
                   ? "noopener noreferrer"
                   : undefined
               }
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium transition-colors hover:bg-card/80"
+              className="group flex items-center gap-2 border-b border-foreground pb-1 hover:border-muted transition-colors"
             >
               <button.icon className="h-4 w-4" />
               {button.label}
-            </motion.a>
+              {button.href.startsWith("http") && (
+                <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              )}
+            </a>
           ))}
+          <a
+            href={siteConfig.links.resume}
+            className="flex items-center gap-2 px-4 py-2 -ml-4 -my-2 border border-foreground hover:bg-accent transition-colors"
+          >
+            <FileText className="h-4 w-4" />
+            Resume
+          </a>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

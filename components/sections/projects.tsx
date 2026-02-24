@@ -2,126 +2,101 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { HoverCard } from "@/components/ui/hover-card";
 
 export default function Projects() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
-
   return (
-    <section className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Title */}
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-16 text-sm font-medium uppercase tracking-wider text-muted"
         >
-          {/* Section Title */}
-          <motion.h2
-            variants={itemVariants}
-            className="mb-12 text-xs font-semibold uppercase tracking-wider text-foreground/60"
-          >
-            PROJECTS
-          </motion.h2>
+          Selected Work
+        </motion.h2>
 
-          {/* Projects Grid */}
-          <div className="grid gap-8 sm:grid-cols-2">
-            {siteConfig.projects.map((project) => (
-              <motion.div key={project.title} variants={itemVariants}>
-                <HoverCard containerClassName="h-full">
-                  <div className="group relative h-full overflow-hidden rounded-2xl border border-border bg-card">
-                    {/* Project Image */}
-                    <div className="relative aspect-video w-full overflow-hidden bg-foreground/5">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      {project.isLive && (
-                        <div className="absolute right-4 top-4 flex items-center gap-2 rounded-full bg-green-500/90 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                          <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-                          </span>
-                          Live
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Project Info */}
-                    <div className="p-6">
-                      <h3 className="mb-2 text-2xl font-bold">
-                        {project.title}
-                      </h3>
-                      <p className="mb-4 text-foreground/60">
-                        {project.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="mb-4 flex flex-wrap gap-2">
-                        {project.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-border bg-background px-3 py-1 text-xs"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Links */}
-                      <div className="flex items-center gap-4">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-foreground/60"
-                          >
-                            View Project
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        )}
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-foreground/60"
-                          >
-                            <Github className="h-4 w-4" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
+        {/* Projects List */}
+        <div className="space-y-24">
+          {siteConfig.projects.map((project, index) => (
+            <motion.article
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group"
+            >
+              {/* Project Image */}
+              <div className="relative aspect-video w-full overflow-hidden border border-border mb-6 bg-accent">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                {project.isLive && (
+                  <div className="absolute top-4 right-4 flex items-center gap-2 text-xs font-medium bg-background border border-border px-3 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    Live
                   </div>
-                </HoverCard>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                )}
+              </div>
+
+              {/* Project Info */}
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                  {/* Links */}
+                  <div className="flex items-center gap-4 text-sm">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-1 border-b border-foreground hover:border-muted transition-colors"
+                      >
+                        View
+                        <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-1 border-b border-foreground hover:border-muted transition-colors"
+                      >
+                        <Github className="h-3.5 w-3.5" />
+                        Code
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="md:col-span-2">
+                  <p className="text-muted leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    {project.tags?.map((tag) => (
+                      <span
+                        key={tag}
+                        className="border border-border px-2 py-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );

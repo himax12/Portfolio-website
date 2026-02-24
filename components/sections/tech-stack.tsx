@@ -4,27 +4,6 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
 export default function TechStack() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   const stackSections = [
     { title: "Frontend", items: siteConfig.stack.frontend },
     { title: "Backend", items: siteConfig.stack.backend },
@@ -35,44 +14,36 @@ export default function TechStack() {
   ];
 
   return (
-    <section className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Title */}
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
         >
-          {/* Section Title */}
-          <motion.h2
-            variants={itemVariants}
-            className="mb-12 text-xs font-semibold uppercase tracking-wider text-foreground/60"
-          >
-            STACK
-          </motion.h2>
+          Stack
+        </motion.h2>
 
-          {/* Stack Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {stackSections.map((section) => (
-              <motion.div
-                key={section.title}
-                variants={itemVariants}
-                className="space-y-4"
-              >
-                <h3 className="text-lg font-semibold">{section.title}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {section.items.map((item) => (
-                    <span key={item} className="text-base text-foreground/60">
-                      {item}
-                      {section.items.indexOf(item) < section.items.length - 1 &&
-                        " · "}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Stack Grid */}
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          {stackSections.map((section, index) => (
+            <motion.div
+              key={section.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="space-y-3"
+            >
+              <h3 className="text-sm font-medium">{section.title}</h3>
+              <p className="text-sm text-muted leading-relaxed">
+                {section.items.join(" · ")}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
