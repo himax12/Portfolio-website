@@ -6,6 +6,7 @@ import TechStack from "@/components/sections/tech-stack";
 import Projects from "@/components/sections/projects";
 import OpenSource from "@/components/sections/open-source";
 import Blog from "@/components/sections/blog";
+import CodingStats from "@/components/sections/coding-stats";
 import GitHubActivity from "@/components/sections/github-activity";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <Blog />
         <GitHubActivity />
         <TechStack />
+        <CodingStats />
       </main>
     </>
   );
