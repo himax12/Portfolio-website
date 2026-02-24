@@ -11,7 +11,7 @@ export const siteConfig = {
   links: {
     email: "ghimax23@gmail.com",
     github: "https://github.com/himax12",
-    twitter: "https://twitter.com/himax12",
+    twitter: "https://x.com/ayy_him_anshu23",
     resume: "/resume.pdf",
   },
 
@@ -87,7 +87,7 @@ export const siteConfig = {
   // About section additional links
   aboutLinks: {
     github: "https://github.com/himax12",
-    twitter: "https://twitter.com/himax12",
+    twitter: "https://x.com/ayy_him_anshu23",
     email: "mailto:ghimax23@gmail.com",
   },
 
