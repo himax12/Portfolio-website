@@ -34,7 +34,7 @@ export default function Projects() {
             >
               {/* Title and Status */}
               <div className="flex items-baseline gap-3 flex-wrap">
-                <h3 className="text-xl font-bold">{project.title}</h3>
+                <h3 className="text-lg sm:text-xl font-bold">{project.title}</h3>
                 <div className="flex items-center gap-3 text-sm">
                   {project.isLive && (
                     <span className="flex items-center gap-1.5 text-xs text-muted">
@@ -67,7 +67,7 @@ export default function Projects() {
               </div>
 
               {/* Description */}
-              <p className="text-sm text-muted leading-relaxed max-w-3xl">
+              <p className="text-sm sm:text-base text-muted leading-relaxed max-w-3xl">
                 {project.description}
               </p>
 

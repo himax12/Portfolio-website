@@ -48,7 +48,7 @@ export default function GitHubActivity() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="border border-border p-6 bg-accent"
+          className="border border-border p-4 sm:p-6 bg-accent overflow-x-auto"
         >
           {mounted && (
             <GitHubCalendar

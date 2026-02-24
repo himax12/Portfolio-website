@@ -16,10 +16,10 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24"
+      className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24 pt-32"
     >
       {/* Visitor Counter - Top Right */}
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-20 right-4 sm:top-24 sm:right-6">
         <VisitorCounter />
       </div>
 
@@ -48,10 +48,10 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-8 space-y-4"
         >
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
             {siteConfig.name}
           </h1>
-          <p className="text-xl sm:text-2xl text-muted max-w-2xl">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted max-w-2xl">
             {siteConfig.title}
           </p>
         </motion.div>

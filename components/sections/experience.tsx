@@ -30,15 +30,15 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="grid md:grid-cols-3 gap-6 pb-12 border-b border-border"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pb-12 border-b border-border"
             >
               <div>
                 <h3 className="text-xl font-bold mb-1">{exp.company}</h3>
                 <p className="text-sm text-muted">{exp.duration}</p>
               </div>
               <div className="md:col-span-2">
-                <p className="text-lg mb-3">{exp.role}</p>
-                <p className="text-muted leading-relaxed mb-4">
+                <p className="text-base md:text-lg mb-3">{exp.role}</p>
+                <p className="text-sm md:text-base text-muted leading-relaxed mb-4">
                   {exp.description}
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs">
@@ -63,7 +63,7 @@ export default function Experience() {
                 duration: 0.5,
                 delay: (siteConfig.experience.length + index) * 0.1,
               }}
-              className="grid md:grid-cols-3 gap-6"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
             >
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -80,7 +80,7 @@ export default function Experience() {
                 <p className="text-sm text-muted">{venture.role}</p>
               </div>
               <div className="md:col-span-2">
-                <p className="text-muted leading-relaxed">
+                <p className="text-sm md:text-base text-muted leading-relaxed">
                   {venture.description}
                 </p>
               </div>
