@@ -9,6 +9,7 @@ import {
   FileText,
   ArrowUpRight,
   Calendar,
+  Linkedin,
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import VisitorCounter from "@/components/visitor-counter";
@@ -18,7 +19,7 @@ export default function Hero() {
     { icon: Mail, label: "Email", href: `mailto:${siteConfig.links.email}` },
     { icon: Github, label: "GitHub", href: siteConfig.links.github },
     { icon: Twitter, label: "X", href: siteConfig.links.twitter },
-    { icon: ArrowUpRight, label: "LinkedIn", href: siteConfig.links.linkedin },
+    { icon: Linkedin, label: "LinkedIn", href: siteConfig.links.linkedin },
   ];
 
   return (
