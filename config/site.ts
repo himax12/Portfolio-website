@@ -24,8 +24,18 @@ export const siteConfig = {
       role: "Python Developer Intern",
       duration: "Jan 2026 - Present",
       description:
-        "Building OCR pipelines with OpenCV, EasyOCR, and PyTorch. Automating data workflows and improving model accuracy in production.",
-      technologies: ["Python", "OpenCV", "EasyOCR", "PyTorch"],
+        "Python Developer Intern in the Tech Department, working on OCR pipelines, ML/DL model training, and data automation:\n\n• Assist in building OCR pipelines using EasyOCR, Tesseract, OpenCV, and preprocessing techniques\n• Support training and fine-tuning ML/DL models using PyTorch/TensorFlow and YOLO via Roboflow\n• Write Python scripts for data cleaning, automation, and dataset preparation\n• Use FFmpeg for video/frame extraction and media processing tasks\n• Work with MongoDB to store and manage OCR/model outputs\n• Test model outputs, document issues, and help improve accuracy and performance\n• Collaborate with the team, maintain clean code, and follow Git-based workflows",
+      technologies: [
+        "Python",
+        "OpenCV",
+        "EasyOCR",
+        "Tesseract",
+        "PyTorch",
+        "TensorFlow",
+        "YOLO",
+        "FFmpeg",
+        "MongoDB",
+      ],
     },
   ],
 

@@ -38,7 +38,7 @@ export default function Experience() {
               </div>
               <div className="md:col-span-2">
                 <p className="text-base md:text-lg mb-3">{exp.role}</p>
-                <p className="text-sm md:text-base text-muted leading-relaxed mb-4">
+                <p className="text-sm md:text-base text-muted leading-relaxed mb-4 whitespace-pre-line">
                   {exp.description}
                 </p>
                 <div className="flex flex-wrap gap-2 text-xs">
