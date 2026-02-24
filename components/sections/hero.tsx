@@ -61,9 +61,19 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-12 text-sm sm:text-base text-muted max-w-2xl"
+          className="mb-6 text-sm sm:text-base text-muted max-w-2xl"
         >
           TypeScript / React / Node.js / Python / AI/ML
+        </motion.div>
+
+        {/* Availability */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mb-12 text-sm sm:text-base max-w-2xl"
+        >
+          <span className="text-foreground font-medium">Open to freelance AI & full-stack projects</span>
         </motion.div>
 
         {/* Social Links - Minimal */}
