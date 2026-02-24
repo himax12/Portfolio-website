@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, Twitter, Mail, FileText, ArrowUpRight } from "lucide-react";
+import { Github, Twitter, Mail, FileText, ArrowUpRight, Calendar } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import VisitorCounter from "@/components/visitor-counter";
 
@@ -94,10 +94,21 @@ export default function Hero() {
           ))}
           <a
             href={siteConfig.links.resume}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 -ml-4 -my-2 border border-foreground hover:bg-accent transition-colors"
           >
             <FileText className="h-4 w-4" />
             Resume
+          </a>
+          <a
+            href={siteConfig.links.calendar}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 -my-2 bg-foreground text-background hover:bg-foreground/90 transition-colors"
+          >
+            <Calendar className="h-4 w-4" />
+            Book a Call
           </a>
         </motion.div>
       </div>

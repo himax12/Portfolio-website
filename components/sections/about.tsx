@@ -56,6 +56,10 @@ export default function About() {
             through agent workflows, data pipelines, and scalable backend
             systems.
           </p>
+
+          <p className="text-base leading-relaxed">
+            <span className="font-medium">Open to freelance and contract work</span>—if you're building something with AI or need help shipping production systems, let's talk.
+          </p>
         </motion.div>
       </div>
     </section>
