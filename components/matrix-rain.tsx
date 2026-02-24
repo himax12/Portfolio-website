@@ -21,7 +21,8 @@ export default function MatrixRain() {
     window.addEventListener("resize", resizeCanvas);
 
     // Matrix characters - mix of code symbols and numbers
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン{}[]()<>=+-*/;:.,!?@#$%^&*";
+    const chars =
+      "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン{}[]()<>=+-*/;:.,!?@#$%^&*";
     const charArray = chars.split("");
 
     const fontSize = 14;
@@ -36,7 +37,7 @@ export default function MatrixRain() {
     // Drawing function
     const draw = () => {
       // Semi-transparent black background for trail effect
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Set text properties
@@ -44,19 +45,19 @@ export default function MatrixRain() {
 
       for (let i = 0; i < drops.length; i++) {
         const text = charArray[Math.floor(Math.random() * charArray.length)];
-        
+
         // Gradient effect - brighter at the bottom
         const gradient = ctx.createLinearGradient(
           0,
           drops[i] * fontSize - fontSize * 5,
           0,
-          drops[i] * fontSize
+          drops[i] * fontSize,
         );
-        
+
         gradient.addColorStop(0, "rgba(0, 255, 0, 0.1)");
         gradient.addColorStop(0.5, "rgba(0, 255, 0, 0.5)");
         gradient.addColorStop(1, "rgba(0, 255, 0, 1)");
-        
+
         ctx.fillStyle = gradient;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
@@ -81,7 +82,7 @@ export default function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-20"
+      className="fixed inset-0 pointer-events-none z-0 opacity-40"
       aria-hidden="true"
     />
   );
