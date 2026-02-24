@@ -7,7 +7,6 @@ import { siteConfig } from "@/config/site";
 export default function CodingStats() {
   const platforms = [
     { name: "Codolio", url: siteConfig.codingProfiles.codolio },
-    { name: "GeeksforGeeks", url: siteConfig.codingProfiles.geeksforgeeks },
   ];
 
   return (
@@ -20,16 +19,16 @@ export default function CodingStats() {
           viewport={{ once: true }}
           className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
         >
-          Coding Profiles
+          Coding Profile
         </motion.h2>
 
-        {/* Coding Profile Links */}
+        {/* Coding Profile Link */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
+          className="mb-12 max-w-xs"
         >
           {platforms.map((platform, index) => (
             <a
@@ -37,7 +36,7 @@ export default function CodingStats() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group border border-border p-6 hover:bg-accent transition-colors"
+              className="group border border-border p-6 hover:bg-accent transition-colors block"
             >
               <div className="flex items-center justify-between">
                 <span className="font-medium">{platform.name}</span>
