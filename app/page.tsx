@@ -4,6 +4,7 @@ import About from "@/components/sections/about";
 import Experience from "@/components/sections/experience";
 import TechStack from "@/components/sections/tech-stack";
 import Projects from "@/components/sections/projects";
+import OpenSource from "@/components/sections/open-source";
 import Blog from "@/components/sections/blog";
 import CodingStats from "@/components/sections/coding-stats";
 import GitHubActivity from "@/components/sections/github-activity";
@@ -12,11 +13,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen relative z-10">
         <Hero />
         <About />
         <Experience />
         <Projects />
+        <OpenSource />
         <Blog />
         <GitHubActivity />
         <TechStack />

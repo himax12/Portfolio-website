@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/theme-provider";
+import MatrixRain from "@/components/matrix-rain";
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} - ${siteConfig.title}`,
@@ -22,6 +23,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <MatrixRain />
           {children}
         </ThemeProvider>
       </body>
