@@ -1,79 +1,94 @@
 export const siteConfig = {
-  name: "Your Name",
-  title: "Developer", // or "Founder", "Freelancer", etc.
+  name: "Himanshu Gupta",
+  title: "Full Stack AI Engineer",
   description:
-    "I'm a software developer focused on building tools and platforms that make developers' lives easier. I work across the stack, specializing in TypeScript, React, and Solana development. Currently exploring new ways to streamline development workflows and experimenting with interactive tools.",
+    "B.Tech student in AI & Data Science at MAIT, Delhi. AI engineer who thinks from first principles - passionate about building intelligent systems that solve real-world problems. National finalist at Adobe GenSolve Hackathon 2024 (Top 6 from 1.3 lakh registrations). Solved 600+ DSA problems across competitive coding platforms.",
 
   // Profile Image - Add your image to public/profile.jpg
   profileImage: "/profile.jpg",
 
   // Social Links
   links: {
-    email: "your.email@example.com",
-    github: "https://github.com/yourusername",
-    twitter: "https://twitter.com/yourusername",
+    email: "ghimax23@gmail.com",
+    github: "https://github.com/himax12",
+    twitter: "https://twitter.com/himax12",
     resume: "/resume.pdf",
   },
 
   // Tech Stack
   stack: {
     frontend: [
-      "React",
+      "React.js",
       "Next.js",
       "TypeScript",
+      "JavaScript",
       "Tailwind CSS",
-      "Motion",
-      "GSAP",
     ],
-    backend: ["Node.js", "Express", "Prisma"],
-    database: ["PostgreSQL", "MongoDB", "Redis", "SQL"],
-    languages: ["JavaScript", "TypeScript", "C++"],
-    tools: ["Git", "GitHub", "Docker", "Linux", "Postman", "Figma"],
-    web3: ["Solana"],
+    backend: ["Node.js", "Express.js", "Python", "FastAPI"],
+    database: ["MongoDB", "PostgreSQL", "SQLite", "Supabase"],
+    languages: ["Python", "JavaScript", "TypeScript", "C++", "C", "SQL"],
+    tools: ["Git", "GitHub", "FFmpeg", "Streamlit", "Pandas", "NumPy"],
+    ai: [
+      "TensorFlow",
+      "PyTorch",
+      "OpenCV",
+      "LangGraph",
+      "Groq API",
+      "Gemini API",
+      "NLP",
+    ],
   },
 
   // GitHub Username for contribution graph
-  githubUsername: "yourusername",
+  githubUsername: "himax12",
 
   // Projects
   projects: [
     {
-      title: "Snippet Vault",
+      title: "ClipSync",
       description:
-        "Your personal code memory system. Save, tag, and instantly retrieve battle-tested snippets without digging through chats or old repos.",
-      image: "/projects/snippet-vault.jpg",
-      tags: ["TypeScript", "React", "Next.js"],
-      liveUrl: "https://your-project.com",
-      githubUrl: "https://github.com/yourusername/snippet-vault",
-      isLive: true,
+        "AI-powered video editing automation system that intelligently merges A-Roll with contextually relevant B-Roll footage through a single API call. Uses Gemini VLM for visual analysis and implements intelligent placement algorithms for optimal narrative flow.",
+      image: "/projects/clipsync.jpg",
+      tags: ["Python", "Gemini API", "FFmpeg", "NLP"],
+      liveUrl: "",
+      githubUrl: "https://github.com/himax12/clipsync",
+      isLive: false,
     },
     {
-      title: "Solana Atlas",
+      title: "ReTexture",
       description:
-        "An interactive Solana playground that makes blockchain mechanics visible, testable, and understandable.",
-      image: "/projects/solana-atlas.jpg",
-      tags: ["Solana", "TypeScript", "Web3"],
-      liveUrl: "https://your-project.com",
-      githubUrl: "https://github.com/yourusername/solana-atlas",
-      isLive: true,
+        "AI-powered texture generation and manipulation system for 3D models. Implements deep learning for procedural texture synthesis, neural style transfer, and automated processing. Finalist project at Tesco Retail Media InnovAItion Jam Hackathon.",
+      image: "/projects/retexture.jpg",
+      tags: ["Python", "TensorFlow", "PyTorch", "OpenCV"],
+      liveUrl: "",
+      githubUrl: "https://github.com/himax12/retexture",
+      isLive: false,
     },
-    // Add more projects here
+    {
+      title: "AI Medical Scheduling Agent",
+      description:
+        "Autonomous conversational AI agent that streamlines patient booking through natural language. Features LangGraph state management, multi-API orchestration with Groq API (Llama 3 70B), and Calendly integration for intelligent appointment scheduling.",
+      image: "/projects/medical-agent.jpg",
+      tags: ["Python", "LangGraph", "FastAPI", "Streamlit", "Groq API"],
+      liveUrl: "",
+      githubUrl: "https://github.com/himax12/medical-scheduling-agent",
+      isLive: false,
+    },
   ],
 
   // About section additional links
   aboutLinks: {
-    github: "https://github.com/yourusername",
-    twitter: "https://twitter.com/yourusername",
-    email: "mailto:your.email@example.com",
+    github: "https://github.com/himax12",
+    twitter: "https://twitter.com/himax12",
+    email: "mailto:ghimax23@gmail.com",
   },
 
   // Button hover tooltips
   tooltips: {
-    github:
-      "Open-source work & interesting side projects.\nBrowse repositories",
-    twitter: "Building in public & sharing experiments.\nLive updates",
-    resume: "Resume",
-    email: "Email",
+    github: "Open-source projects & AI experiments.\nBrowse repositories",
+    twitter: "Building in public & sharing AI insights.\nLive updates",
+    resume: "Download Resume",
+    email: "Get in touch",
   },
 };
 

@@ -31,7 +31,7 @@ export default function TechStack() {
     { title: "Database", items: siteConfig.stack.database },
     { title: "Languages", items: siteConfig.stack.languages },
     { title: "Tools", items: siteConfig.stack.tools },
-    { title: "Web3", items: siteConfig.stack.web3 },
+    { title: "AI", items: siteConfig.stack.ai },
   ];
 
   return (

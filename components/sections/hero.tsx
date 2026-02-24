@@ -94,11 +94,13 @@ export default function Hero() {
         >
           <span>TypeScript</span>
           <span>·</span>
-          <span>React</span>
+          <span>React.js</span>
           <span>·</span>
           <span>Node.js</span>
           <span>·</span>
-          <span>Solana</span>
+          <span>Python</span>
+          <span>·</span>
+          <span>AI/ML</span>
         </motion.div>
 
         {/* Social Buttons */}
