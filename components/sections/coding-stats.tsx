@@ -39,12 +39,6 @@ export default function CodingStats() {
       value: "Active",
       description: "Competitive Programming Tracker",
     },
-    {
-      icon: Award,
-      label: "Adobe GenSolve",
-      value: "Top 6",
-      description: "National Finalist from 1.3L+ registrations",
-    },
   ];
 
   return (
