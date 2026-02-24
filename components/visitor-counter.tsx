@@ -7,14 +7,12 @@ export default function VisitorCounter() {
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
-    // Fetch visitor count from countapi.xyz
+    // Fetch visitor count from local API
     const fetchCount = async () => {
       try {
-        const response = await fetch(
-          "https://api.countapi.xyz/hit/himax12-portfolio/visits",
-        );
+        const response = await fetch("/api/visitors");
         const data = await response.json();
-        setCount(data.value);
+        setCount(data.count);
       } catch (error) {
         console.error("Failed to fetch visitor count:", error);
       }
