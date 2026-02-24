@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Himanshu Gupta",
   title: "Full Stack AI Engineer",
   description:
-    "B.Tech student in AI & Data Science at MAIT, Delhi. AI engineer who thinks from first principles - passionate about building intelligent systems that solve real-world problems. National finalist at Adobe GenSolve Hackathon 2024 (Top 6 from 1.3 lakh registrations). Solved 600+ DSA problems across competitive coding platforms.",
+    "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and Math Mentor (multi-agent reasoning with RAG memory). Currently Python Developer Intern at EspoMedia, building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
 
   // Profile Image - Add your image to public/profile.jpg
   profileImage: "/profile.jpg",
@@ -63,13 +63,13 @@ export const siteConfig = {
       isLive: false,
     },
     {
-      title: "ReTexture",
+      title: "Math Mentor",
       description:
-        "AI-powered texture generation and manipulation system for 3D models. Implements deep learning for procedural texture synthesis, neural style transfer, and automated processing. Finalist project at Tesco Retail Media InnovAItion Jam Hackathon.",
-      image: "/projects/retexture.jpg",
-      tags: ["Python", "TensorFlow", "PyTorch", "OpenCV"],
+        "Multi-agent reasoning system with RAG memory and deterministic verification. Implements collaborative AI agents for mathematical problem-solving, combining retrieval-augmented generation with step-by-step verification for accurate solutions.",
+      image: "/projects/math-mentor.jpg",
+      tags: ["Python", "RAG", "Multi-Agent", "LangChain"],
       liveUrl: "",
-      githubUrl: "https://github.com/himax12/retexture",
+      githubUrl: "https://github.com/himax12/math-mentor",
       isLive: false,
     },
     {
