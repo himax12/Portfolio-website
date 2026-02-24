@@ -18,6 +18,7 @@ export default function Hero() {
     { icon: Mail, label: "Email", href: `mailto:${siteConfig.links.email}` },
     { icon: Github, label: "GitHub", href: siteConfig.links.github },
     { icon: Twitter, label: "X", href: siteConfig.links.twitter },
+    { icon: ArrowUpRight, label: "LinkedIn", href: siteConfig.links.linkedin },
   ];
 
   return (

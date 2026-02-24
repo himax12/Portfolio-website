@@ -12,6 +12,7 @@ export const siteConfig = {
     email: "ghimax23@gmail.com",
     github: "https://github.com/himax12",
     twitter: "https://x.com/ayy_him_anshu23",
+    linkedin: "https://www.linkedin.com/in/himanshu-gupta23/",
     resume:
       "https://drive.google.com/file/d/10syKMj3XGvfZqTqDSvEsXBOGLXt1Hter/view?usp=sharing",
     calendar: "https://calendly.com/ghimansh23/30min",
