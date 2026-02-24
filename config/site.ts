@@ -44,7 +44,7 @@ export const siteConfig = {
   ventures: [
     {
       name: "MathPilot",
-      role: "Founder",
+      role: "Freelance Gig",
       url: "https://math-mentor-933543570439.us-central1.run.app/",
       description:
         "Autonomous reasoning system for solving high-school and undergraduate mathematics with high reliability.",
