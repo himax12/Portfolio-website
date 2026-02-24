@@ -42,6 +42,14 @@ export const siteConfig = {
   // GitHub Username for contribution graph
   githubUsername: "himax12",
 
+  // Coding Profiles
+  codingProfiles: {
+    codolio: "https://codolio.com/profile/himax12",
+    leetcode: "https://leetcode.com/himax12",
+    codeforces: "https://codeforces.com/profile/himax12",
+    geeksforgeeks: "https://auth.geeksforgeeks.org/user/himax12",
+  },
+
   // Projects
   projects: [
     {
