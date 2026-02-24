@@ -10,10 +10,17 @@ import { useEffect, useState } from "react";
 export default function GitHubActivity() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [days, setDays] = useState(180);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const dayOptions = [
+    { label: "90 days", value: 90 },
+    { label: "180 days", value: 180 },
+    { label: "1 year", value: 365 },
+  ];
 
   return (
     <section
@@ -26,7 +33,7 @@ export default function GitHubActivity() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mb-12 flex items-center justify-between"
+          className="mb-6 flex items-center justify-between"
         >
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted">
             GitHub Activity
@@ -40,6 +47,28 @@ export default function GitHubActivity() {
             View Profile
             <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
           </a>
+        </motion.div>
+
+        {/* Time Range Selector */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-6 flex gap-2"
+        >
+          {dayOptions.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => setDays(option.value)}
+              className={`text-xs px-3 py-1 border transition-colors ${
+                days === option.value
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border hover:bg-accent"
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
         </motion.div>
 
         {/* GitHub Calendar */}
@@ -59,6 +88,14 @@ export default function GitHubActivity() {
               blockMargin={4}
               hideColorLegend
               style={{ width: "100%" }}
+              transformData={(contributions) => {
+                // Show only last X days
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - days);
+                return contributions.filter(
+                  (activity) => new Date(activity.date) >= cutoffDate,
+                );
+              }}
             />
           )}
         </motion.div>
