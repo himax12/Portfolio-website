@@ -15,6 +15,29 @@ export const siteConfig = {
     resume: "/resume.pdf",
   },
 
+  // Experience
+  experience: [
+    {
+      company: "EspoMedia",
+      role: "Python Developer Intern",
+      duration: "Jan 2026 - Present",
+      description:
+        "Building OCR pipelines with OpenCV, EasyOCR, and PyTorch. Automating data workflows and improving model accuracy in production.",
+      technologies: ["Python", "OpenCV", "EasyOCR", "PyTorch"],
+    },
+  ],
+
+  // Ventures
+  ventures: [
+    {
+      name: "MathPilot",
+      role: "Founder",
+      url: "https://math-mentor-933543570439.us-central1.run.app/",
+      description:
+        "Autonomous reasoning system for solving high-school and undergraduate mathematics with high reliability.",
+    },
+  ],
+
   // Tech Stack
   stack: {
     frontend: [
@@ -65,12 +88,12 @@ export const siteConfig = {
     {
       title: "Math Mentor",
       description:
-        "Multi-agent reasoning system with RAG memory and deterministic verification. Implements collaborative AI agents for mathematical problem-solving, combining retrieval-augmented generation with step-by-step verification for accurate solutions.",
+        "Autonomous reasoning system designed to solve high-school and undergraduate level mathematics problems with high reliability. Unlike typical chat interfaces, this application decouples semantic understanding from deterministic computation. The system accepts multimodal inputs (text, image, audio) and employs a Human-in-the-Loop (HITL) workflow to handle ambiguity before it propagates to the solver.",
       image: "/projects/math-mentor.jpg",
-      tags: ["Python", "RAG", "Multi-Agent", "LangChain"],
-      liveUrl: "",
+      tags: ["Python", "RAG", "Multi-Agent", "HITL", "Multimodal"],
+      liveUrl: "https://math-mentor-933543570439.us-central1.run.app/",
       githubUrl: "https://github.com/himax12/math-mentor",
-      isLive: false,
+      isLive: true,
     },
     {
       title: "AI Medical Scheduling Agent",
