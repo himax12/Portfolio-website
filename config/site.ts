@@ -13,7 +13,7 @@ export const siteConfig = {
     github: "https://github.com/himax12",
     twitter: "https://x.com/ayy_him_anshu23",
     resume: "https://drive.google.com/file/d/10syKMj3XGvfZqTqDSvEsXBOGLXt1Hter/view?usp=sharing",
-    calendar: "https://calendly.com/your-username", // Update with your Calendly/Cal.com link
+    calendar: "https://calendly.com/ghimansh23/30min",
   },
 
   // Experience
