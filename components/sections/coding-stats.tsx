@@ -7,8 +7,6 @@ import { siteConfig } from "@/config/site";
 export default function CodingStats() {
   const platforms = [
     { name: "Codolio", url: siteConfig.codingProfiles.codolio },
-    { name: "LeetCode", url: siteConfig.codingProfiles.leetcode },
-    { name: "Codeforces", url: siteConfig.codingProfiles.codeforces },
     { name: "GeeksforGeeks", url: siteConfig.codingProfiles.geeksforgeeks },
   ];
 
