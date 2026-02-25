@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
+import SocialIconsBar from "@/components/ui/social-icons-bar";
+import { Mail, Calendar } from "lucide-react";
 
 export default function About() {
   return (
@@ -9,7 +11,7 @@ export default function About() {
       id="about"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto text-left">
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0 }}
@@ -19,7 +21,9 @@ export default function About() {
         >
           About
         </motion.h2>
-
+        <div className="mb-12">
+          <SocialIconsBar />
+        </div>
         {/* Description - Multi-line format */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,40 +33,18 @@ export default function About() {
           className="space-y-6 max-w-3xl"
         >
           <p className="text-base leading-relaxed">
-            B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder
-            focused on turning AI ideas into real production systems.
-          </p>
-
-          <p className="text-base leading-relaxed">
-            Built <span className="font-medium">ClipSync</span> (AI video
-            pipeline with Gemini VLM and FFmpeg),{" "}
-            <span className="font-medium">AI Medical Scheduling Agent</span>{" "}
-            (multi-API conversational workflows), and{" "}
-            <span className="font-medium">Math Mentor</span> (multi-agent
-            reasoning with RAG memory).
-          </p>
-
-          <p className="text-base leading-relaxed">
-            Currently Python Developer Intern at{" "}
-            <span className="font-medium">EspoMedia</span>, building OCR
-            pipelines with OpenCV, EasyOCR, and PyTorch, automating data
-            workflows, and improving model accuracy in production.
-          </p>
-
-          <p className="text-base leading-relaxed">
-            I enjoy owning problems end-to-end—designing APIs, integrating
-            models, debugging edge cases, and shipping systems that people
-            actually use. Especially interested in AI that meets real products
-            through agent workflows, data pipelines, and scalable backend
-            systems.
-          </p>
-
-          <p className="text-base leading-relaxed">
+            <span className="font-semibold text-primary">
+              6 months of experience.
+            </span>{" "}
+            AI & Data Science student, hands-on builder. Shipped real-world AI
+            systems like ClipSync (video pipeline), Medical Scheduling Agent
+            (multi-API), and Math Mentor (multi-agent RAG). Python Developer
+            Intern at EspoMedia: OCR, data workflows, model accuracy. I design
+            APIs, integrate models, and ship scalable systems, especially
+            interested in agent workflows and production AI.
             <span className="font-medium">
-              Open to freelance, contract work, and full-time roles
+              Open to freelance, contract, and full-time roles.
             </span>
-            —if you're building something with AI or need help shipping
-            production systems, let's talk.
           </p>
         </motion.div>
       </div>

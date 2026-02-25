@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import VisitorCounter from "@/components/visitor-counter";
+import SocialIconsBar from "@/components/ui/social-icons-bar";
 
 export default function Hero() {
   const socialButtons = [
@@ -25,42 +26,43 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center px-6 sm:px-8 lg:px-12 py-24 pt-32"
+      className="relative min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12 py-24 pt-32"
     >
-      {/* Visitor Counter - Top Right */}
-      <div className="absolute top-20 right-4 sm:top-24 sm:right-6">
-        <VisitorCounter />
-      </div>
-
-      <div className="max-w-5xl w-full mx-auto">
-        {/* Profile Image - Minimal */}
+      <div className="bg-[#181c23] border border-[#23272f] rounded-2xl shadow-lg p-8 w-full max-w-2xl mx-auto flex flex-col items-center text-center">
+        {/* Profile Image - Card Style */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="mb-12"
+          className="mb-8 flex justify-center"
         >
-          <Image
-            src={siteConfig.profileImage}
-            alt={siteConfig.name}
-            width={120}
-            height={120}
-            className="rounded-full border-2 border-border"
-            priority
-          />
+          <div
+            className="rounded-xl border-4 border-background bg-[#181c23] shadow-lg p-2"
+            style={{ boxShadow: "0 4px 24px 0 #0008" }}
+          >
+            <Image
+              src={siteConfig.profileImage}
+              alt={siteConfig.name}
+              width={220}
+              height={220}
+              className="rounded-xl object-cover"
+              priority
+            />
+          </div>
         </motion.div>
 
         {/* Name & Title - Typography focused */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8 space-y-4"
+          className="mb-6 space-y-2 w-full"
         >
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-none">
             {siteConfig.name}
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-muted max-w-2xl">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted">
             {siteConfig.title}
           </p>
         </motion.div>
@@ -70,7 +72,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-6 text-sm sm:text-base text-muted max-w-2xl"
+          className="mb-4 text-sm sm:text-base text-muted"
         >
           TypeScript / React / Node.js / Python / AI/ML
         </motion.div>
@@ -80,7 +82,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mb-12 text-sm sm:text-base max-w-2xl"
+          className="mb-8 text-sm sm:text-base"
         >
           <span className="text-foreground font-medium">
             Open to freelance AI & full-stack projects, as well as full-time
@@ -88,51 +90,44 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Social Links - Minimal */}
+        {/* Resume and Book a Call - Prominent Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-wrap gap-4 text-sm"
+          className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center mb-4"
         >
-          {socialButtons.map((button) => (
-            <a
-              key={button.label}
-              href={button.href}
-              target={button.href.startsWith("http") ? "_blank" : undefined}
-              rel={
-                button.href.startsWith("http")
-                  ? "noopener noreferrer"
-                  : undefined
-              }
-              className="group flex items-center gap-2 border-b border-foreground pb-1 hover:border-muted transition-colors"
-            >
-              <button.icon className="h-4 w-4" />
-              {button.label}
-              {button.href.startsWith("http") && (
-                <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-              )}
-            </a>
-          ))}
+          <a
+            href={`mailto:${siteConfig.links.email}`}
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
+          >
+            <Mail className="h-5 w-5" />
+            Let's Connect
+          </a>
           <a
             href={siteConfig.links.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 -ml-4 -my-2 border border-foreground hover:bg-accent transition-colors"
+            download
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
           >
-            <FileText className="h-4 w-4" />
-            Resume
+            <FileText className="h-5 w-5" />
+            Download Resume
           </a>
           <a
             href={siteConfig.links.calendar}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 -my-2 bg-foreground text-background hover:bg-foreground/90 transition-colors"
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
           >
-            <Calendar className="h-4 w-4" />
+            <Calendar className="h-5 w-5" />
             Book a Call
           </a>
         </motion.div>
+        {/* Social Icons Bar - Centered */}
+        <div className="flex justify-center w-full">
+          <SocialIconsBar />
+        </div>
       </div>
     </section>
   );

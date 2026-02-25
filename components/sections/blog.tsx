@@ -20,15 +20,7 @@ export default function Blog() {
         </motion.h2>
 
         {/* Placeholder */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-sm text-muted"
-        >
-          Coming soon.
-        </motion.p>
+        {/* Blog content will go here in the future */}
       </div>
     </section>
   );

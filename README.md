@@ -1,44 +1,57 @@
-# Portfolio Website
+# Modern Portfolio Website
 
-Modern portfolio website built with Next.js 14, TypeScript, and Tailwind CSS.
+A sleek, responsive portfolio built with Next.js 14, TypeScript, and Tailwind CSS. Designed for developers and creators to showcase their work, experience, and online presence with style.
 
-## Features
+## ✨ Features
 
-- Animated background effects
-- 3D hover effects on cards
-- Dark/light theme toggle
-- Responsive design
-- GitHub contribution graph
+- Animated backgrounds and visual effects
+- 3D hover interactions on project cards
+- Enforced dark mode for optimal readability
+- GitHub activity graph integration
+- Fully responsive layout for all devices
+- Social links with icon support (GitHub, LinkedIn, etc.)
+- Easy configuration for personal branding
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - Next.js 14 (App Router)
 - TypeScript
 - Tailwind CSS
 - Framer Motion
+- lucide-react (icons)
 
-## Getting Started
+## 🚀 Getting Started
 
-```bash
-npm install
-npm run dev
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/himax12/Portfolio-website
+   cd Portfolio-website
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Open [http://localhost:3000](http://localhost:3000)
+## ⚙️ Setup & Customization
 
-## Setup
+- Edit `config/site.ts` to update your name, social links, ventures, and experience.
+- Add your profile picture to `public/profile.jpg`.
+- Add project images/screenshots to `public/projects/`.
+- Customize sections in `components/sections/` as needed.
 
-1. Edit `config/site.ts` with your information
-2. Add your profile picture to `public/profile.jpg`
-3. Add project images to `public/projects/`
-4. Customize as needed
+## 📦 Deployment
 
-## Deploy
+Deploy with Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/himax12/Portfolio-website)
 
 Or deploy to any platform that supports Next.js.
 
-## License
+## 📝 License
 
-MIT
+MIT License. See LICENSE file for details.
