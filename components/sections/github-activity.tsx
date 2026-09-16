@@ -4,11 +4,9 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import GitHubCalendar from "react-github-calendar";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export default function GitHubActivity() {
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [days, setDays] = useState(180);
 
@@ -82,7 +80,7 @@ export default function GitHubActivity() {
           {mounted && (
             <GitHubCalendar
               username={siteConfig.githubUsername}
-              colorScheme={theme === "dark" ? "dark" : "light"}
+              colorScheme="dark"
               fontSize={14}
               blockSize={12}
               blockMargin={4}

@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
-import SocialIconsBar from "@/components/ui/social-icons-bar";
-import { Mail, Calendar } from "lucide-react";
 
 export default function About() {
   return (
@@ -21,9 +19,6 @@ export default function About() {
         >
           About
         </motion.h2>
-        <div className="mb-12">
-          <SocialIconsBar />
-        </div>
         {/* Description - Multi-line format */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +36,7 @@ export default function About() {
             (multi-API), and Math Mentor (multi-agent RAG). Python Developer
             Intern at EspoMedia: OCR, data workflows, model accuracy. I design
             APIs, integrate models, and ship scalable systems, especially
-            interested in agent workflows and production AI.
+            interested in agent workflows and production AI.{" "}
             <span className="font-medium">
               Open to freelance, contract, and full-time roles.
             </span>

@@ -15,6 +15,7 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         accent: "hsl(var(--accent))",
         muted: "hsl(var(--muted))",
+        primary: "hsl(var(--primary))",
       },
     },
   },

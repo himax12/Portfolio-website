@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Menu, X } from "lucide-react";
+
+// Matches the h-16 navbar height so section headings aren't hidden under it
+const NAV_OFFSET = 64;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,13 +20,15 @@ export default function Navbar() {
 
   useEffect(() => {
     // Prevent body scroll when mobile menu is open
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!mobileMenuOpen) return;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
 
@@ -36,9 +40,8 @@ export default function Navbar() {
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const offset = 80;
       const targetPosition =
-        target.getBoundingClientRect().top + window.scrollY - offset;
+        target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
       window.scrollTo({ top: targetPosition, behavior: "smooth" });
     }
   };
@@ -86,13 +89,13 @@ export default function Navbar() {
                 </a>
               ))}
             </div>
-            <ThemeToggle />
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden text-foreground"
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {mobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -107,6 +110,7 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
+          id="mobile-menu"
           className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden"
           onClick={() => setMobileMenuOpen(false)}
         >

@@ -13,7 +13,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative z-10">
+      {/* Bottom padding keeps the fixed social bar from covering the last section */}
+      <main className="min-h-screen relative z-10 pb-24">
         <Hero />
         <About />
         <Experience />

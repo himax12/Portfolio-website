@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { ThemeProvider } from "@/components/theme-provider";
 import MatrixRain from "@/components/matrix-rain";
+import SocialIconsBar from "@/components/ui/social-icons-bar";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +23,19 @@ export default function RootLayout({
         <div className="fixed inset-0 w-full h-full z-0">
           <MatrixRain />
         </div>
-        {/* Main content centered with pure glass effect and bg-transparent */}
         <div className="relative flex min-h-screen items-center justify-center">
-          <div className="relative z-10 w-full max-w-4xl mx-auto rounded-xl bg-transparent backdrop-blur-xl border border-white/10 shadow-lg">
-            {/* Content goes here */}
+          <div className="relative z-10 w-full max-w-4xl mx-auto rounded-xl border border-white/10 shadow-lg">
+            {/* Glass effect lives on its own layer: backdrop-filter on an ancestor
+                would turn it into the containing block for fixed-position children
+                (navbar, mobile menu), pinning them to this box instead of the viewport */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 rounded-xl backdrop-blur-xl"
+            />
             <div className="relative z-30">{children}</div>
           </div>
         </div>
+        <SocialIconsBar />
       </body>
     </html>
   );

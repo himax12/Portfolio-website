@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import VisitorCounter from "@/components/visitor-counter";
-import SocialIconsBar from "@/components/ui/social-icons-bar";
 
 export default function Hero() {
   const socialButtons = [
@@ -108,11 +107,10 @@ export default function Hero() {
             href={siteConfig.links.resume}
             target="_blank"
             rel="noopener noreferrer"
-            download
             className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
           >
             <FileText className="h-5 w-5" />
-            Download Resume
+            View Resume
           </a>
           <a
             href={siteConfig.links.calendar}
@@ -124,10 +122,6 @@ export default function Hero() {
             Book a Call
           </a>
         </motion.div>
-        {/* Social Icons Bar - Centered */}
-        <div className="flex justify-center w-full">
-          <SocialIconsBar />
-        </div>
       </div>
     </section>
   );
