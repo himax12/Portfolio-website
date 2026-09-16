@@ -81,13 +81,14 @@
     border: 1px solid rgb(var(--overlay) / 0.1);
     box-shadow: inset 0 1px 0 0 rgb(255 255 255 / var(--glass-highlight));
   }
-  /* The translucent page frame; its blur lives on a separate sibling layer */
+  /* The translucent page frame; its blur lives on a separate sibling layer.
+     No top edge: it starts at the top of the viewport behind the floating
+     navbar, where a border or highlight would stack with the navbar's own. */
   .glass-frame {
     background-color: rgb(var(--overlay) / 0.02);
     border: 1px solid rgb(var(--overlay) / 0.1);
-    box-shadow:
-      inset 0 1px 0 0 rgb(255 255 255 / var(--glass-highlight)),
-      0 24px 64px rgb(0 0 0 / var(--shadow-alpha));
+    border-top: 0;
+    box-shadow: 0 24px 64px rgb(0 0 0 / var(--shadow-alpha));
   }
 }
 

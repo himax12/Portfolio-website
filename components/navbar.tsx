@@ -128,7 +128,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2">
+      {/* 1rem narrower than the page frame on each side, so the bar floats inside it instead of doubling its edges */}
+      <nav className="fixed top-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[calc(56rem-2rem)] -translate-x-1/2">
         <div className="glass-strong rounded-md h-14 px-3 sm:px-4 flex items-center justify-between">
           <Link
             href="/#home"
