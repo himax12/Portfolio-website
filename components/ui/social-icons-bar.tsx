@@ -33,7 +33,7 @@ export default function SocialIconsBar() {
   return (
     <nav
       aria-label="Social links"
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 rounded-md border border-card-border bg-card px-4 py-2 shadow-lg w-fit"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 glass-strong rounded-md px-4 py-2 w-fit"
     >
       {icons.map(({ icon: Icon, label, href }) => (
         <a
@@ -41,7 +41,7 @@ export default function SocialIconsBar() {
           href={href}
           target={href.startsWith("http") ? "_blank" : undefined}
           rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-          className="text-muted hover:text-primary hover:bg-accent transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-accent"
+          className="text-muted hover:text-primary hover:bg-overlay/10 transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-overlay/10"
           aria-label={label}
         >
           <Icon className="h-5 w-5" />

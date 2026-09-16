@@ -10,13 +10,13 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5"
     >
       <div>
         <SectionHeading title="Selected Work" />
 
         {/* Projects List */}
-        <div className="space-y-12">
+        <div className="space-y-4">
           {siteConfig.projects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -24,7 +24,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="space-y-3"
+              className="glass rounded-md p-6 space-y-3"
             >
               {/* Title and Status */}
               <div className="flex items-baseline gap-3 flex-wrap">

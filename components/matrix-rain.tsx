@@ -13,6 +13,12 @@ const FRAME_MS = 50;
 // Frames pre-rendered to build a still texture when motion is reduced
 const STATIC_FRAMES = 40;
 
+// Trails fade into the page background; light mode uses a deeper green that stays visible on white
+const PALETTES = {
+  dark: { trail: "rgba(0, 0, 0, 0.08)", rain: "0, 255, 65" },
+  light: { trail: "rgba(247, 247, 247, 0.08)", rain: "0, 140, 60" },
+};
+
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -27,10 +33,14 @@ export default function MatrixRain() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     let drops: number[] = [];
+    let palette =
+      PALETTES[
+        document.documentElement.classList.contains("dark") ? "dark" : "light"
+      ];
 
     const draw = () => {
-      // Semi-transparent black background for trail effect
-      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      // Semi-transparent background fill for the trail effect
+      ctx.fillStyle = palette.trail;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `${FONT_SIZE}px monospace`;
@@ -46,10 +56,9 @@ export default function MatrixRain() {
           drops[i] * FONT_SIZE,
         );
 
-        // Neutral tone to match the monochrome palette
-        gradient.addColorStop(0, "rgba(255, 255, 255, 0.05)");
-        gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.25)");
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0.6)");
+        gradient.addColorStop(0, `rgba(${palette.rain}, 0.1)`);
+        gradient.addColorStop(0.5, `rgba(${palette.rain}, 0.5)`);
+        gradient.addColorStop(1, `rgba(${palette.rain}, 1)`);
 
         ctx.fillStyle = gradient;
         ctx.fillText(text, i * FONT_SIZE, drops[i] * FONT_SIZE);
@@ -83,6 +92,20 @@ export default function MatrixRain() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
+    // Follow theme switches: wipe old-colored trails and continue in the new palette
+    const themeObserver = new MutationObserver(() => {
+      palette =
+        PALETTES[
+          document.documentElement.classList.contains("dark") ? "dark" : "light"
+        ];
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (reduceMotion) drawStatic();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     // requestAnimationFrame is paused by the browser in background tabs
     let rafId = 0;
     let lastFrame = 0;
@@ -97,13 +120,14 @@ export default function MatrixRain() {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resizeCanvas);
+      themeObserver.disconnect();
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-30"
+      className="fixed inset-0 pointer-events-none z-0 opacity-40"
       aria-hidden="true"
     />
   );

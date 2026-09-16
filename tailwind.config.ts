@@ -10,16 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        accent: "hsl(var(--accent))",
-        muted: "hsl(var(--muted))",
-        primary: "hsl(var(--primary))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          border: "hsl(var(--card-border))",
-        },
+        border: "hsl(var(--border) / <alpha-value>)",
+        background: "hsl(var(--background) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
+        accent: "hsl(var(--accent) / <alpha-value>)",
+        muted: "hsl(var(--muted) / <alpha-value>)",
+        primary: "hsl(var(--primary) / <alpha-value>)",
+        // White in dark mode, black in light mode; use with opacity (e.g. bg-overlay/10)
+        overlay: "rgb(var(--overlay) / <alpha-value>)",
       },
     },
   },

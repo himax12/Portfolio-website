@@ -58,7 +58,7 @@ export default function OpenSource() {
   return (
     <section
       id="opensource"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5"
     >
       <div>
         <SectionHeading title="Open Source Contributions" />
@@ -70,7 +70,7 @@ export default function OpenSource() {
             No merged pull requests found yet.
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="glass rounded-md p-2 space-y-1">
             {mergedPRs.map((pr, index) => (
               <motion.article
                 key={pr.html_url}
@@ -84,11 +84,12 @@ export default function OpenSource() {
                   href={pr.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block space-y-2 -mx-3 px-3 py-3 rounded-md hover:bg-accent transition-colors"
+                  className="block space-y-2 px-4 py-3 rounded-md hover:bg-overlay/5 transition-colors"
                 >
                   {/* Repository Name */}
                   <div className="flex items-center gap-2 text-xs text-muted">
-                    <GitMerge className="h-3.5 w-3.5 text-green-500" />
+                    {/* GitHub colors per theme: purple for merged, green for the pull request */}
+                    <GitMerge className="h-3.5 w-3.5 text-[#8250df] dark:text-[#a371f7]" />
                     <span className="font-medium">{pr.repo_name}</span>
                     <span>•</span>
                     <span>{formatDate(pr.merged_at)}</span>
@@ -96,7 +97,7 @@ export default function OpenSource() {
 
                   {/* PR Title */}
                   <div className="flex items-start gap-2">
-                    <GitPullRequest className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <GitPullRequest className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#1a7f37] dark:text-[#3fb950]" />
                     <h3 className="text-base leading-relaxed flex-1">
                       {pr.title}
                     </h3>

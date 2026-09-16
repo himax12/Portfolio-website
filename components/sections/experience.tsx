@@ -10,12 +10,12 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5"
     >
       <div>
         <SectionHeading title="Experience & Ventures" />
 
-        <div className="space-y-12">
+        <div className="space-y-4">
           {/* Experience */}
           {siteConfig.experience.map((exp, index) => (
             <motion.div
@@ -24,7 +24,7 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pb-12 border-b border-border"
+              className="glass rounded-md p-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
             >
               <div>
                 <h3 className="text-lg font-semibold mb-1">{exp.company}</h3>
@@ -55,7 +55,7 @@ export default function Experience() {
                 duration: 0.5,
                 delay: (siteConfig.experience.length + index) * 0.1,
               }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+              className="glass rounded-md p-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
             >
               <div>
                 <div className="flex items-center gap-2 mb-1">

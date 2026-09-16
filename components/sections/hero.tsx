@@ -18,7 +18,7 @@ export default function Hero() {
             alt={siteConfig.name}
             width={220}
             height={220}
-            className="rounded-md border border-card-border object-cover shadow-lg"
+            className="rounded-md border border-overlay/15 object-cover shadow-2xl"
             priority
           />
         </div>
@@ -50,7 +50,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center mb-4">
           <a
             href={`mailto:${siteConfig.links.email}`}
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
+            className="flex items-center gap-2 px-6 py-3 glass-subtle text-foreground hover:bg-overlay/10 transition-colors justify-center font-semibold rounded-md"
           >
             <Mail className="h-5 w-5" />
             Let's Connect
@@ -59,7 +59,7 @@ export default function Hero() {
             href={siteConfig.links.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
+            className="flex items-center gap-2 px-6 py-3 glass-subtle text-foreground hover:bg-overlay/10 transition-colors justify-center font-semibold rounded-md"
           >
             <FileText className="h-5 w-5" />
             View Resume
@@ -68,7 +68,7 @@ export default function Hero() {
             href={siteConfig.links.calendar}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
+            className="flex items-center gap-2 px-6 py-3 glass-subtle text-foreground hover:bg-overlay/10 transition-colors justify-center font-semibold rounded-md"
           >
             <Calendar className="h-5 w-5" />
             Book a Call

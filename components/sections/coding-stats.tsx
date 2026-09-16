@@ -11,7 +11,7 @@ export default function CodingStats() {
   ];
 
   return (
-    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5">
       <div>
         <SectionHeading title="Coding Profile" />
 
@@ -29,7 +29,7 @@ export default function CodingStats() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group rounded-md border border-border p-6 hover:bg-accent transition-colors block"
+              className="group glass rounded-md p-6 hover:bg-overlay/[0.08] transition-colors block"
             >
               <div className="flex items-center justify-between">
                 <span className="font-medium">{platform.name}</span>
@@ -45,7 +45,7 @@ export default function CodingStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-md overflow-hidden border border-border bg-accent"
+          className="glass rounded-md overflow-hidden"
         >
           <div className="relative aspect-[16/9] w-full">
             <iframe

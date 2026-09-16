@@ -16,12 +16,12 @@ export default function TechStack() {
   ];
 
   return (
-    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
+    <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5">
       <div>
         <SectionHeading title="Stack" />
 
         {/* Stack Grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {stackSections.map((section, index) => (
             <motion.div
               key={section.title}
@@ -29,7 +29,7 @@ export default function TechStack() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="space-y-3"
+              className="glass rounded-md p-5 space-y-3"
             >
               <h3 className="text-sm font-medium">{section.title}</h3>
               <div className="flex flex-wrap gap-2">
