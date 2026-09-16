@@ -6,8 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/theme-toggle";
 
-// Floating bar sits at top-4 (16px) and is h-14 (56px); leave a 16px gap below it
-const NAV_OFFSET = 88;
+// Docked bar is h-14 (56px) at the top of the viewport; leave a 16px gap below it
+const NAV_OFFSET = 72;
 
 const NAV_ITEMS = [
   { label: "About", href: "/#about" },
@@ -128,9 +128,10 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 1rem narrower than the page frame on each side, so the bar floats inside it instead of doubling its edges */}
-      <nav className="fixed top-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[calc(56rem-2rem)] -translate-x-1/2">
-        <div className="glass-strong rounded-md h-14 px-3 sm:px-4 flex items-center justify-between">
+      {/* Docked to the top of the page frame at the frame's exact width: the frame's side
+          edges continue straight down from the bar, and nothing shows above it */}
+      <nav className="fixed top-0 left-1/2 z-50 w-full max-w-4xl -translate-x-1/2">
+        <div className="glass-strong nav-dock rounded-b-md h-14 px-3 sm:px-4 flex items-center justify-between">
           <Link
             href="/#home"
             onClick={(e) => handleClick(e, "/#home")}
