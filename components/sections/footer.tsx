@@ -15,7 +15,7 @@ export default function Footer() {
     <footer
       id="contact"
       // Bottom padding keeps the fixed social bar from covering the copyright row
-      className="relative z-10 px-6 sm:px-8 lg:px-12 pt-24 pb-28 border-t border-overlay/5"
+      className="relative z-10 px-6 sm:px-8 lg:px-12 pt-24 pb-28 border-t border-overlay/10"
     >
       <SectionHeading title="Get in touch" />
 

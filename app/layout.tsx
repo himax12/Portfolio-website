@@ -4,7 +4,6 @@ import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
 import MotionProvider from "@/components/motion-provider";
 import SocialIconsBar from "@/components/ui/social-icons-bar";
-import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,15 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Dark is the default; the script swaps to a saved light preference before
-    // first paint, so the class differs from the server HTML on purpose
-    <html lang="en" className="dark" suppressHydrationWarning>
+    // Always dark; the light theme tokens remain in globals.css but nothing switches to them
+    <html lang="en" className="dark">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="light")document.documentElement.classList.remove("dark")}catch(e){}`,
-          }}
-        />
         {/* Scroll-in animations start hidden; without JS they would never reveal, so show everything */}
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>

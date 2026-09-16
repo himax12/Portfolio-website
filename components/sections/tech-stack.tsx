@@ -18,7 +18,7 @@ export default function TechStack() {
   return (
     <section
       id="stack"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
     >
       <div>
         <SectionHeading title="Stack" />

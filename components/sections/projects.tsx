@@ -10,7 +10,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/5"
+      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
     >
       <div>
         <SectionHeading title="Selected Work" />

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import ThemeToggle from "@/components/theme-toggle";
 
 // Docked bar is h-14 (56px) at the top of the viewport; leave a 16px gap below it
 const NAV_OFFSET = 72;
@@ -163,7 +162,6 @@ export default function Navbar() {
               })}
             </div>
 
-            <ThemeToggle />
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
