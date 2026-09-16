@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
 import MotionProvider from "@/components/motion-provider";
@@ -8,9 +8,51 @@ import { THEME_STORAGE_KEY } from "@/lib/theme";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
+const siteTitle = `${siteConfig.name} - ${siteConfig.title}`;
+
 export const metadata: Metadata = {
-  title: `${siteConfig.name} - ${siteConfig.title}`,
-  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
+  title: { default: siteTitle, template: `%s | ${siteConfig.name}` },
+  description: siteConfig.shortDescription,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  keywords: [
+    siteConfig.name,
+    siteConfig.title,
+    "AI Engineer",
+    "Python Developer",
+    "Full Stack Developer",
+    "LangGraph",
+    "RAG",
+    "OCR",
+    "Next.js",
+    "Delhi",
+  ],
+  // Canonical points every deployment URL (e.g. preview/duplicate Vercel domains) at the main site
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: siteConfig.name,
+    title: siteTitle,
+    description: siteConfig.shortDescription,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteConfig.shortDescription,
+    creator: "@ayy_him_anshu23",
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({
@@ -28,6 +70,10 @@ export default function RootLayout({
             __html: `try{if(localStorage.getItem("${THEME_STORAGE_KEY}")==="light")document.documentElement.classList.remove("dark")}catch(e){}`,
           }}
         />
+        {/* Scroll-in animations start hidden; without JS they would never reveal, so show everything */}
+        <noscript>
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body className={inter.className}>
         {/* Matrix rain as full-screen background */}

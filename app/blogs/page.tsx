@@ -6,8 +6,10 @@ import SectionHeading from "@/components/ui/section-heading";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: `Blogs - ${siteConfig.name}`,
-  description: `Writing by ${siteConfig.name}.`,
+  // Rendered as "Blogs | Himanshu Gupta" via the title template in app/layout.tsx
+  title: "Blogs",
+  description: `Blog posts by ${siteConfig.name}.`,
+  alternates: { canonical: "/blogs" },
 };
 
 export default function BlogsPage() {

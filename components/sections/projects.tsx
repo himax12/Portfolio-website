@@ -29,6 +29,9 @@ export default function Projects() {
               {/* Title and Status */}
               <div className="flex items-baseline gap-3 flex-wrap">
                 <h3 className="text-lg font-semibold">{project.title}</h3>
+                {project.context && (
+                  <span className="text-xs text-muted">{project.context}</span>
+                )}
                 <div className="flex items-center gap-3 text-sm">
                   {project.isLive && (
                     <span className="flex items-center gap-1.5 text-xs text-muted">

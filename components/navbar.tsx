@@ -13,9 +13,10 @@ const NAV_ITEMS = [
   { label: "About", href: "/#about" },
   { label: "Experience", href: "/#experience" },
   { label: "Projects", href: "/#projects" },
+  { label: "Stack", href: "/#stack" },
   { label: "Open Source", href: "/#opensource" },
-  { label: "Blogs", href: "/blogs" },
   { label: "GitHub", href: "/#github" },
+  { label: "Blogs", href: "/blogs" },
 ];
 
 // The HG logo links home, so "home" is tracked (to clear the highlight at the top) but has no nav item

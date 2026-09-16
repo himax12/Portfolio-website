@@ -2,8 +2,13 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/section-heading";
+import { siteConfig } from "@/config/site";
+import { experienceLabel } from "@/lib/experience";
 
 export default function About() {
+  const experience = experienceLabel(
+    siteConfig.experience.map((role) => role.startDate),
+  );
   return (
     <section
       id="about"
@@ -20,18 +25,16 @@ export default function About() {
           className="space-y-6 max-w-3xl"
         >
           <p className="text-base leading-relaxed">
-            <span className="font-semibold text-primary">
-              6 months of experience.
+            {/* Computed at render, so the server-built HTML can lag a month behind the browser */}
+            <span className="font-semibold text-primary" suppressHydrationWarning>
+              {experience} of experience.
             </span>{" "}
             AI & Data Science student, hands-on builder. Shipped real-world AI
             systems like ClipSync (video pipeline), Medical Scheduling Agent
             (multi-API), and Math Mentor (multi-agent RAG). Python Developer
             Intern at EspoMedia: OCR, data workflows, model accuracy. I design
             APIs, integrate models, and ship scalable systems, especially
-            interested in agent workflows and production AI.{" "}
-            <span className="font-medium">
-              Open to freelance, contract, and full-time roles.
-            </span>
+            interested in agent workflows and production AI.
           </p>
         </motion.div>
       </div>

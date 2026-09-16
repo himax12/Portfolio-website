@@ -5,7 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import { useTheme } from "@/lib/use-theme";
-import ActivityCalendar, { type Activity } from "react-activity-calendar";
+import ActivityCalendar from "react-activity-calendar";
+import type { ContributionData } from "@/lib/github";
 import { cloneElement, useEffect, useRef, useState } from "react";
 
 const CONTRIBUTIONS_API = "https://github-contributions-api.jogruber.de/v4";
@@ -34,7 +35,6 @@ const TOOLTIP_EDGE_PADDING = 110;
 const EDGE_FADE = "32px";
 
 type Tooltip = { text: string; x: number; y: number };
-type ContributionData = { contributions: Activity[]; total: number };
 
 function formatContribution(date: string, count: number) {
   // Parse as a local date; `new Date("yyyy-mm-dd")` is UTC and can shift the day
@@ -49,10 +49,15 @@ function formatContribution(date: string, count: number) {
   return `${count} contribution${count === 1 ? "" : "s"} on ${label}`;
 }
 
-export default function GitHubActivity() {
+// initialData comes from the server (ISR); the browser only fetches if that failed
+export default function GitHubActivity({
+  initialData,
+}: {
+  initialData: ContributionData | null;
+}) {
   const { theme } = useTheme();
   const legendColors = theme === "dark" ? GITHUB_DARK_THEME : GITHUB_LIGHT_THEME;
-  const [data, setData] = useState<ContributionData | null>(null);
+  const [data, setData] = useState<ContributionData | null>(initialData);
   const [failed, setFailed] = useState(false);
   const [blockSize, setBlockSize] = useState(12);
   const [tooltip, setTooltip] = useState<Tooltip | null>(null);
@@ -61,6 +66,7 @@ export default function GitHubActivity() {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (initialData) return;
     fetch(`${CONTRIBUTIONS_API}/${siteConfig.githubUsername}?y=last`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -70,7 +76,7 @@ export default function GitHubActivity() {
         setData({ contributions: json.contributions, total: json.total.lastYear }),
       )
       .catch(() => setFailed(true));
-  }, []);
+  }, [initialData]);
 
   // With the scrollbar hidden, fade whichever edge has more weeks to scroll to
   const updateEdgeFades = () => {

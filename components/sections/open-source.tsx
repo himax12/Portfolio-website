@@ -1,59 +1,24 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowUpRight, GitPullRequest, GitMerge } from "lucide-react";
-import { useEffect, useState } from "react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
+import type { MergedPullRequest } from "@/lib/github";
 
-interface PullRequest {
-  title: string;
-  html_url: string;
-  repository_url: string;
-  merged_at: string;
-  repo_name: string;
-}
+const formatDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+  });
 
-export default function OpenSource() {
-  const [mergedPRs, setMergedPRs] = useState<PullRequest[]>([]);
-  const [loading, setLoading] = useState(true);
+// Server-rendered: PRs are fetched in app/page.tsx so they're in the page HTML
+export default function OpenSource({
+  pullRequests,
+}: {
+  pullRequests: MergedPullRequest[] | null;
+}) {
   const githubUsername = siteConfig.githubUsername;
-
-  useEffect(() => {
-    const fetchMergedPRs = async () => {
-      try {
-        // Fetch user's pull requests
-        const response = await fetch(
-          `https://api.github.com/search/issues?q=author:${githubUsername}+type:pr+is:merged&sort=created&order=desc&per_page=10`
-        );
-        const data = await response.json();
-
-        const prs = data.items?.map((pr: any) => ({
-          title: pr.title,
-          html_url: pr.html_url,
-          repository_url: pr.repository_url,
-          merged_at: pr.closed_at,
-          repo_name: pr.repository_url.split("/").slice(-2).join("/"),
-        })) || [];
-
-        setMergedPRs(prs);
-      } catch (error) {
-        console.error("Error fetching merged PRs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMergedPRs();
-  }, []);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-    });
-  };
+  const allContributionsUrl = `https://github.com/pulls?q=${encodeURIComponent(
+    `author:${githubUsername} is:merged -user:${githubUsername}`,
+  )}`;
 
   return (
     <section
@@ -63,25 +28,26 @@ export default function OpenSource() {
       <div>
         <SectionHeading title="Open Source Contributions" />
 
-        {loading ? (
-          <div className="text-sm text-muted">Loading contributions...</div>
-        ) : mergedPRs.length === 0 ? (
-          <div className="text-sm text-muted">
-            No merged pull requests found yet.
-          </div>
+        {pullRequests === null ? (
+          <p className="text-sm text-muted">
+            Couldn&apos;t load contributions right now.{" "}
+            <a
+              href={allContributionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-b border-foreground text-foreground hover:border-muted transition-colors"
+            >
+              View them on GitHub
+            </a>
+          </p>
+        ) : pullRequests.length === 0 ? (
+          <p className="text-sm text-muted">No merged pull requests yet.</p>
         ) : (
           <div className="glass rounded-md p-2 space-y-1">
-            {mergedPRs.map((pr, index) => (
-              <motion.article
-                key={pr.html_url}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="group"
-              >
+            {pullRequests.map((pr) => (
+              <article key={pr.url} className="group">
                 <a
-                  href={pr.html_url}
+                  href={pr.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block space-y-2 px-4 py-3 rounded-md hover:bg-overlay/5 transition-colors"
@@ -90,9 +56,9 @@ export default function OpenSource() {
                   <div className="flex items-center gap-2 text-xs text-muted">
                     {/* GitHub colors per theme: purple for merged, green for the pull request */}
                     <GitMerge className="h-3.5 w-3.5 text-[#8250df] dark:text-[#a371f7]" />
-                    <span className="font-medium">{pr.repo_name}</span>
+                    <span className="font-medium">{pr.repo}</span>
                     <span>•</span>
-                    <span>{formatDate(pr.merged_at)}</span>
+                    <time dateTime={pr.mergedAt}>{formatDate(pr.mergedAt)}</time>
                   </div>
 
                   {/* PR Title */}
@@ -104,21 +70,15 @@ export default function OpenSource() {
                     <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                   </div>
                 </a>
-              </motion.article>
+              </article>
             ))}
           </div>
         )}
 
-        {/* View More Link */}
-        {mergedPRs.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-12"
-          >
+        {pullRequests && pullRequests.length > 0 && (
+          <div className="mt-12">
             <a
-              href={`https://github.com/pulls?q=author:${githubUsername}+is:merged`}
+              href={allContributionsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
@@ -126,7 +86,7 @@ export default function OpenSource() {
               View all contributions
               <ArrowUpRight className="h-3 w-3" />
             </a>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
