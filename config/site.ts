@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Himanshu Gupta",
   title: "Full Stack AI Engineer",
-  url: "https://portfolio-website-nine-kappa.vercel.app",
+  url: "https://himex.tech",
   location: "Delhi, India",
   education:
     "B.Tech in AI & Data Science, Maharaja Agrasen Institute of Technology (MAIT), Delhi",
