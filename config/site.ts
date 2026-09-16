@@ -116,21 +116,6 @@ export const siteConfig = {
       isLive: false,
     },
   ],
-
-  // About section additional links
-  aboutLinks: {
-    github: "https://github.com/himax12",
-    twitter: "https://x.com/ayy_him_anshu23",
-    email: "mailto:ghimax23@gmail.com",
-  },
-
-  // Button hover tooltips
-  tooltips: {
-    github: "Open-source projects & AI experiments.\nBrowse repositories",
-    twitter: "Building in public & sharing AI insights.\nLive updates",
-    resume: "Download Resume",
-    email: "Get in touch",
-  },
 };
 
 export type SiteConfig = typeof siteConfig;

@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
+import MotionProvider from "@/components/motion-provider";
 import SocialIconsBar from "@/components/ui/social-icons-bar";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
@@ -32,7 +33,9 @@ export default function RootLayout({
               aria-hidden="true"
               className="absolute inset-0 -z-10 rounded-md backdrop-blur-xl"
             />
-            <div className="relative z-30">{children}</div>
+            <div className="relative z-30">
+              <MotionProvider>{children}</MotionProvider>
+            </div>
           </div>
         </div>
         <SocialIconsBar />

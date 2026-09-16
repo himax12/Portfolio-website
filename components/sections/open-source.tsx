@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, GitPullRequest, GitMerge } from "lucide-react";
 import { useEffect, useState } from "react";
+import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 
 interface PullRequest {
@@ -16,7 +17,7 @@ interface PullRequest {
 export default function OpenSource() {
   const [mergedPRs, setMergedPRs] = useState<PullRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const githubUsername = "himax12"; // Update with your GitHub username
+  const githubUsername = siteConfig.githubUsername;
 
   useEffect(() => {
     const fetchMergedPRs = async () => {
@@ -69,7 +70,7 @@ export default function OpenSource() {
             No merged pull requests found yet.
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-2">
             {mergedPRs.map((pr, index) => (
               <motion.article
                 key={pr.html_url}
@@ -83,7 +84,7 @@ export default function OpenSource() {
                   href={pr.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block space-y-2 hover:opacity-70 transition-opacity"
+                  className="block space-y-2 -mx-3 px-3 py-3 rounded-md hover:bg-accent transition-colors"
                 >
                   {/* Repository Name */}
                   <div className="flex items-center gap-2 text-xs text-muted">
@@ -99,7 +100,7 @@ export default function OpenSource() {
                     <h3 className="text-base leading-relaxed flex-1">
                       {pr.title}
                     </h3>
-                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                    <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                   </div>
                 </a>
               </motion.article>

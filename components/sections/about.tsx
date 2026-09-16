@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 
 export default function About() {

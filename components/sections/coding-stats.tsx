@@ -33,7 +33,7 @@ export default function CodingStats() {
             >
               <div className="flex items-center justify-between">
                 <span className="font-medium">{platform.name}</span>
-                <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity" />
               </div>
             </a>
           ))}
@@ -49,7 +49,7 @@ export default function CodingStats() {
         >
           <div className="relative aspect-[16/9] w-full">
             <iframe
-              src="https://codolio.com/profile/himax12"
+              src={siteConfig.codingProfiles.codolio}
               className="absolute inset-0 h-full w-full"
               style={{ border: 0 }}
               loading="lazy"

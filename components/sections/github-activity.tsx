@@ -38,7 +38,7 @@ export default function GitHubActivity() {
               className="group flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
             >
               View Profile
-              <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
           }
         />

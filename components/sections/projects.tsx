@@ -44,7 +44,7 @@ export default function Projects() {
                       className="group/link flex items-center gap-0.5 border-b border-foreground hover:border-muted transition-colors"
                     >
                       View
-                      <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                      <ArrowUpRight className="h-3 w-3 opacity-50 group-hover/link:opacity-100 transition-opacity" />
                     </a>
                   )}
                   {project.githubUrl && (
@@ -52,6 +52,7 @@ export default function Projects() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${project.title} source code on GitHub`}
                       className="group/link flex items-center gap-1 text-muted hover:text-foreground transition-colors"
                     >
                       <Github className="h-3.5 w-3.5" />

@@ -64,6 +64,7 @@ export default function Experience() {
                     href={venture.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Visit ${venture.name}`}
                     className="text-muted hover:text-foreground transition-colors"
                   >
                     <ArrowUpRight className="h-4 w-4" />
