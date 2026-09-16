@@ -8,23 +8,42 @@ import { Menu, X } from "lucide-react";
 // Docked bar is h-14 (56px) at the top of the viewport; leave a 16px gap below it
 const NAV_OFFSET = 72;
 
-const NAV_ITEMS = [
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Stack", href: "/#stack" },
-  { label: "Open Source", href: "/#opensource" },
-  { label: "GitHub", href: "/#github" },
+type NavItem = {
+  label: string;
+  href: string;
+  // Homepage sections that highlight this item while in view
+  sections?: string[];
+  // Rendered as a bordered call-to-action instead of a plain link
+  cta?: boolean;
+};
+
+// Grouped to keep the bar short: each item jumps to the first section of its group
+const NAV_ITEMS: NavItem[] = [
+  { label: "About", href: "/#about", sections: ["about"] },
+  {
+    label: "Work",
+    href: "/#experience",
+    sections: ["experience", "projects", "stack"],
+  },
+  {
+    label: "Open Source",
+    href: "/#opensource",
+    sections: ["opensource", "github"],
+  },
   { label: "Blogs", href: "/blogs" },
+  { label: "Contact", href: "/#contact", sections: ["contact"], cta: true },
 ];
 
-// The HG logo links home, so "home" is tracked (to clear the highlight at the top) but has no nav item
+// "home" is tracked so the highlight clears at the top (the HG logo links home)
 const SECTION_IDS = [
   "home",
-  ...NAV_ITEMS.filter((item) => item.href.startsWith("/#")).map((item) =>
-    item.href.slice(2),
-  ),
+  ...NAV_ITEMS.flatMap((item) => item.sections ?? []),
 ];
+
+const isActive = (item: NavItem, active: string | null) =>
+  active !== null &&
+  (item.href === active ||
+    (item.sections ?? []).some((id) => `/#${id}` === active));
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -143,7 +162,7 @@ export default function Navbar() {
             {/* Desktop Nav Items */}
             <div className="hidden md:flex items-center gap-1 text-sm">
               {NAV_ITEMS.map((item) => {
-                const active = item.href === activeHref;
+                const active = isActive(item, activeHref);
                 return (
                   <Link
                     key={item.label}
@@ -151,9 +170,11 @@ export default function Navbar() {
                     onClick={(e) => handleClick(e, item.href)}
                     aria-current={active ? "page" : undefined}
                     className={`px-3 py-1.5 rounded-md transition-colors ${
-                      active
-                        ? "bg-overlay/10 text-foreground"
-                        : "text-muted hover:text-foreground hover:bg-overlay/5"
+                      item.cta
+                        ? `ml-2 border border-overlay/20 text-foreground hover:bg-overlay/10 ${active ? "bg-overlay/10" : ""}`
+                        : active
+                          ? "bg-overlay/10 text-foreground"
+                          : "text-muted hover:text-foreground hover:bg-overlay/5"
                     }`}
                   >
                     {item.label}
@@ -189,7 +210,7 @@ export default function Navbar() {
         >
           <div className="flex flex-col items-center justify-center h-full gap-2">
             {NAV_ITEMS.map((item) => {
-              const active = item.href === activeHref;
+              const active = isActive(item, activeHref);
               return (
                 <Link
                   key={item.label}
