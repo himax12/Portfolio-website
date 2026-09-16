@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   // Rendered as "Blogs | Himanshu Gupta" via the title template in app/layout.tsx
   title: "Blogs",
   description: `Blog posts by ${siteConfig.name}.`,
-  alternates: { canonical: "/blogs" },
+  alternates: {
+    canonical: "/blogs",
+    types: { "text/markdown": "/blogs.md" },
+  },
 };
 
 export default function BlogsPage() {

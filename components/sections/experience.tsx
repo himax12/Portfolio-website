@@ -30,13 +30,17 @@ export default function Experience() {
                 <p className="text-sm text-muted">{exp.duration}</p>
               </div>
               <div className="md:col-span-2">
-                <p className="text-base font-medium mb-1">{exp.role}</p>
-                <p className="text-sm text-muted mb-3">{exp.summary}</p>
-                <ul className="mb-4 space-y-1.5 text-sm md:text-base text-muted leading-relaxed list-disc pl-5 marker:text-overlay/30">
-                  {exp.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
+                <p className="text-base font-medium mb-3">{exp.role}</p>
+                {exp.summary && (
+                  <p className="-mt-2 text-sm text-muted mb-3">{exp.summary}</p>
+                )}
+                {exp.highlights && (
+                  <ul className="mb-4 space-y-1.5 text-sm md:text-base text-muted leading-relaxed list-disc pl-5 marker:text-overlay/30">
+                    {exp.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech) => (
                     <Tag key={tech}>{tech}</Tag>

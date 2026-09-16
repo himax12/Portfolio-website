@@ -6,6 +6,10 @@ export function homepageStructuredData() {
   const { url, name } = siteConfig;
   const personId = `${url}/#person`;
   const stack = Object.values(siteConfig.stack).flat();
+  // Only current roles (no endDate) count as the person's employer
+  const currentEmployers = siteConfig.experience
+    .filter((role) => !role.endDate)
+    .map((role) => ({ "@type": "Organization", name: role.company }));
 
   return {
     "@context": "https://schema.org",
@@ -44,10 +48,7 @@ export function homepageStructuredData() {
           "@type": "CollegeOrUniversity",
           name: "Maharaja Agrasen Institute of Technology",
         },
-        worksFor: siteConfig.experience.map((role) => ({
-          "@type": "Organization",
-          name: role.company,
-        })),
+        ...(currentEmployers.length ? { worksFor: currentEmployers } : {}),
         knowsAbout: Array.from(new Set(stack)),
         sameAs: [
           siteConfig.links.github,

@@ -12,7 +12,7 @@ export const siteConfig = {
     "Open to freelance AI & full-stack projects, as well as full-time roles",
   // Long-form bio used for llms-full.txt and index.md
   description:
-    "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and Math Mentor (multi-agent reasoning with RAG memory). Currently Python Developer Intern at EspoMedia, building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
+    "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and Math Mentor (multi-agent reasoning with RAG memory). Currently a Full Stack AI Engineer at Sparkonomy. Previously a Python Developer Intern at EspoMedia (Jan–Apr 2026), building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
 
   // Profile Image - Add your image to public/profile.jpg
   profileImage: "/profile.jpg",
@@ -28,24 +28,39 @@ export const siteConfig = {
     calendar: "https://calendly.com/ghimansh23/30min",
   },
 
-  // Experience
+  // Experience (most recent first); summary and highlights are optional
   experience: [
+    {
+      company: "Sparkonomy",
+      role: "Full Stack AI Engineer",
+      duration: "May 2026 - Present",
+      startDate: "2026-05-01",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "FastAPI",
+        "LangGraph",
+        "Google Cloud",
+      ],
+    },
     {
       company: "EspoMedia",
       role: "Python Developer Intern",
-      duration: "Jan 2026 - Present",
-      // Used to compute "N months of experience" so it never goes stale
+      duration: "Jan 2026 - Apr 2026",
+      // Used to compute "N months of experience"; omit endDate for a current role
       startDate: "2026-01-01",
+      endDate: "2026-04-30",
       summary:
-        "Tech Department, working on OCR pipelines, ML/DL model training, and data automation.",
+        "Tech Department, worked on OCR pipelines, ML/DL model training, and data automation.",
       highlights: [
-        "Assist in building OCR pipelines using EasyOCR, Tesseract, OpenCV, and preprocessing techniques",
-        "Support training and fine-tuning ML/DL models using PyTorch/TensorFlow and YOLO via Roboflow",
-        "Write Python scripts for data cleaning, automation, and dataset preparation",
-        "Use FFmpeg for video/frame extraction and media processing tasks",
-        "Work with MongoDB to store and manage OCR/model outputs",
-        "Test model outputs, document issues, and help improve accuracy and performance",
-        "Collaborate with the team, maintain clean code, and follow Git-based workflows",
+        "Assisted in building OCR pipelines using EasyOCR, Tesseract, OpenCV, and preprocessing techniques",
+        "Supported training and fine-tuning ML/DL models using PyTorch/TensorFlow and YOLO via Roboflow",
+        "Wrote Python scripts for data cleaning, automation, and dataset preparation",
+        "Used FFmpeg for video/frame extraction and media processing tasks",
+        "Worked with MongoDB to store and manage OCR/model outputs",
+        "Tested model outputs, documented issues, and helped improve accuracy and performance",
+        "Collaborated with the team, maintained clean code, and followed Git-based workflows",
       ],
       technologies: [
         "Python",

@@ -38,23 +38,24 @@ ${siteConfig.projects.map(projectLine).join("\n")}
 
 ## Optional
 
-- [Blog](${siteConfig.url}/blogs)
+- [Blog](${siteConfig.url}/blogs) ([Markdown](${siteConfig.url}/blogs.md))
 `;
 }
 
 export function profileMarkdown() {
-  const experience = experienceLabel(
-    siteConfig.experience.map((role) => role.startDate),
-  );
+  const experience = experienceLabel(siteConfig.experience);
   const roles = siteConfig.experience
     .map(
-      (role) => `### ${role.role} at ${role.company} (${role.duration})
-
-${role.summary}
-
-${role.highlights.map((item) => `- ${item}`).join("\n")}
-
-Technologies: ${role.technologies.join(", ")}`,
+      (role) =>
+        // Summary and highlights are optional per role
+        [
+          `### ${role.role} at ${role.company} (${role.duration})`,
+          role.summary,
+          role.highlights?.map((item) => `- ${item}`).join("\n"),
+          `Technologies: ${role.technologies.join(", ")}`,
+        ]
+          .filter(Boolean)
+          .join("\n\n"),
     )
     .join("\n\n");
   const projects = siteConfig.projects
@@ -104,5 +105,15 @@ Merged pull requests to other projects: https://github.com/pulls?q=${encodeURICo
 ## Links
 
 ${links()}
+`;
+}
+
+export function blogsMarkdown() {
+  return `# Blogs - ${siteConfig.name}
+
+No posts yet.
+
+- [Portfolio](${siteConfig.url})
+- [Full profile (Markdown)](${siteConfig.url}/index.md)
 `;
 }

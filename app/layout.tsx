@@ -30,7 +30,11 @@ export const metadata: Metadata = {
     "Delhi",
   ],
   // Canonical points every deployment URL (e.g. preview/duplicate Vercel domains) at the main site
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // Advertises the Markdown version of the page to AI agents and crawlers
+    types: { "text/markdown": "/index.md" },
+  },
   openGraph: {
     type: "profile",
     url: "/",

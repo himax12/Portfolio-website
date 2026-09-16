@@ -6,9 +6,7 @@ import { siteConfig } from "@/config/site";
 import { experienceLabel } from "@/lib/experience";
 
 export default function About() {
-  const experience = experienceLabel(
-    siteConfig.experience.map((role) => role.startDate),
-  );
+  const experience = experienceLabel(siteConfig.experience);
   return (
     <section
       id="about"
@@ -31,8 +29,9 @@ export default function About() {
             </span>{" "}
             AI & Data Science student, hands-on builder. Shipped real-world AI
             systems like ClipSync (video pipeline), Medical Scheduling Agent
-            (multi-API), and Math Mentor (multi-agent RAG). Python Developer
-            Intern at EspoMedia: OCR, data workflows, model accuracy. I design
+            (multi-API), and Math Mentor (multi-agent RAG). Full Stack AI Engineer at
+            Sparkonomy; previously a Python Developer Intern at EspoMedia (OCR,
+            data workflows, model accuracy). I design
             APIs, integrate models, and ship scalable systems, especially
             interested in agent workflows and production AI.
           </p>
