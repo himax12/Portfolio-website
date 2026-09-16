@@ -10,6 +10,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 const siteTitle = `${siteConfig.name} - ${siteConfig.title}`;
 
+// Static file (not a generated route) so scrapers get a fixed Content-Length;
+// WhatsApp and some others skip chunked, on-the-fly images
+const shareImage = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: siteTitle,
+  type: "image/png",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: siteTitle, template: `%s | ${siteConfig.name}` },
@@ -36,18 +46,20 @@ export const metadata: Metadata = {
     types: { "text/markdown": "/index.md" },
   },
   openGraph: {
-    type: "profile",
+    type: "website",
     url: "/",
     siteName: siteConfig.name,
     title: siteTitle,
     description: siteConfig.shortDescription,
     locale: "en_US",
+    images: [shareImage],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteConfig.shortDescription,
     creator: "@ayy_him_anshu23",
+    images: [shareImage],
   },
   robots: { index: true, follow: true },
 };
