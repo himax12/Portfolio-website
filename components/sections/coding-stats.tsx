@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
 
 export default function CodingStats() {
   const platforms = [
@@ -11,16 +12,8 @@ export default function CodingStats() {
 
   return (
     <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          Coding Profile
-        </motion.h2>
+      <div>
+        <SectionHeading title="Coding Profile" />
 
         {/* Coding Profile Link */}
         <motion.div
@@ -36,7 +29,7 @@ export default function CodingStats() {
               href={platform.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group border border-border p-6 hover:bg-accent transition-colors block"
+              className="group rounded-md border border-border p-6 hover:bg-accent transition-colors block"
             >
               <div className="flex items-center justify-between">
                 <span className="font-medium">{platform.name}</span>
@@ -52,7 +45,7 @@ export default function CodingStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="border border-border bg-accent"
+          className="rounded-md overflow-hidden border border-border bg-accent"
         >
           <div className="relative aspect-[16/9] w-full">
             <iframe

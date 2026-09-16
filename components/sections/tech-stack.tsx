@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
+import Tag from "@/components/ui/tag";
 
 export default function TechStack() {
   const stackSections = [
@@ -15,19 +17,11 @@ export default function TechStack() {
 
   return (
     <section className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border">
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          Stack
-        </motion.h2>
+      <div>
+        <SectionHeading title="Stack" />
 
         {/* Stack Grid */}
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {stackSections.map((section, index) => (
             <motion.div
               key={section.title}
@@ -38,9 +32,11 @@ export default function TechStack() {
               className="space-y-3"
             >
               <h3 className="text-sm font-medium">{section.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">
-                {section.items.join(" · ")}
-              </p>
+              <div className="flex flex-wrap gap-2">
+                {section.items.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

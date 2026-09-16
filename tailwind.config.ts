@@ -16,6 +16,10 @@ const config: Config = {
         accent: "hsl(var(--accent))",
         muted: "hsl(var(--muted))",
         primary: "hsl(var(--primary))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          border: "hsl(var(--card-border))",
+        },
       },
     },
   },

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
 
 export default function About() {
   return (
@@ -9,16 +10,8 @@ export default function About() {
       id="about"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto text-left">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          About
-        </motion.h2>
+      <div className="text-left">
+        <SectionHeading title="About" />
         {/* Description - Multi-line format */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

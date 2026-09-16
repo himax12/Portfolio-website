@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Github, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
+import Tag from "@/components/ui/tag";
 
 export default function Projects() {
   return (
@@ -10,16 +12,8 @@ export default function Projects() {
       id="projects"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          Selected Work
-        </motion.h2>
+      <div>
+        <SectionHeading title="Selected Work" />
 
         {/* Projects List */}
         <div className="space-y-12">
@@ -34,7 +28,7 @@ export default function Projects() {
             >
               {/* Title and Status */}
               <div className="flex items-baseline gap-3 flex-wrap">
-                <h3 className="text-lg sm:text-xl font-bold">{project.title}</h3>
+                <h3 className="text-lg font-semibold">{project.title}</h3>
                 <div className="flex items-center gap-3 text-sm">
                   {project.isLive && (
                     <span className="flex items-center gap-1.5 text-xs text-muted">
@@ -72,12 +66,9 @@ export default function Projects() {
               </p>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 text-xs text-muted">
-                {project.tags?.map((tag, i) => (
-                  <span key={tag}>
-                    {tag}
-                    {i < project.tags.length - 1 && " · "}
-                  </span>
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
             </motion.article>

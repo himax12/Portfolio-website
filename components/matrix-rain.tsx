@@ -54,9 +54,10 @@ export default function MatrixRain() {
           drops[i] * fontSize,
         );
 
-        gradient.addColorStop(0, "rgba(0, 255, 0, 0.1)");
-        gradient.addColorStop(0.5, "rgba(0, 255, 0, 0.5)");
-        gradient.addColorStop(1, "rgba(0, 255, 0, 1)");
+        // Neutral tone to match the monochrome palette
+        gradient.addColorStop(0, "rgba(255, 255, 255, 0.05)");
+        gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.25)");
+        gradient.addColorStop(1, "rgba(255, 255, 255, 0.6)");
 
         ctx.fillStyle = gradient;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -82,7 +83,7 @@ export default function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-40"
+      className="fixed inset-0 pointer-events-none z-0 opacity-30"
       aria-hidden="true"
     />
   );

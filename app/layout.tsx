@@ -24,13 +24,13 @@ export default function RootLayout({
           <MatrixRain />
         </div>
         <div className="relative flex min-h-screen items-center justify-center">
-          <div className="relative z-10 w-full max-w-4xl mx-auto rounded-xl border border-white/10 shadow-lg">
+          <div className="relative z-10 w-full max-w-4xl mx-auto rounded-md border border-white/10 shadow-lg">
             {/* Glass effect lives on its own layer: backdrop-filter on an ancestor
                 would turn it into the containing block for fixed-position children
                 (navbar, mobile menu), pinning them to this box instead of the viewport */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 -z-10 rounded-xl backdrop-blur-xl"
+              className="absolute inset-0 -z-10 rounded-md backdrop-blur-xl"
             />
             <div className="relative z-30">{children}</div>
           </div>

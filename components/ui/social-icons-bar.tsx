@@ -33,7 +33,7 @@ export default function SocialIconsBar() {
   return (
     <nav
       aria-label="Social links"
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 rounded-xl border border-[#23272f] bg-[#181c23] px-4 py-2 shadow-lg w-fit"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 rounded-md border border-card-border bg-card px-4 py-2 shadow-lg w-fit"
     >
       {icons.map(({ icon: Icon, label, href }) => (
         <a

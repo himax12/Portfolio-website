@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, GitPullRequest, GitMerge } from "lucide-react";
 import { useEffect, useState } from "react";
+import SectionHeading from "@/components/ui/section-heading";
 
 interface PullRequest {
   title: string;
@@ -58,16 +59,8 @@ export default function OpenSource() {
       id="opensource"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          Open Source Contributions
-        </motion.h2>
+      <div>
+        <SectionHeading title="Open Source Contributions" />
 
         {loading ? (
           <div className="text-sm text-muted">Loading contributions...</div>

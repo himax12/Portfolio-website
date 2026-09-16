@@ -27,27 +27,22 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12 py-24 pt-32"
     >
-      <div className="bg-[#181c23] border border-[#23272f] rounded-2xl shadow-lg p-8 w-full max-w-2xl mx-auto flex flex-col items-center text-center">
-        {/* Profile Image - Card Style */}
+      <div className="w-full max-w-2xl mx-auto flex flex-col items-center text-center">
+        {/* Profile Image */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="mb-8 flex justify-center"
         >
-          <div
-            className="rounded-xl border-4 border-background bg-[#181c23] shadow-lg p-2"
-            style={{ boxShadow: "0 4px 24px 0 #0008" }}
-          >
-            <Image
-              src={siteConfig.profileImage}
-              alt={siteConfig.name}
-              width={220}
-              height={220}
-              className="rounded-xl object-cover"
-              priority
-            />
-          </div>
+          <Image
+            src={siteConfig.profileImage}
+            alt={siteConfig.name}
+            width={220}
+            height={220}
+            className="rounded-md border border-card-border object-cover shadow-lg"
+            priority
+          />
         </motion.div>
 
         {/* Name & Title - Typography focused */}
@@ -98,7 +93,7 @@ export default function Hero() {
         >
           <a
             href={`mailto:${siteConfig.links.email}`}
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
           >
             <Mail className="h-5 w-5" />
             Let's Connect
@@ -107,7 +102,7 @@ export default function Hero() {
             href={siteConfig.links.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
           >
             <FileText className="h-5 w-5" />
             View Resume
@@ -116,7 +111,7 @@ export default function Hero() {
             href={siteConfig.links.calendar}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-lg shadow"
+            className="flex items-center gap-2 px-6 py-3 border border-foreground bg-background text-foreground hover:bg-accent transition-colors justify-center font-semibold rounded-md"
           >
             <Calendar className="h-5 w-5" />
             Book a Call

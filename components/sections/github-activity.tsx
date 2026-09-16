@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
 import GitHubCalendar from "react-github-calendar";
 import { useEffect, useState } from "react";
 
@@ -25,27 +26,22 @@ export default function GitHubActivity() {
       id="github"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-6 flex items-center justify-between"
-        >
-          <h2 className="text-sm font-medium uppercase tracking-wider text-muted">
-            GitHub Activity
-          </h2>
-          <a
-            href={`https://github.com/${siteConfig.githubUsername}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
-          >
-            View Profile
-            <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
-        </motion.div>
+      <div>
+        <SectionHeading
+          title="GitHub Activity"
+          className="mb-6"
+          action={
+            <a
+              href={`https://github.com/${siteConfig.githubUsername}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
+            >
+              View Profile
+              <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </a>
+          }
+        />
 
         {/* Time Range Selector */}
         <motion.div
@@ -58,7 +54,7 @@ export default function GitHubActivity() {
             <button
               key={option.value}
               onClick={() => setDays(option.value)}
-              className={`text-xs px-3 py-1 border transition-colors ${
+              className={`text-xs px-3 py-1 rounded-md border transition-colors ${
                 days === option.value
                   ? "border-foreground bg-foreground text-background"
                   : "border-border hover:bg-accent"
@@ -75,7 +71,7 @@ export default function GitHubActivity() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="border border-transparent p-4 sm:p-6 bg-accent overflow-x-auto"
+          className="rounded-md p-4 sm:p-6 bg-accent overflow-x-auto"
         >
           {mounted && (
             <GitHubCalendar

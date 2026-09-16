@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import SectionHeading from "@/components/ui/section-heading";
+import Tag from "@/components/ui/tag";
 
 export default function Experience() {
   return (
@@ -10,16 +12,8 @@ export default function Experience() {
       id="experience"
       className="px-6 sm:px-8 lg:px-12 py-24 border-t border-border"
     >
-      <div className="max-w-5xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 text-sm font-medium uppercase tracking-wider text-muted"
-        >
-          Experience & Ventures
-        </motion.h2>
+      <div>
+        <SectionHeading title="Experience & Ventures" />
 
         <div className="space-y-12">
           {/* Experience */}
@@ -33,19 +27,17 @@ export default function Experience() {
               className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pb-12 border-b border-border"
             >
               <div>
-                <h3 className="text-xl font-bold mb-1">{exp.company}</h3>
+                <h3 className="text-lg font-semibold mb-1">{exp.company}</h3>
                 <p className="text-sm text-muted">{exp.duration}</p>
               </div>
               <div className="md:col-span-2">
-                <p className="text-base md:text-lg mb-3">{exp.role}</p>
+                <p className="text-base font-medium mb-3">{exp.role}</p>
                 <p className="text-sm md:text-base text-muted leading-relaxed mb-4 whitespace-pre-line">
                   {exp.description}
                 </p>
-                <div className="flex flex-wrap gap-2 text-xs">
+                <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech) => (
-                    <span key={tech} className="border border-border px-2 py-1">
-                      {tech}
-                    </span>
+                    <Tag key={tech}>{tech}</Tag>
                   ))}
                 </div>
               </div>
@@ -67,7 +59,7 @@ export default function Experience() {
             >
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-xl font-bold">{venture.name}</h3>
+                  <h3 className="text-lg font-semibold">{venture.name}</h3>
                   <a
                     href={venture.url}
                     target="_blank"
