@@ -8,16 +8,21 @@ import OpenSource from "@/components/sections/open-source";
 import GitHubActivity from "@/components/sections/github-activity";
 import Footer from "@/components/sections/footer";
 import { siteConfig } from "@/config/site";
-import { getContributions, getMergedPullRequests } from "@/lib/github";
+import {
+  getContributions,
+  getGitHubProfile,
+  getMergedPullRequests,
+} from "@/lib/github";
 import { homepageStructuredData } from "@/lib/structured-data";
 
 // Rebuild hourly so GitHub data stays fresh without fetching on every request
 export const revalidate = 3600;
 
 export default async function Home() {
-  const [pullRequests, contributions] = await Promise.all([
+  const [pullRequests, contributions, githubProfile] = await Promise.all([
     getMergedPullRequests(siteConfig.githubUsername),
     getContributions(siteConfig.githubUsername),
+    getGitHubProfile(siteConfig.githubUsername),
   ]);
 
   return (
@@ -31,7 +36,7 @@ export default async function Home() {
       <Navbar />
       <main className="min-h-screen relative z-10">
         <Hero />
-        <About />
+        <About githubProfile={githubProfile} contributions={contributions} />
         <Experience />
         <Projects />
         <TechStack />

@@ -69,3 +69,36 @@ export async function getContributions(
     return null;
   }
 }
+
+export type GitHubProfile = {
+  login: string;
+  name: string | null;
+  bio: string | null;
+  avatarUrl: string;
+  followers: number;
+  publicRepos: number;
+};
+
+// Public profile for the GitHub hover card; returns null on failure
+export async function getGitHubProfile(
+  username: string,
+): Promise<GitHubProfile | null> {
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}`, {
+      headers: githubHeaders(),
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
+    if (!res.ok) return null;
+    const user = await res.json();
+    return {
+      login: user.login,
+      name: user.name,
+      bio: user.bio?.trim() || null,
+      avatarUrl: user.avatar_url,
+      followers: user.followers,
+      publicRepos: user.public_repos,
+    };
+  } catch {
+    return null;
+  }
+}

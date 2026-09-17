@@ -28,6 +28,22 @@ export const siteConfig = {
     calendar: "https://calendly.com/ghimansh23/30min",
   },
 
+  // Hover-card details for profiles without a usable public API (GitHub's card
+  // is fetched live). Avatars are local files so they can't break or be hotlink-blocked.
+  profiles: {
+    x: {
+      name: "Himanshu gupta",
+      handle: "ayy_him_anshu23",
+      bio: "22, contributing to slop since 2022\n48213\nFull Stack AI Engineer",
+      avatar: "/avatars/x.png",
+    },
+    linkedin: {
+      name: "Himanshu Gupta",
+      headline: "Full Stack AI Engineer @ Sparkonomy",
+      avatar: "/avatars/linkedin.png",
+    },
+  },
+
   // Experience (most recent first); summary and highlights are optional
   experience: [
     {

@@ -4,8 +4,20 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/section-heading";
 import { siteConfig } from "@/config/site";
 import { experienceLabel } from "@/lib/experience";
+import type { ContributionData, GitHubProfile } from "@/lib/github";
+import {
+  GitHubProfileLink,
+  LinkedInProfileLink,
+  XProfileLink,
+} from "@/components/ui/profile-hover-cards";
 
-export default function About() {
+export default function About({
+  githubProfile,
+  contributions,
+}: {
+  githubProfile: GitHubProfile | null;
+  contributions: ContributionData | null;
+}) {
   const experience = experienceLabel(siteConfig.experience);
   return (
     <section
@@ -34,6 +46,17 @@ export default function About() {
             data workflows, model accuracy). I design
             APIs, integrate models, and ship scalable systems, especially
             interested in agent workflows and production AI.
+          </p>
+          <p className="text-base leading-relaxed text-muted">
+            Reach me on <XProfileLink />,{" "}
+            <GitHubProfileLink profile={githubProfile} contributions={contributions} />,{" "}
+            <a
+              href={`mailto:${siteConfig.links.email}`}
+              className="font-medium text-foreground border-b border-overlay/30 hover:border-foreground transition-colors"
+            >
+              email
+            </a>{" "}
+            or <LinkedInProfileLink />.
           </p>
         </motion.div>
       </div>
