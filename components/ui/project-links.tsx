@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, GitFork, Github, Star } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, GitFork, Github, Play, Star } from "lucide-react";
 import type { RepoPreview } from "@/lib/github";
 import { LinkHoverCard } from "@/components/ui/link-hover-card";
+import { cn } from "@/lib/utils";
 
 // GitHub's language dot colors, for the few languages these projects use
 const LANGUAGE_COLORS: Record<string, string> = {
@@ -34,14 +36,11 @@ export function RepoLink({
   href,
   repo,
   title,
-  summary,
   className,
 }: {
   href: string;
   repo: RepoPreview | undefined;
   title: string;
-  // Stands in for the repo description when GitHub has none
-  summary: string;
   className?: string;
 }) {
   const ariaLabel = `${title} source code on GitHub`;
@@ -85,8 +84,6 @@ export function RepoLink({
         <Github className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
       </div>
 
-      <p className="mt-3 text-muted leading-relaxed">{repo.description ?? summary}</p>
-
       <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
         {repo.language && (
           <span className="flex items-center gap-1.5">
@@ -121,14 +118,12 @@ export function LiveSiteLink({
   href,
   preview,
   title,
-  summary,
   className,
 }: {
   href: string;
   // Screenshot in public/previews; without one the link stays plain
   preview: string | undefined;
   title: string;
-  summary: string;
   className?: string;
 }) {
   const hostname = new URL(href).hostname.replace(/^www\./, "");
@@ -166,9 +161,75 @@ export function LiveSiteLink({
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" />
         <p className="truncate font-semibold leading-tight">{hostname}</p>
       </div>
-      <p className="mt-1.5 text-muted leading-relaxed">{summary}</p>
       <span className={visitClass}>
         Visit site
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </span>
+    </LinkHoverCard>
+  );
+}
+
+// The project’s demo video. Hovering plays it inline, muted and looping, from a
+// few seconds in so the preview starts on the app rather than a title frame.
+export function DemoVideoLink({
+  href,
+  startSeconds,
+  poster,
+  title,
+  className,
+}: {
+  href: string;
+  startSeconds: number;
+  // Shown until the player has loaded, so the card never flashes an empty frame
+  poster: string | undefined;
+  title: string;
+  className?: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const videoId = href.match(/vimeo\.com\/(\d+)/)?.[1];
+  const trigger = (
+    <>
+      <Play className="h-3 w-3 fill-current" />
+      Demo
+    </>
+  );
+
+  // Only Vimeo links have an inline player; anything else stays a plain link
+  if (!videoId) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {trigger}
+      </a>
+    );
+  }
+
+  return (
+    <LinkHoverCard
+      href={href}
+      trigger={trigger}
+      className={className}
+      ariaLabel={`Watch the ${title} demo video`}
+      align="end"
+      contentClassName="w-[340px] p-3"
+    >
+      <div className="relative aspect-video overflow-hidden rounded-md border border-overlay/15 bg-black">
+        {poster && <Image src={poster} alt="" fill sizes="340px" className="object-cover" />}
+        <iframe
+          // background=1 (chromeless) is a paid Vimeo feature and renders blank, so this
+          // uses the standard player, muted and looping so it behaves like a preview
+          src={`https://player.vimeo.com/video/${videoId}?autoplay=1&muted=1&loop=1&autopause=0&title=0&byline=0&portrait=0#t=${startSeconds}s`}
+          title={`${title} demo`}
+          allow="autoplay; picture-in-picture"
+          // The player paints white while it boots, so it fades in once it is past that
+          onLoad={() => setTimeout(() => setPlaying(true), 700)}
+          className={cn(
+            "absolute inset-0 h-full w-full transition-opacity duration-500",
+            playing ? "opacity-100" : "opacity-0",
+          )}
+        />
+      </div>
+      <span className={visitClass}>
+        Watch on Vimeo
         <ArrowUpRight className="h-3.5 w-3.5" />
       </span>
     </LinkHoverCard>

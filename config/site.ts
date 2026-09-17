@@ -71,6 +71,10 @@ export const siteConfig = {
     },
     {
       company: "EspoMedia",
+      // Logo from the LinkedIn company page; they have no public website
+      logo: "/logos/espomedia.jpg",
+      website: "https://www.linkedin.com/company/espomedianetwork/",
+      brandColors: ["#115add", "#4f8bff"],
       role: "Python Developer Intern",
       duration: "Jan 2026 - Apr 2026",
       // Used to compute "N months of experience"; omit endDate for a current role
@@ -137,6 +141,65 @@ export const siteConfig = {
     codolio: "https://codolio.com/profile/himax12",
   },
 
+  // Hackathons, most recent first. logo is optional: without one the tile shows a monogram.
+  hackathons: [
+    {
+      event: "CyborgDB Hackathon 2025",
+      award: "",
+      team: "",
+      date: "December 27, 2025",
+      location: "",
+      description:
+        "Built an end-to-end encrypted RAG application with a local embedding model and LLM, powered by Cyborg's encrypted embeddings.",
+      logo: "/logos/cyborgdb.png",
+      repoUrl: "",
+      postUrl: "",
+      // Photos or screenshots from the event, shown as thumbnails that enlarge on hover
+      images: [] as { src: string; alt: string }[],
+    },
+    {
+      event: "Tesco Retail Media InnovAltion Jam",
+      award: "National Finalist",
+      team: "Psyducks",
+      date: "15 January 2026",
+      location: "Dunnhumby, Gurugram, India",
+      description:
+        "Competing as team Psyducks, built an AI-powered creative builder with real-time compliance enforcement. Suppliers design retail media in a browser-based canvas editor while an intelligent backend validates every element against Tesco's legal and brand guidelines.",
+      logo: "/logos/tesco.png",
+      repoUrl: "https://github.com/ImAshishChoudhary/ReTexture",
+      postUrl: "",
+      images: [
+        {
+          src: "/hackathons/tesco-schedule.jpg",
+          alt: "Presentation schedule for the onsite finale, listing team Psyducks",
+        },
+        {
+          src: "/hackathons/tesco-shortlist.jpg",
+          alt: "Email inviting the team to the onsite finale in Gurugram",
+        },
+      ] as { src: string; alt: string }[],
+    },
+    {
+      event: "Adobe GenSolve",
+      award: "National Finalist, Top 6",
+      team: "MotionMinds",
+      date: "13 Sept 2024",
+      location: "Noida, India",
+      description:
+        "Competing as team MotionMinds, built an integrated machine learning and computer vision system to analyse tennis matches, with real-time player and ball tracking plus event analysis, using OpenCV, TensorFlow, YOLOv5, PyTorch and ResNet-50.",
+      logo: "/logos/adobe.png",
+      images: [
+        {
+          src: "/hackathons/adobe-finalists.jpg",
+          alt: "GeeksforGeeks x Adobe finalists graphic, with team MotionMinds from MAIT Delhi",
+        },
+      ] as { src: string; alt: string }[],
+      repoUrl: "https://github.com/AyanGairola/gameSense",
+      postUrl:
+        "https://www.linkedin.com/feed/update/urn:li:activity:7239239308086276096/",
+    },
+  ],
+
   // Projects
   projects: [
     {
@@ -151,6 +214,8 @@ export const siteConfig = {
       liveUrl: "https://clipmyreel.app/",
       // Screenshot shown when hovering the live link (public/previews)
       preview: "/previews/clipmyreel-app.jpg",
+      demoUrl: "",
+      demoStart: 0,
       githubUrl: "https://github.com/himax12/ClipSync",
       isLive: true,
     },
@@ -165,6 +230,8 @@ export const siteConfig = {
       image: "/projects/math-mentor.jpg",
       tags: ["Python", "RAG", "Multi-Agent", "HITL", "Multimodal"],
       liveUrl: "https://github.com/himax12/MathPilot",
+      demoUrl: "",
+      demoStart: 0,
       preview: "",
       githubUrl: "https://github.com/himax12/MathPilot",
       isLive: true,
@@ -179,8 +246,91 @@ export const siteConfig = {
       image: "/projects/medical-agent.jpg",
       tags: ["Python", "LangGraph", "FastAPI", "Streamlit", "Groq API"],
       liveUrl: "",
+      demoUrl: "",
+      demoStart: 0,
       preview: "",
       githubUrl: "https://github.com/himax12/ai-scheduling-agent",
+      isLive: false,
+    },
+    {
+      title: "PlotLine",
+      context: "Research",
+      summary:
+        "Neuro-symbolic story engine that plans plots symbolically before Gemini writes the prose, streaming agent reasoning live.",
+      description:
+        "Neuro-symbolic narrative engine that separates symbolic plot planning from neural prose generation, so stories stay logically consistent instead of drifting the way pure LLM output does. A LangGraph state machine runs the planning, validation and writing agents, Gemini 1.5 Pro generates the prose against Pydantic-enforced schemas, and Server-Sent Events stream every agent's reasoning trace to the browser in real time.",
+      image: "/projects/plotline.jpg",
+      tags: ["Python", "FastAPI", "LangGraph", "Gemini API", "Multi-Agent"],
+      liveUrl: "",
+      demoUrl: "",
+      demoStart: 0,
+      preview: "",
+      githubUrl: "https://github.com/himax12/PlotLine",
+      isLive: false,
+    },
+    {
+      title: "Screen + Webcam Recorder",
+      context: "Desktop app",
+      summary:
+        "Electron recorder that captures screen and webcam independently, mixes mic audio into both and exports a picture-in-picture MP4.",
+      description:
+        "Cross-platform Electron desktop app that records the screen and webcam as independent streams, each with its own controls, and saves every session to its own UUID folder with metadata. Microphone audio is mixed into both tracks through an AudioContext gain graph, and exporting runs FFmpeg to transcode to MP4 or merge the webcam over the screen recording as a picture-in-picture overlay.",
+      image: "/projects/screen-webcam-recorder.jpg",
+      tags: ["TypeScript", "Electron", "React", "FFmpeg"],
+      liveUrl: "",
+      preview: "/previews/screen-webcam-recorder.jpg",
+      // Demo video; the hover preview plays it from this many seconds in
+      demoUrl: "https://vimeo.com/1174422964",
+      demoStart: 20,
+      githubUrl: "https://github.com/himax12/Screen-webcam-recorder",
+      isLive: false,
+    },
+    {
+      title: "Multi-Model LLM Chat Service",
+      context: "Backend",
+      summary:
+        "FastAPI service that routes prompts to Llama 3 or Mistral on Ollama and logs latency and token usage per call.",
+      description:
+        "Minimal FastAPI service that routes prompts to different open-source LLMs running locally on Ollama, switching models with a single query parameter. Every call is logged to CSV with round-trip latency and prompt and response token counts, so model quality and cost can be compared side by side; the API is covered by a pytest suite.",
+      image: "/projects/llm-chat-service.jpg",
+      tags: ["Python", "FastAPI", "Ollama", "Llama 3", "Mistral"],
+      liveUrl: "",
+      preview: "",
+      demoUrl: "",
+      demoStart: 0,
+      githubUrl: "https://github.com/himax12/Multi-Model-LLM-Chat-Service",
+      isLive: false,
+    },
+    {
+      title: "Kryptoverse",
+      context: "Distributed systems",
+      summary:
+        "Crypto stats tracker split into an API and a worker, coordinated over NATS with MongoDB time series storage.",
+      description:
+        "Distributed cryptocurrency statistics service split into two Node.js processes: an Express API that serves current prices and price deviation, and a worker that runs scheduled collection jobs. The two communicate over NATS messaging instead of direct calls, and CoinGecko data for Bitcoin, Ethereum and Polygon is stored as MongoDB time series documents.",
+      image: "/projects/kryptoverse.jpg",
+      tags: ["Node.js", "Express.js", "MongoDB", "NATS", "Docker"],
+      liveUrl: "",
+      preview: "",
+      demoUrl: "",
+      demoStart: 0,
+      githubUrl: "https://github.com/himax12/Kryptoverse",
+      isLive: false,
+    },
+    {
+      title: "Tally",
+      context: "Fintech",
+      summary:
+        "Ledger-based wallet service for virtual currencies, with double-entry bookkeeping, idempotent writes and an immutable audit trail.",
+      description:
+        "Wallet service for virtual currencies built on a double-entry ledger, so every balance is derived from immutable transaction records rather than mutated in place. Transfers run as ACID transactions with idempotency keys for safe retries, balance validation that refuses to go negative, and isolation plus retry logic for concurrent writes; the stack is Next.js and TypeScript over PostgreSQL with Prisma.",
+      image: "/projects/tally.jpg",
+      tags: ["TypeScript", "Next.js", "PostgreSQL", "Prisma", "Docker"],
+      liveUrl: "",
+      preview: "",
+      demoUrl: "",
+      demoStart: 0,
+      githubUrl: "https://github.com/himax12/Tally-",
       isLive: false,
     },
   ],

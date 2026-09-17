@@ -21,6 +21,7 @@ import {
   XLogo,
   XProfileLink,
 } from "@/components/ui/profile-hover-cards";
+import ResumeLink from "@/components/ui/resume-hover-card";
 import { Dock, DockItem } from "@/components/ui/dock";
 
 const iconClass =
@@ -31,7 +32,7 @@ const HOME: NavItem = { label: "Home", href: "/#home", sections: ["home"] };
 // Each item jumps to the first section of its group and stays highlighted through the group
 const NAV_ITEMS: (NavItem & { icon: typeof Briefcase })[] = [
   { label: "Experience", href: "/#experience", sections: ["experience"], icon: Briefcase },
-  { label: "Projects", href: "/#projects", sections: ["projects"], icon: Code2 },
+  { label: "Projects", href: "/#projects", sections: ["projects", "hackathons"], icon: Code2 },
   { label: "Open Source", href: "/#opensource", sections: ["opensource", "github"], icon: GitMerge },
   { label: "Blogs", href: "/blogs", icon: PenLine },
 ];
@@ -110,16 +111,11 @@ export default function SocialIconsBar({
             <Mail className="h-5 w-5" />
           </a>
         </DockItem>
-        <DockItem label="Resume">
-          <a
-            href={siteConfig.links.resume}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={iconClass}
-            aria-label="Resume"
-          >
+        {/* No dock tooltip here: the hover card is the label */}
+        <DockItem>
+          <ResumeLink className={iconClass} align="center">
             <FileText className="h-5 w-5" />
-          </a>
+          </ResumeLink>
         </DockItem>
       </div>
     </Dock>

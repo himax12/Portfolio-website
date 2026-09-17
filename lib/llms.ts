@@ -106,6 +106,12 @@ ${project.description}
 - Source: ${project.githubUrl}${project.liveUrl && project.liveUrl !== project.githubUrl ? `\n- Live: ${project.liveUrl}` : ""}`,
     )
     .join("\n\n");
+  const hackathons = siteConfig.hackathons
+    .map(
+      (hackathon) =>
+        `- ${hackathon.event}${hackathon.award ? ` (${hackathon.award})` : ""} - ${hackathon.date}${hackathon.location ? `, ${hackathon.location}` : ""}${hackathon.description ? `: ${hackathon.description}` : ""}${hackathon.repoUrl ? ` Source: ${hackathon.repoUrl}` : ""}`,
+    )
+    .join("\n");
   const stack = Object.entries(siteConfig.stack)
     .map(
       ([group, items]) =>
@@ -133,6 +139,10 @@ ${roles}
 ## Projects
 
 ${projects}
+
+## Hackathons
+
+${hackathons}
 
 ## Tech stack
 

@@ -3,6 +3,7 @@ import { Calendar, FileText } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import CompanyBadge from "@/components/ui/company-badge";
 import { BookCallLink } from "@/components/ui/profile-hover-cards";
+import ResumeLink from "@/components/ui/resume-hover-card";
 import TechIcon from "@/components/ui/tech-icon";
 
 // Logos in the "Proficient with" chip
@@ -53,8 +54,8 @@ export default function Hero({ mergedPullRequests }: { mergedPullRequests: numbe
         )}
         <li className="relative pl-5 before:absolute before:left-0.5 before:text-overlay/40 before:content-['•']">
           Shipped <Count>{siteConfig.projects.length}</Count>{" "}
-          <b className="font-semibold text-foreground">production AI</b> systems: agents, RAG and
-          video pipelines.
+          <b className="font-semibold text-foreground">production</b> systems: AI agents, RAG, video
+          pipelines and backends.
         </li>
         {mergedPullRequests ? (
           <li className="relative pl-5 before:absolute before:left-0.5 before:text-overlay/40 before:content-['•']">
@@ -83,15 +84,10 @@ export default function Hero({ mergedPullRequests }: { mergedPullRequests: numbe
           <Calendar className="h-4 w-4" />
           Book a Call
         </BookCallLink>
-        <a
-          href={siteConfig.links.resume}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-md glass-subtle px-[18px] py-2.5 text-[14.5px] font-semibold text-foreground transition-colors hover:bg-overlay/10"
-        >
+        <ResumeLink className="inline-flex items-center gap-2 rounded-md glass-subtle px-[18px] py-2.5 text-[14.5px] font-semibold text-foreground transition-colors hover:bg-overlay/10">
           <FileText className="h-4 w-4" />
           Resume
-        </a>
+        </ResumeLink>
       </div>
     </section>
   );

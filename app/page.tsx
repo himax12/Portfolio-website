@@ -2,6 +2,7 @@ import Hero from "@/components/sections/hero";
 import Experience from "@/components/sections/experience";
 import Skills from "@/components/sections/skills";
 import Projects from "@/components/sections/projects";
+import Hackathons from "@/components/sections/hackathons";
 import OpenSource from "@/components/sections/open-source";
 import GitHubActivity from "@/components/sections/github-activity";
 import Footer from "@/components/sections/footer";
@@ -35,6 +36,7 @@ export default async function Home() {
         <Hero mergedPullRequests={pullRequests?.length ?? null} />
         <Experience />
         <Projects repos={repos} />
+        <Hackathons />
         <OpenSource pullRequests={pullRequests} />
         <Skills />
         <GitHubActivity initialData={contributions} />
