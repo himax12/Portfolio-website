@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/profile-hover-cards";
 
 const iconClass =
-  "text-muted hover:text-primary hover:bg-overlay/10 transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-overlay/10";
+  "text-foreground/75 hover:text-primary hover:bg-overlay/15 transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-overlay/10";
 
 // Profile icons open the same hover cards as the About section; email and resume stay plain
 export default function SocialIconsBar({
@@ -21,7 +21,7 @@ export default function SocialIconsBar({
   return (
     <nav
       aria-label="Social links"
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 glass-strong rounded-md px-4 py-2 w-fit"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 glass-dock rounded-md px-4 py-2 w-fit"
     >
       <LinkedInProfileLink className={iconClass} ariaLabel="LinkedIn" align="center">
         <Linkedin className="h-5 w-5" />
