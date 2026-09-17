@@ -13,29 +13,51 @@ const HEATMAP_WEEKS = 16;
 const linkClass =
   "font-medium text-foreground border-b border-overlay/30 hover:border-foreground transition-colors";
 
+// Shared props for every profile link: text by default, or any trigger (e.g. an icon)
+type TriggerProps = {
+  // Trigger content; defaults to the profile's text label
+  children?: React.ReactNode;
+  className?: string;
+  ariaLabel?: string;
+  // Card alignment relative to the trigger ("center" suits icon buttons)
+  align?: "start" | "center" | "end";
+};
+
 // Hover (or keyboard focus) reveals a profile preview; the link itself still navigates,
 // so touch devices, which have no hover, simply open the profile
 function ProfileHoverCard({
   href,
-  label,
+  trigger,
+  className = linkClass,
+  ariaLabel,
+  align = "start",
   children,
 }: {
   href: string;
-  label: string;
+  trigger: React.ReactNode;
+  className?: string;
+  ariaLabel?: string;
+  align?: "start" | "center" | "end";
   children: React.ReactNode;
 }) {
   return (
     <HoverCard.Root openDelay={200} closeDelay={150}>
       <HoverCard.Trigger asChild>
-        <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
-          {label}
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={ariaLabel}
+          className={className}
+        >
+          {trigger}
         </a>
       </HoverCard.Trigger>
       {/* Portal escapes the page frame so the card is never clipped */}
       <HoverCard.Portal>
         <HoverCard.Content
           side="top"
-          align="start"
+          align={align}
           sideOffset={10}
           collisionPadding={16}
           className="hover-card glass-strong z-[60] w-72 rounded-md p-4 text-sm text-foreground"
@@ -123,10 +145,16 @@ function MiniHeatmap({ data }: { data: ContributionData }) {
   );
 }
 
-export function XProfileLink() {
+export function XProfileLink({ children, className, ariaLabel, align }: TriggerProps) {
   const x = siteConfig.profiles.x;
   return (
-    <ProfileHoverCard href={siteConfig.links.twitter} label={`@${x.handle}`}>
+    <ProfileHoverCard
+      href={siteConfig.links.twitter}
+      trigger={children ?? `@${x.handle}`}
+      className={className}
+      ariaLabel={ariaLabel}
+      align={align}
+    >
       <CardHeader
         avatar={x.avatar}
         name={x.name}
@@ -138,10 +166,16 @@ export function XProfileLink() {
   );
 }
 
-export function LinkedInProfileLink() {
+export function LinkedInProfileLink({ children, className, ariaLabel, align }: TriggerProps) {
   const linkedin = siteConfig.profiles.linkedin;
   return (
-    <ProfileHoverCard href={siteConfig.links.linkedin} label="LinkedIn">
+    <ProfileHoverCard
+      href={siteConfig.links.linkedin}
+      trigger={children ?? "LinkedIn"}
+      className={className}
+      ariaLabel={ariaLabel}
+      align={align}
+    >
       <CardHeader
         avatar={linkedin.avatar}
         name={linkedin.name}
@@ -156,20 +190,36 @@ export function LinkedInProfileLink() {
 export function GitHubProfileLink({
   profile,
   contributions,
-}: {
+  children,
+  className,
+  ariaLabel,
+  align,
+}: TriggerProps & {
   profile: GitHubProfile | null;
   contributions: ContributionData | null;
 }) {
   // Without profile data there is nothing useful to preview; keep it a plain link
   if (!profile) {
     return (
-      <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
-        GitHub
+      <a
+        href={siteConfig.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={ariaLabel}
+        className={className ?? linkClass}
+      >
+        {children ?? "GitHub"}
       </a>
     );
   }
   return (
-    <ProfileHoverCard href={siteConfig.links.github} label="GitHub">
+    <ProfileHoverCard
+      href={siteConfig.links.github}
+      trigger={children ?? "GitHub"}
+      className={className}
+      ariaLabel={ariaLabel}
+      align={align}
+    >
       <CardHeader
         avatar={profile.avatarUrl}
         name={profile.name ?? profile.login}

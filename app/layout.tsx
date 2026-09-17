@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
 import MotionProvider from "@/components/motion-provider";
 import SocialIconsBar from "@/components/ui/social-icons-bar";
+import { getContributions, getGitHubProfile } from "@/lib/github";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -70,11 +71,16 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Same cached (hourly) requests the homepage makes, so the social bar's GitHub card works on every page
+  const [githubProfile, contributions] = await Promise.all([
+    getGitHubProfile(siteConfig.githubUsername),
+    getContributions(siteConfig.githubUsername),
+  ]);
   return (
     // Always dark; the light theme tokens remain in globals.css but nothing switches to them
     <html lang="en" className="dark">
@@ -108,7 +114,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
-        <SocialIconsBar />
+        <SocialIconsBar githubProfile={githubProfile} contributions={contributions} />
       </body>
     </html>
   );

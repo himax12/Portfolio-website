@@ -1,52 +1,55 @@
 import { Github, Twitter, Mail, FileText, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import type { ContributionData, GitHubProfile } from "@/lib/github";
+import {
+  GitHubProfileLink,
+  LinkedInProfileLink,
+  XProfileLink,
+} from "@/components/ui/profile-hover-cards";
 
-const icons = [
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    href: siteConfig.links.linkedin,
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    href: siteConfig.links.github,
-  },
-  {
-    icon: Twitter,
-    label: "X",
-    href: siteConfig.links.twitter,
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    href: `mailto:${siteConfig.links.email}`,
-  },
-  {
-    icon: FileText,
-    label: "Resume",
-    href: siteConfig.links.resume,
-  },
-];
+const iconClass =
+  "text-muted hover:text-primary hover:bg-overlay/10 transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-overlay/10";
 
-export default function SocialIconsBar() {
+// Profile icons open the same hover cards as the About section; email and resume stay plain
+export default function SocialIconsBar({
+  githubProfile,
+  contributions,
+}: {
+  githubProfile: GitHubProfile | null;
+  contributions: ContributionData | null;
+}) {
   return (
     <nav
       aria-label="Social links"
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-4 glass-strong rounded-md px-4 py-2 w-fit"
     >
-      {icons.map(({ icon: Icon, label, href }) => (
-        <a
-          key={label}
-          href={href}
-          target={href.startsWith("http") ? "_blank" : undefined}
-          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-          className="text-muted hover:text-primary hover:bg-overlay/10 transition-colors duration-200 rounded-md p-1.5 focus-visible:text-primary focus-visible:bg-overlay/10"
-          aria-label={label}
-        >
-          <Icon className="h-5 w-5" />
-        </a>
-      ))}
+      <LinkedInProfileLink className={iconClass} ariaLabel="LinkedIn" align="center">
+        <Linkedin className="h-5 w-5" />
+      </LinkedInProfileLink>
+      <GitHubProfileLink
+        profile={githubProfile}
+        contributions={contributions}
+        className={iconClass}
+        ariaLabel="GitHub"
+        align="center"
+      >
+        <Github className="h-5 w-5" />
+      </GitHubProfileLink>
+      <XProfileLink className={iconClass} ariaLabel="X" align="center">
+        <Twitter className="h-5 w-5" />
+      </XProfileLink>
+      <a href={`mailto:${siteConfig.links.email}`} className={iconClass} aria-label="Email">
+        <Mail className="h-5 w-5" />
+      </a>
+      <a
+        href={siteConfig.links.resume}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={iconClass}
+        aria-label="Resume"
+      >
+        <FileText className="h-5 w-5" />
+      </a>
     </nav>
   );
 }
