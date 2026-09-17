@@ -12,13 +12,16 @@ import { createContext, useContext, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 const BASE_SIZE = 36;
+// Slot width at the cursor; the icon inside scales by the same ratio (52/36 ≈ 1.44, so a
+// 20px glyph peaks at ~29px and still fits the fixed 36px button)
 const MAX_SIZE = 52;
 // How far (px) from an item's center the cursor still magnifies it
 const MAGNIFY_RANGE = 120;
 
 const DockMouseX = createContext<MotionValue<number> | null>(null);
 
-// macOS-style dock: items grow as the cursor approaches, anchored to the bar's bottom edge
+// macOS-style dock: as the cursor approaches, an item's slot widens and its icon grows,
+// while the button (and its hover highlight) keeps a fixed size so nothing leaves the bar
 export function Dock({
   className,
   children,
@@ -30,7 +33,7 @@ export function Dock({
       {...props}
       onMouseMove={(e) => mouseX.set(e.clientX)}
       onMouseLeave={() => mouseX.set(Infinity)}
-      className={cn("flex items-end", className)}
+      className={cn("flex items-center", className)}
     >
       <DockMouseX.Provider value={mouseX}>{children}</DockMouseX.Provider>
     </nav>
@@ -66,16 +69,16 @@ export function DockItem({
   return (
     <motion.div
       ref={ref}
-      style={reduceMotion ? { width: BASE_SIZE, height: BASE_SIZE } : { width: size, height: size }}
-      className="group relative flex items-center justify-center"
+      // Only the slot width animates; the height stays fixed inside the bar
+      style={{
+        width: reduceMotion ? BASE_SIZE : size,
+        height: BASE_SIZE,
+        // Read by the icon (svg) inside the button, so the glyph grows but the button doesn't
+        ["--dock-icon-scale" as string]: reduceMotion ? 1 : iconScale,
+      }}
+      className="group relative flex items-center justify-center [&_svg]:[transform:scale(var(--dock-icon-scale,1))] [&_svg]:origin-center"
     >
-      {/* Scale the icon with the item so magnification reads as the icon growing */}
-      <motion.div
-        style={reduceMotion ? undefined : { scale: iconScale }}
-        className="flex h-9 w-9 items-center justify-center"
-      >
-        {children}
-      </motion.div>
+      {children}
       {label && (
         <span
           role="tooltip"

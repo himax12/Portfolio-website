@@ -1,9 +1,10 @@
-import { Github, Twitter, Mail, FileText, Linkedin } from "lucide-react";
+import { Github, Mail, FileText, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
 import {
   GitHubProfileLink,
   LinkedInProfileLink,
+  XLogo,
   XProfileLink,
 } from "@/components/ui/profile-hover-cards";
 import { Dock, DockItem } from "@/components/ui/dock";
@@ -23,7 +24,7 @@ export default function SocialIconsBar({
   return (
     <Dock
       aria-label="Social links"
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 h-[52px] gap-3 glass-dock rounded-md px-3 pb-2 w-fit"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 h-[52px] gap-3 glass-dock rounded-md px-3 w-fit"
     >
       <DockItem>
         <LinkedInProfileLink className={iconClass} ariaLabel="LinkedIn" align="center">
@@ -43,7 +44,8 @@ export default function SocialIconsBar({
       </DockItem>
       <DockItem>
         <XProfileLink className={iconClass} ariaLabel="X" align="center">
-          <Twitter className="h-5 w-5" />
+          {/* Same X mark as the hover card, not the old Twitter bird */}
+          <XLogo className="h-[18px] w-[18px]" />
         </XProfileLink>
       </DockItem>
       <DockItem label="Email">
