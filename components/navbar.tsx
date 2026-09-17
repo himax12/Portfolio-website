@@ -149,39 +149,54 @@ export default function Navbar() {
       {/* Docked to the top of the page frame at the frame's exact width: the frame's side
           edges continue straight down from the bar, and nothing shows above it */}
       <nav className="fixed top-0 left-1/2 z-50 w-full max-w-4xl -translate-x-1/2">
-        <div className="glass-strong nav-dock rounded-b-md h-14 px-3 sm:px-4 flex items-center justify-between">
+        {/* Three columns on desktop: HG left, section links in the true center, Contact right */}
+        <div className="glass-strong nav-dock rounded-b-md h-14 px-3 sm:px-4 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]">
           <Link
             href="/#home"
             onClick={(e) => handleClick(e, "/#home")}
-            className="px-3 py-1.5 font-bold text-sm rounded-md hover:bg-overlay/10 transition-colors"
+            className="justify-self-start px-3 py-1.5 font-bold text-sm rounded-md hover:bg-overlay/10 transition-colors"
           >
             HG
           </Link>
 
-          <div className="flex items-center gap-1">
-            {/* Desktop Nav Items */}
-            <div className="hidden md:flex items-center gap-1 text-sm">
-              {NAV_ITEMS.map((item) => {
-                const active = isActive(item, activeHref);
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={(e) => handleClick(e, item.href)}
-                    aria-current={active ? "page" : undefined}
-                    className={`px-3 py-1.5 rounded-md transition-colors ${
-                      item.cta
-                        ? `ml-2 border border-overlay/20 text-foreground hover:bg-overlay/10 ${active ? "bg-overlay/10" : ""}`
-                        : active
-                          ? "bg-overlay/10 text-foreground"
-                          : "text-muted hover:text-foreground hover:bg-overlay/5"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
+          {/* Desktop section links */}
+          <div className="hidden md:flex items-center gap-1 text-sm">
+            {NAV_ITEMS.filter((item) => !item.cta).map((item) => {
+              const active = isActive(item, activeHref);
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleClick(e, item.href)}
+                  aria-current={active ? "page" : undefined}
+                  className={`px-3 py-1.5 rounded-md transition-colors ${
+                    active
+                      ? "bg-overlay/10 text-foreground"
+                      : "text-muted hover:text-foreground hover:bg-overlay/5"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="justify-self-end flex items-center">
+            {/* Desktop call to action */}
+            {NAV_ITEMS.filter((item) => item.cta).map((item) => {
+              const active = isActive(item, activeHref);
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleClick(e, item.href)}
+                  aria-current={active ? "page" : undefined}
+                  className={`hidden md:inline-flex px-3 py-1.5 rounded-md text-sm border border-overlay/20 text-foreground hover:bg-overlay/10 transition-colors ${active ? "bg-overlay/10" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
 
             {/* Mobile Menu Button */}
             <button
