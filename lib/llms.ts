@@ -23,7 +23,7 @@ export function llmsTxt() {
 
 > ${siteConfig.shortDescription}
 
-${siteConfig.name} is a ${siteConfig.title} based in ${siteConfig.location}. ${siteConfig.availability}.
+${siteConfig.name} is a ${siteConfig.title} based in ${siteConfig.location}.
 
 ## Profile
 
@@ -79,7 +79,6 @@ ${project.description}
 - Location: ${siteConfig.location}
 - Education: ${siteConfig.education}
 - Experience: ${experience}
-- Availability: ${siteConfig.availability}
 - Website: ${siteConfig.url}
 
 ## About

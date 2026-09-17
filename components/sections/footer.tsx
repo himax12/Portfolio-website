@@ -21,7 +21,6 @@ export default function Footer() {
       <SectionHeading title="Get in touch" />
 
       <div className="glass rounded-md p-6 sm:p-8">
-        <p className="text-base sm:text-lg mb-6">{siteConfig.availability}.</p>
         <div className="flex flex-col sm:flex-row gap-3">
           <BookCallLink className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background font-semibold hover:bg-foreground/85 transition-colors">
             <Calendar className="h-4 w-4" />

@@ -216,7 +216,6 @@ export function BookCallLink({ children, className, ariaLabel, align }: TriggerP
         <Clock className="h-4 w-4" />
         {calendly.durationMinutes} min
       </p>
-      <p className="mt-2 text-muted leading-relaxed">{siteConfig.availability}.</p>
       <a
         href={siteConfig.links.calendar}
         target="_blank"

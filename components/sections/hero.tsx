@@ -36,14 +36,9 @@ export default function Hero() {
         </div>
 
         {/* Tech Stack - Minimal */}
-        <div className="mb-4 text-sm sm:text-base text-muted">
+        <div className="mb-8 text-sm sm:text-base text-muted">
           TypeScript / React / Node.js / Python / AI/ML
         </div>
-
-        {/* Availability */}
-        <p className="mb-8 text-sm sm:text-base text-foreground font-medium">
-          {siteConfig.availability}
-        </p>
 
         {/* One primary action; email and other links live in the social bar */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center items-center mb-4">

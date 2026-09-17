@@ -7,9 +7,7 @@ export const siteConfig = {
     "B.Tech in AI & Data Science, Maharaja Agrasen Institute of Technology (MAIT), Delhi",
   // Short summary for search results and link previews (~155 characters)
   shortDescription:
-    "Full Stack AI Engineer in Delhi building production AI systems: agent workflows, OCR pipelines and multi-agent RAG. Open to freelance and full-time roles.",
-  availability:
-    "Open to freelance AI & full-stack projects, as well as full-time roles",
+    "Full Stack AI Engineer in Delhi building production AI systems: agent workflows, OCR pipelines and multi-agent RAG.",
   // Long-form bio used for llms-full.txt and index.md
   description:
     "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and Math Mentor (multi-agent reasoning with RAG memory). Currently a Full Stack AI Engineer at Sparkonomy. Previously a Python Developer Intern at EspoMedia (Jan–Apr 2026), building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
