@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
+import Image from "next/image";
 
 export default function Experience() {
   return (
@@ -26,7 +27,12 @@ export default function Experience() {
               className="glass rounded-md p-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
             >
               <div>
-                <h3 className="text-lg font-semibold mb-1">{exp.company}</h3>
+                <h3 className="flex items-center gap-2 text-lg font-semibold mb-1">
+                  {exp.logo && (
+                    <Image src={exp.logo} alt="" width={14} height={19} className="h-[1em] w-auto" />
+                  )}
+                  {exp.company}
+                </h3>
                 <p className="text-sm text-muted">{exp.duration}</p>
               </div>
               <div className="md:col-span-2">

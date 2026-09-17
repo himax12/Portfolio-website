@@ -53,6 +53,10 @@ export const siteConfig = {
   experience: [
     {
       company: "Sparkonomy",
+      // Optional branding, shown as an inline badge (components/ui/company-badge.tsx)
+      logo: "/logos/sparkonomy.png",
+      website: "https://www.sparkonomy.com/",
+      brandColors: ["#8b5cf6", "#d946ef"],
       role: "Full Stack AI Engineer",
       duration: "May 2026 - Present",
       startDate: "2026-05-01",

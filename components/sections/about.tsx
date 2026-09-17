@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/section-heading";
 import { siteConfig } from "@/config/site";
+import CompanyBadge from "@/components/ui/company-badge";
 import { experienceLabel } from "@/lib/experience";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
 import {
@@ -42,7 +43,7 @@ export default function About({
             AI & Data Science student, hands-on builder. Shipped real-world AI
             systems like ClipSync (video pipeline), Medical Scheduling Agent
             (multi-API), and Math Mentor (multi-agent RAG). Full Stack AI Engineer at
-            Sparkonomy; previously a Python Developer Intern at EspoMedia (OCR,
+            <CompanyBadge company="Sparkonomy" />; previously a Python Developer Intern at EspoMedia (OCR,
             data workflows, model accuracy). I design
             APIs, integrate models, and ship scalable systems, especially
             interested in agent workflows and production AI.
