@@ -13,11 +13,9 @@ const FRAME_MS = 50;
 // Frames pre-rendered to build a still texture when motion is reduced
 const STATIC_FRAMES = 40;
 
-// Trails fade into the page background; light mode uses a deeper green that stays visible on white
-const PALETTES = {
-  dark: { trail: "rgba(0, 0, 0, 0.08)", rain: "0, 255, 65" },
-  light: { trail: "rgba(247, 247, 247, 0.08)", rain: "0, 140, 60" },
-};
+// Trails fade into the black page background
+const TRAIL = "rgba(0, 0, 0, 0.08)";
+const RAIN = "0, 255, 65";
 
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,14 +31,10 @@ export default function MatrixRain() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     let drops: number[] = [];
-    let palette =
-      PALETTES[
-        document.documentElement.classList.contains("dark") ? "dark" : "light"
-      ];
 
     const draw = () => {
       // Semi-transparent background fill for the trail effect
-      ctx.fillStyle = palette.trail;
+      ctx.fillStyle = TRAIL;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = `${FONT_SIZE}px monospace`;
@@ -56,9 +50,9 @@ export default function MatrixRain() {
           drops[i] * FONT_SIZE,
         );
 
-        gradient.addColorStop(0, `rgba(${palette.rain}, 0.1)`);
-        gradient.addColorStop(0.5, `rgba(${palette.rain}, 0.5)`);
-        gradient.addColorStop(1, `rgba(${palette.rain}, 1)`);
+        gradient.addColorStop(0, `rgba(${RAIN}, 0.1)`);
+        gradient.addColorStop(0.5, `rgba(${RAIN}, 0.5)`);
+        gradient.addColorStop(1, `rgba(${RAIN}, 1)`);
 
         ctx.fillStyle = gradient;
         ctx.fillText(text, i * FONT_SIZE, drops[i] * FONT_SIZE);
@@ -92,20 +86,6 @@ export default function MatrixRain() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Follow theme switches: wipe old-colored trails and continue in the new palette
-    const themeObserver = new MutationObserver(() => {
-      palette =
-        PALETTES[
-          document.documentElement.classList.contains("dark") ? "dark" : "light"
-        ];
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (reduceMotion) drawStatic();
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
     // requestAnimationFrame is paused by the browser in background tabs
     let rafId = 0;
     let lastFrame = 0;
@@ -120,7 +100,6 @@ export default function MatrixRain() {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resizeCanvas);
-      themeObserver.disconnect();
     };
   }, []);
 

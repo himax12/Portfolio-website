@@ -6,10 +6,8 @@ import { useRef, useState } from "react";
 import { ArrowUpRight, Calendar, Clock, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
-import { formatContribution } from "@/lib/contributions";
+import { CONTRIBUTION_COLORS, formatContribution } from "@/lib/contributions";
 
-// GitHub's dark-mode contribution colors, from empty to busiest
-const CONTRIBUTION_COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 const HEATMAP_WEEKS = 16;
 // Half the widest tooltip, so it never spills past the card edges
 const TOOLTIP_EDGE_PADDING = 95;
@@ -64,7 +62,7 @@ export function ProfileHoverCard({
           align={align}
           sideOffset={10}
           collisionPadding={16}
-          className="hover-card glass-strong z-[60] w-72 rounded-md p-4 text-sm text-foreground"
+          className="hover-card glass-card z-[60] w-72 rounded-md p-4 text-sm text-foreground"
         >
           {children}
         </HoverCard.Content>

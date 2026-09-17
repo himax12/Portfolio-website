@@ -10,7 +10,7 @@ export const siteConfig = {
     "Full Stack AI Engineer in Delhi building production AI systems: agent workflows, OCR pipelines and multi-agent RAG.",
   // Long-form bio used for llms-full.txt and index.md
   description:
-    "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and Math Mentor (multi-agent reasoning with RAG memory). Currently a Full Stack AI Engineer at Sparkonomy. Previously a Python Developer Intern at EspoMedia (Jan–Apr 2026), building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
+    "B.Tech AI & Data Science student at MAIT, Delhi. Hands-on builder focused on turning AI ideas into real production systems. Built ClipSync (AI video pipeline with Gemini VLM and FFmpeg), AI Medical Scheduling Agent (multi-API conversational workflows), and MathPilot (multi-agent math reasoning with RAG memory). Currently a Full Stack AI Engineer at Sparkonomy. Previously a Python Developer Intern at EspoMedia (Jan–Apr 2026), building OCR pipelines with OpenCV, EasyOCR, and PyTorch, automating data workflows, and improving model accuracy in production. I enjoy owning problems end-to-end—designing APIs, integrating models, debugging edge cases, and shipping systems that people actually use. Especially interested in AI that meets real products through agent workflows, data pipelines, and scalable backend systems.",
 
   // Profile Image - Add your image to public/profile.jpg
   profileImage: "/profile.jpg",
@@ -30,7 +30,7 @@ export const siteConfig = {
   // is fetched live). Avatars are local files so they can't break or be hotlink-blocked.
   profiles: {
     x: {
-      name: "Himanshu gupta",
+      name: "Himanshu Gupta",
       handle: "ayy_him_anshu23",
       bio: "22, contributing to slop since 2022\n48213\nFull Stack AI Engineer",
       avatar: "/avatars/x.png",
@@ -153,11 +153,11 @@ export const siteConfig = {
       isLive: true,
     },
     {
-      title: "Math Mentor",
+      title: "MathPilot",
       summary:
         "Multi-agent math reasoning with RAG memory, multimodal input and human-in-the-loop review.",
-      // Freelance engagement; previously also listed separately as the "MathPilot" venture
-      context: "Freelance · MathPilot",
+      // Freelance engagement
+      context: "Freelance",
       description:
         "Autonomous reasoning system designed to solve high-school and undergraduate level mathematics problems with high reliability. Unlike typical chat interfaces, this application decouples semantic understanding from deterministic computation. The system accepts multimodal inputs (text, image, audio) and employs a Human-in-the-Loop (HITL) workflow to handle ambiguity before it propagates to the solver.",
       image: "/projects/math-mentor.jpg",

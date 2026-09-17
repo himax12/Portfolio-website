@@ -4,32 +4,21 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
-import { useTheme } from "@/lib/use-theme";
 import ActivityCalendar from "react-activity-calendar";
 import type { ContributionData } from "@/lib/github";
-import { formatContribution } from "@/lib/contributions";
+import { CONTRIBUTION_COLORS, formatContribution } from "@/lib/contributions";
 import { cloneElement, useEffect, useRef, useState } from "react";
 
 const CONTRIBUTIONS_API = "https://github-contributions-api.jogruber.de/v4";
-// GitHub's own contribution colors per theme, from empty to busiest
-const GITHUB_LIGHT_THEME = [
-  "#ebedf0",
-  "#9be9a8",
-  "#40c463",
-  "#30a14e",
-  "#216e39",
-];
-const GITHUB_DARK_THEME = [
-  "#161b22",
-  "#0e4429",
-  "#006d32",
-  "#26a641",
-  "#39d353",
-];
 const WEEKS_IN_YEAR = 53;
+// Narrow panels show the last six months at a readable size instead of a scrolled sliver of the year
+const WEEKS_COMPACT = 26;
+const COMPACT_BELOW_WIDTH = 520;
 const BLOCK_MARGIN = 3;
 // Below the minimum the grid scrolls horizontally instead of shrinking further
 const MIN_BLOCK_SIZE = 10;
+// Six months have room for slightly smaller squares, so the compact view fits without scrolling
+const MIN_BLOCK_SIZE_COMPACT = 8;
 const MAX_BLOCK_SIZE = 16;
 // Keeps the tooltip (roughly 220px wide) from spilling past the panel edges
 const TOOLTIP_EDGE_PADDING = 110;
@@ -43,11 +32,10 @@ export default function GitHubActivity({
 }: {
   initialData: ContributionData | null;
 }) {
-  const { theme } = useTheme();
-  const legendColors = theme === "dark" ? GITHUB_DARK_THEME : GITHUB_LIGHT_THEME;
   const [data, setData] = useState<ContributionData | null>(initialData);
   const [failed, setFailed] = useState(false);
   const [blockSize, setBlockSize] = useState(12);
+  const [compact, setCompact] = useState(false);
   const [tooltip, setTooltip] = useState<Tooltip | null>(null);
   const [edgeFades, setEdgeFades] = useState({ left: false, right: false });
   const panelRef = useRef<HTMLDivElement>(null);
@@ -77,15 +65,18 @@ export default function GitHubActivity({
     });
   };
 
-  // Size blocks so a full year fills the panel width
+  // Size blocks so the visible weeks (a year, or six months when compact) fill the panel width
   useEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
     const observer = new ResizeObserver(() => {
+      const isCompact = scroller.clientWidth < COMPACT_BELOW_WIDTH;
+      setCompact(isCompact);
+      const weeks = isCompact ? WEEKS_COMPACT : WEEKS_IN_YEAR;
       const fitted =
-        Math.floor((scroller.clientWidth + BLOCK_MARGIN) / WEEKS_IN_YEAR) -
-        BLOCK_MARGIN;
-      setBlockSize(Math.min(MAX_BLOCK_SIZE, Math.max(MIN_BLOCK_SIZE, fitted)));
+        Math.floor((scroller.clientWidth + BLOCK_MARGIN) / weeks) - BLOCK_MARGIN;
+      const minSize = isCompact ? MIN_BLOCK_SIZE_COMPACT : MIN_BLOCK_SIZE;
+      setBlockSize(Math.min(MAX_BLOCK_SIZE, Math.max(minSize, fitted)));
       // On narrow screens start scrolled to the most recent weeks
       requestAnimationFrame(() => {
         scroller.scrollLeft = scroller.scrollWidth;
@@ -111,6 +102,16 @@ export default function GitHubActivity({
       y: block.top - bounds.top,
     });
   };
+
+  // Compact view: the current partial week plus the 25 full weeks before it, so the
+  // first column starts on a Sunday
+  const allDays = data?.contributions ?? [];
+  const lastWeekday = allDays.length
+    ? new Date(`${allDays[allDays.length - 1].date}T00:00`).getDay()
+    : 0;
+  const visibleDays = compact
+    ? allDays.slice(Math.max(0, allDays.length - ((WEEKS_COMPACT - 1) * 7 + lastWeekday + 1)))
+    : allDays;
 
   const edgeFadeMask =
     edgeFades.left || edgeFades.right
@@ -162,10 +163,10 @@ export default function GitHubActivity({
               >
                 <div className="w-max mx-auto">
                   <ActivityCalendar
-                    data={data?.contributions ?? []}
+                    data={visibleDays}
                     loading={!data}
-                    colorScheme={theme}
-                    theme={{ light: GITHUB_LIGHT_THEME, dark: GITHUB_DARK_THEME }}
+                    colorScheme="dark"
+                    theme={{ dark: CONTRIBUTION_COLORS }}
                     fontSize={14}
                     blockSize={blockSize}
                     blockMargin={BLOCK_MARGIN}
@@ -192,13 +193,15 @@ export default function GitHubActivity({
 
               <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm">
                 <span>
-                  {data
-                    ? `${data.total} contributions in the last year`
-                    : "Loading contributions..."}
+                  {!data
+                    ? "Loading contributions..."
+                    : compact
+                      ? `${visibleDays.reduce((sum, day) => sum + day.count, 0)} contributions in the last 6 months`
+                      : `${data.total} contributions in the last year`}
                 </span>
                 <span className="flex items-center gap-[3px] text-muted">
                   <span className="mr-1">Less</span>
-                  {legendColors.map((color) => (
+                  {CONTRIBUTION_COLORS.map((color) => (
                     <span
                       key={color}
                       className="h-2.5 w-2.5 rounded-sm"

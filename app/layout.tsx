@@ -67,10 +67,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default async function RootLayout({
@@ -84,9 +82,14 @@ export default async function RootLayout({
     getContributions(siteConfig.githubUsername),
   ]);
   return (
-    // Always dark; the light theme tokens remain in globals.css but nothing switches to them
     <html lang="en" className="dark">
       <head>
+        {/* rel="me" verifies these profiles belong to the owner of this site */}
+        {[siteConfig.links.github, siteConfig.links.linkedin, siteConfig.links.twitter].map(
+          (href) => (
+            <link key={href} rel="me" href={href} />
+          ),
+        )}
         {/* Scroll-in animations start hidden; without JS they would never reveal, so show everything */}
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>

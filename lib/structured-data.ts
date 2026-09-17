@@ -34,6 +34,8 @@ export function homepageStructuredData() {
         "@type": "Person",
         "@id": personId,
         name,
+        // Handles people search for, tying this page to the same person on other sites
+        alternateName: [siteConfig.githubUsername, siteConfig.profiles.x.handle],
         url,
         image: `${url}${siteConfig.profileImage}`,
         jobTitle: siteConfig.title,

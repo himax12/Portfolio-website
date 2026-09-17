@@ -24,7 +24,7 @@ import {
 import { Dock, DockItem } from "@/components/ui/dock";
 
 const iconClass =
-  "flex h-9 w-9 items-center justify-center rounded-md text-foreground/75 hover:text-primary hover:bg-overlay/15 transition-colors duration-200 focus-visible:text-primary focus-visible:bg-overlay/10";
+  "flex h-9 w-9 items-center justify-center rounded-md text-foreground/75 hover:text-primary hover:bg-overlay/15 transition duration-200 focus-visible:text-primary focus-visible:bg-overlay/10 active:scale-90 active:bg-overlay/20";
 
 const HOME: NavItem = { label: "Home", href: "/#home", sections: ["home"] };
 

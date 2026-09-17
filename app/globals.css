@@ -3,30 +3,15 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light theme */
+  /* The site is dark-only */
   :root {
-    --background: 0 0% 97%;
-    --foreground: 0 0% 9%;
-    --border: 0 0% 85%;
-    --accent: 0 0% 93%;
-    --muted: 0 0% 38%;
-    --primary: 0 0% 0%;
-    /* Tint color for hover states, dividers and glass edges: dark ink on light */
-    --overlay: 0 0 0;
-    --surface: 255 255 255;
-    --glass-alpha: 0.55;
-    --glass-strong-alpha: 0.85;
-    --glass-highlight: 0.7;
-    --shadow-alpha: 0.08;
-  }
-  /* Dark theme (default) */
-  .dark {
     --background: 0 0% 0%;
     --foreground: 0 0% 98%;
     --border: 0 0% 15%;
     --accent: 0 0% 8%;
     --muted: 0 0% 60%;
     --primary: 0 0% 100%;
+    /* Tint color for hover states, dividers and glass edges */
     --overlay: 255 255 255;
     --surface: 10 10 10;
     --glass-alpha: 0.04;
@@ -75,8 +60,6 @@
       inset 0 1px 0 0 rgb(255 255 255 / var(--glass-highlight)),
       0 12px 40px rgb(0 0 0 / var(--shadow-alpha));
   }
-  /* Navbar docked to the top edge: bottom border only (the page frame supplies the
-     sides), and no top highlight, which would draw a line along the viewport edge */
   /* Homepage section rhythm: compact padding with a dashed divider above each section */
   .section {
     @apply px-6 sm:px-10 py-10 border-t border-dashed border-overlay/15;
@@ -98,6 +81,22 @@
       inset 0 -1px 0 0 rgb(255 255 255 / 0.04),
       0 10px 30px rgb(0 0 0 / 0.45);
   }
+  /* Hover previews: the dock's see-through frosted glass, slightly denser so card text stays legible */
+  .glass-card {
+    background-color: rgb(var(--surface) / 0.55);
+    background-image: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.09),
+      rgb(255 255 255 / 0.02)
+    );
+    border: 1px solid rgb(255 255 255 / 0.14);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.18),
+      inset 0 -1px 0 0 rgb(255 255 255 / 0.04),
+      0 16px 40px rgb(0 0 0 / 0.5);
+  }
   /* Tint without blur, for small repeated elements like tags and buttons */
   .glass-subtle {
     background-color: rgb(var(--overlay) / 0.03);
@@ -105,8 +104,7 @@
     box-shadow: inset 0 1px 0 0 rgb(255 255 255 / var(--glass-highlight));
   }
   /* The translucent page frame; its blur lives on a separate sibling layer.
-     No top edge: it starts at the top of the viewport behind the floating
-     navbar, where a border or highlight would stack with the navbar's own. */
+     No top edge: it starts at the very top of the viewport. */
   .glass-frame {
     background-color: rgb(var(--overlay) / 0.02);
     border: 1px solid rgb(var(--overlay) / 0.1);

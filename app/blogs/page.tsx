@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   // Rendered as "Blogs | Himanshu Gupta" via the title template in app/layout.tsx
   title: "Blogs",
   description: `Blog posts by ${siteConfig.name}.`,
+  // Kept out of search results until there are posts; links on it are still followed
+  robots: { index: false, follow: true },
   alternates: {
     canonical: "/blogs",
     types: { "text/markdown": "/blogs.md" },
