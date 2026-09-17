@@ -1,4 +1,5 @@
 import type { Activity } from "react-activity-calendar";
+import { siteConfig } from "@/config/site";
 
 // Server-side GitHub data, cached with ISR so the page ships real content in its HTML
 // and visitors never hit GitHub's unauthenticated rate limits from their browser
@@ -13,21 +14,29 @@ export type MergedPullRequest = {
 
 export type ContributionData = { contributions: Activity[]; total: number };
 
+// GitHub search for merged PRs to other people's repositories: own repos, forks and
+// excluded work organizations don't count as open source contributions
+export const mergedPullRequestsQuery = (username: string) =>
+  [
+    `author:${username}`,
+    "type:pr",
+    "is:merged",
+    `-user:${username}`,
+    ...siteConfig.openSourceExcludedOwners.map((owner) => `-org:${owner}`),
+  ].join(" ");
+
 // Optional token raises the search API limit; the site works without it
 const githubHeaders = (): HeadersInit =>
   process.env.GITHUB_TOKEN
     ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
     : {};
 
-// Merged PRs to other people's repositories (own repos and forks are excluded,
-// since those aren't open source contributions). Returns null on failure.
+// Merged open source PRs (see mergedPullRequestsQuery). Returns null on failure.
 export async function getMergedPullRequests(
   username: string,
   limit = 10,
 ): Promise<MergedPullRequest[] | null> {
-  const query = encodeURIComponent(
-    `author:${username} type:pr is:merged -user:${username}`,
-  );
+  const query = encodeURIComponent(mergedPullRequestsQuery(username));
   try {
     const res = await fetch(
       `https://api.github.com/search/issues?q=${query}&sort=created&order=desc&per_page=${limit}`,

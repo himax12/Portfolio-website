@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { experienceLabel } from "@/lib/experience";
-import type { ContributionData, MergedPullRequest } from "@/lib/github";
+import { mergedPullRequestsQuery, type ContributionData, type MergedPullRequest } from "@/lib/github";
 
 // Live GitHub data for the Open source section; each part is left out if its fetch failed
 export type OpenSourceData = {
@@ -63,7 +63,7 @@ ${siteConfig.projects.map(projectLine).join("\n")}
 
 function openSourceMarkdown({ pullRequests, contributions }: OpenSourceData) {
   const username = siteConfig.githubUsername;
-  const allMerged = `https://github.com/pulls?q=${encodeURIComponent(`author:${username} is:merged -user:${username}`)}`;
+  const allMerged = `https://github.com/pulls?q=${encodeURIComponent(mergedPullRequestsQuery(username))}`;
   const recent = pullRequests
     ?.map((pr) => `- [${pr.title}](${pr.url}) (${pr.repo}, merged ${monthYear(pr.mergedAt)})`)
     .join("\n");

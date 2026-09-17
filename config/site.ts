@@ -124,9 +124,11 @@ export const siteConfig = {
   // GitHub Username for contribution graph
   githubUsername: "himax12",
 
+  // Organizations whose PRs are work, not open source contributions (Stepnex runs Sparkonomy)
+  openSourceExcludedOwners: ["StepnexTechnologies"],
+
   // Short labels for open source tiles, keyed by "owner/repo"; other repos use their name
   openSourceLabels: {
-    "StepnexTechnologies/spark-landing-frontend": "Stepnex",
     "NaveenSh7/SaaS-Monitoring-System": "SaaS Monitor",
   } as Record<string, string>,
 
