@@ -31,7 +31,14 @@ export function Dock({
   return (
     <nav
       {...props}
-      onMouseMove={(e) => mouseX.set(e.clientX)}
+      // React bubbles events from portals (the hover cards) up to the dock, so only
+      // track the cursor while it's over the bar itself; otherwise the icons keep
+      // magnifying and shift the open card sideways under the cursor
+      onMouseMove={(e) =>
+        mouseX.set(
+          e.currentTarget.contains(e.target as Node) ? e.clientX : Infinity,
+        )
+      }
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn("flex items-center", className)}
     >
