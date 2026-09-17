@@ -48,8 +48,8 @@ export default function Hero({ mergedPullRequests }: { mergedPullRequests: numbe
       <ul className="mt-6 grid gap-2.5 text-[15px] sm:text-[16.5px] leading-[1.9] text-foreground/85">
         {currentRole && (
           <li className="relative pl-5 before:absolute before:left-0.5 before:text-overlay/40 before:content-['•']">
-            {currentRole.role} at <CompanyBadge company={currentRole.company} /> building agent
-            products.
+            {currentRole.role} at <CompanyBadge company={currentRole.company} /> sparking up the
+            creator economy.
           </li>
         )}
         <li className="relative pl-5 before:absolute before:left-0.5 before:text-overlay/40 before:content-['•']">
