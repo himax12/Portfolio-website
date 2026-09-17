@@ -13,7 +13,8 @@ const siteTitle = `${siteConfig.name} - ${siteConfig.title}`;
 // Static file (not a generated route) so scrapers get a fixed Content-Length;
 // WhatsApp and some others skip chunked, on-the-fly images
 const shareImage = {
-  url: "/og.png",
+  // Bump the version whenever the image changes; social platforms cache by URL
+  url: "/og.png?v=2",
   width: 1200,
   height: 630,
   alt: siteTitle,
