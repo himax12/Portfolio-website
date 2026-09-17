@@ -7,6 +7,7 @@ import SectionHeading from "@/components/ui/section-heading";
 import { useTheme } from "@/lib/use-theme";
 import ActivityCalendar from "react-activity-calendar";
 import type { ContributionData } from "@/lib/github";
+import { formatContribution } from "@/lib/contributions";
 import { cloneElement, useEffect, useRef, useState } from "react";
 
 const CONTRIBUTIONS_API = "https://github-contributions-api.jogruber.de/v4";
@@ -35,19 +36,6 @@ const TOOLTIP_EDGE_PADDING = 110;
 const EDGE_FADE = "32px";
 
 type Tooltip = { text: string; x: number; y: number };
-
-function formatContribution(date: string, count: number) {
-  // Parse as a local date; `new Date("yyyy-mm-dd")` is UTC and can shift the day
-  const [year, month, day] = date.split("-").map(Number);
-  const label = new Date(year, month - 1, day).toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-  if (count === 0) return `No contributions on ${label}`;
-  return `${count} contribution${count === 1 ? "" : "s"} on ${label}`;
-}
 
 // initialData comes from the server (ISR); the browser only fetches if that failed
 export default function GitHubActivity({

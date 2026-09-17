@@ -2,13 +2,17 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { ArrowUpRight, Calendar, Clock, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
+import { formatContribution } from "@/lib/contributions";
 
 // GitHub's dark-mode contribution colors, from empty to busiest
 const CONTRIBUTION_COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 const HEATMAP_WEEKS = 16;
+// Half the widest tooltip, so it never spills past the card edges
+const TOOLTIP_EDGE_PADDING = 95;
 
 const linkClass =
   "font-medium text-foreground border-b border-overlay/30 hover:border-foreground transition-colors";
@@ -124,8 +128,11 @@ function CardHeader({
   );
 }
 
-// Last few weeks of contributions as a compact GitHub-style grid (columns are weeks)
+// Last few weeks of contributions as a compact GitHub-style grid (columns are weeks);
+// hovering or tapping a day shows its count, like the full GitHub Activity section
 function MiniHeatmap({ data }: { data: ContributionData }) {
+  const [tooltip, setTooltip] = useState<{ text: string; x: number; y: number } | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const days = data.contributions.slice(-HEATMAP_WEEKS * 7);
   // Pad the front so the first column starts on Sunday, like GitHub
   const [year, month, day] = (days[0]?.date ?? "2000-01-01").split("-").map(Number);
@@ -136,20 +143,49 @@ function MiniHeatmap({ data }: { data: ContributionData }) {
   );
   const recent = days.reduce((sum, d) => sum + d.count, 0);
 
+  const showTooltip = (target: Element, date: string, count: number) => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const cell = target.getBoundingClientRect();
+    const bounds = grid.getBoundingClientRect();
+    const x = cell.left + cell.width / 2 - bounds.left;
+    setTooltip({
+      text: formatContribution(date, count),
+      // The card is narrower than the grid is long, so keep the tooltip inside it
+      x: Math.min(Math.max(x, TOOLTIP_EDGE_PADDING), bounds.width - TOOLTIP_EDGE_PADDING),
+      y: cell.top - bounds.top,
+    });
+  };
+
   return (
     <div className="mt-4">
-      <div className="flex gap-[3px]" aria-hidden="true">
+      <div ref={gridRef} className="relative flex gap-[3px]" onMouseLeave={() => setTooltip(null)}>
         {weeks.map((week, w) => (
           <div key={w} className="flex flex-col gap-[3px]">
-            {week.map((d, i) => (
-              <span
-                key={i}
-                className="h-[11px] w-[11px] rounded-[2px]"
-                style={{ backgroundColor: d ? CONTRIBUTION_COLORS[d.level] : "transparent" }}
-              />
-            ))}
+            {week.map((d, i) =>
+              d ? (
+                <span
+                  key={i}
+                  onMouseEnter={(e) => showTooltip(e.currentTarget, d.date, d.count)}
+                  onClick={(e) => showTooltip(e.currentTarget, d.date, d.count)}
+                  className="h-[11px] w-[11px] rounded-[2px] hover:outline hover:outline-1 hover:outline-foreground/60"
+                  style={{ backgroundColor: CONTRIBUTION_COLORS[d.level] }}
+                />
+              ) : (
+                <span key={i} className="h-[11px] w-[11px]" />
+              ),
+            )}
           </div>
         ))}
+        {tooltip && (
+          <div
+            role="tooltip"
+            style={{ left: tooltip.x, top: tooltip.y }}
+            className="pointer-events-none absolute z-10 -mt-1.5 -translate-x-1/2 -translate-y-full whitespace-nowrap glass-strong rounded-md px-2 py-1 text-[11px] text-foreground"
+          >
+            {tooltip.text}
+          </div>
+        )}
       </div>
       <p className="mt-2 text-xs text-muted">
         {recent} contributions in {HEATMAP_WEEKS} weeks · {data.total} this year
