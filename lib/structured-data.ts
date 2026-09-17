@@ -50,6 +50,13 @@ export function homepageStructuredData() {
         },
         ...(currentEmployers.length ? { worksFor: currentEmployers } : {}),
         knowsAbout: Array.from(new Set(stack)),
+        // The resume PDF at /resume describes this person
+        subjectOf: {
+          "@type": "DigitalDocument",
+          name: `${name} - Resume`,
+          url: `${url}${siteConfig.links.resume}`,
+          encodingFormat: "application/pdf",
+        },
         sameAs: [
           siteConfig.links.github,
           siteConfig.links.linkedin,

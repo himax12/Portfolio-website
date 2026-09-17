@@ -10,7 +10,7 @@ const links = () =>
     `- [LinkedIn](${siteConfig.links.linkedin})`,
     `- [X / Twitter](${siteConfig.links.twitter})`,
     `- [Codolio coding profile](${siteConfig.codingProfiles.codolio})`,
-    `- [Resume](${siteConfig.links.resume})`,
+    `- [Resume (PDF)](${siteConfig.url}${siteConfig.links.resume})`,
     `- [Book a call](${siteConfig.links.calendar})`,
     `- Email: ${siteConfig.links.email}`,
   ].join("\n");
