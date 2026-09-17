@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { GitMerge } from "lucide-react";
+import { siteConfig } from "@/config/site";
 import type { MergedPullRequest } from "@/lib/github";
 import { ProfileHoverCard } from "@/components/ui/profile-hover-cards";
 import PixelGlow from "@/components/ui/pixel-glow";
@@ -19,7 +20,8 @@ export default function OpenSourceOrg({
   pullRequests: MergedPullRequest[];
 }) {
   const [active, setActive] = useState(false);
-  const [owner, name] = repo.split("/");
+  const [owner, repoName] = repo.split("/");
+  const name = siteConfig.openSourceLabels[repo] ?? repoName;
   const count = pullRequests.length;
 
   return (
@@ -50,7 +52,7 @@ export default function OpenSourceOrg({
                 className="relative h-[52px] w-[52px] rounded-full border border-overlay/15 bg-[#111] grayscale-[65%] transition duration-300 group-hover:scale-110 group-hover:grayscale-0 group-focus-visible:scale-110 group-focus-visible:grayscale-0"
               />
             </span>
-            <span className="relative line-clamp-1 max-w-full break-all text-center text-[13px] font-semibold text-foreground">
+            <span title={repo} className="relative max-w-full truncate text-center text-[13px] font-semibold text-foreground">
               {name}
             </span>
             <span className="relative inline-flex items-center gap-1 text-[11.5px] text-muted">

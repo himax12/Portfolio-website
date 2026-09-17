@@ -124,6 +124,12 @@ export const siteConfig = {
   // GitHub Username for contribution graph
   githubUsername: "himax12",
 
+  // Short labels for open source tiles, keyed by "owner/repo"; other repos use their name
+  openSourceLabels: {
+    "StepnexTechnologies/spark-landing-frontend": "Stepnex",
+    "NaveenSh7/SaaS-Monitoring-System": "SaaS Monitor",
+  } as Record<string, string>,
+
   // Coding Profiles
   codingProfiles: {
     codolio: "https://codolio.com/profile/himax12",
