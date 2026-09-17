@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import {
   getContributions,
   getMergedPullRequests,
+  getProjectRepos,
 } from "@/lib/github";
 import { homepageStructuredData } from "@/lib/structured-data";
 
@@ -16,9 +17,10 @@ import { homepageStructuredData } from "@/lib/structured-data";
 export const revalidate = 3600;
 
 export default async function Home() {
-  const [pullRequests, contributions] = await Promise.all([
+  const [pullRequests, contributions, repos] = await Promise.all([
     getMergedPullRequests(siteConfig.githubUsername),
     getContributions(siteConfig.githubUsername),
+    getProjectRepos(),
   ]);
 
   return (
@@ -32,7 +34,7 @@ export default async function Home() {
       <main className="min-h-screen relative z-10">
         <Hero mergedPullRequests={pullRequests?.length ?? null} />
         <Experience />
-        <Projects />
+        <Projects repos={repos} />
         <OpenSource pullRequests={pullRequests} />
         <Skills />
         <GitHubActivity initialData={contributions} />

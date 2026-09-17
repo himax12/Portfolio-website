@@ -111,3 +111,64 @@ export async function getGitHubProfile(
     return null;
   }
 }
+
+// Repository details for the hover preview on a project's GitHub link
+export type RepoPreview = {
+  fullName: string;
+  owner: string;
+  name: string;
+  ownerAvatarUrl: string;
+  description: string | null;
+  stars: number;
+  forks: number;
+  language: string | null;
+  pushedAt: string;
+  topics: string[];
+};
+
+// "https://github.com/owner/repo" -> "owner/repo"; null for anything else
+export function repoFromUrl(url: string): string | null {
+  const match = url.match(/^https?:\/\/(?:www\.)?github\.com\/([^/]+\/[^/#?]+)/);
+  return match ? match[1].replace(/\.git$/, "") : null;
+}
+
+async function getRepoPreview(fullName: string): Promise<RepoPreview | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${fullName}`, {
+      headers: githubHeaders(),
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
+    if (!res.ok) return null;
+    const repo = await res.json();
+    return {
+      fullName: repo.full_name,
+      owner: repo.owner.login,
+      name: repo.name,
+      ownerAvatarUrl: repo.owner.avatar_url,
+      description: repo.description?.trim() || null,
+      stars: repo.stargazers_count,
+      forks: repo.forks_count,
+      language: repo.language,
+      pushedAt: repo.pushed_at,
+      topics: repo.topics ?? [],
+    };
+  } catch {
+    return null;
+  }
+}
+
+// Previews for every project repository, keyed by "owner/repo"; repos that fail
+// to load are simply absent, and their links stay plain
+export async function getProjectRepos(): Promise<Record<string, RepoPreview>> {
+  const names = Array.from(
+    new Set(
+      siteConfig.projects
+        .map((project) => repoFromUrl(project.githubUrl))
+        .filter((name): name is string => Boolean(name)),
+    ),
+  );
+  const previews = await Promise.all(names.map(getRepoPreview));
+  return Object.fromEntries(
+    previews.filter((repo): repo is RepoPreview => repo !== null).map((repo) => [repo.fullName, repo]),
+  );
+}

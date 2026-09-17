@@ -1,12 +1,12 @@
 "use client";
 
-import * as HoverCard from "@radix-ui/react-hover-card";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Calendar, Clock, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
 import { CONTRIBUTION_COLORS, formatContribution } from "@/lib/contributions";
+import { LinkHoverCard } from "@/components/ui/link-hover-card";
 
 const HEATMAP_WEEKS = 16;
 // Half the widest tooltip, so it never spills past the card edges
@@ -24,52 +24,6 @@ type TriggerProps = {
   // Card alignment relative to the trigger ("center" suits icon buttons)
   align?: "start" | "center" | "end";
 };
-
-// Hover (or keyboard focus) reveals a profile preview; the link itself still navigates,
-// so touch devices, which have no hover, simply open the profile
-export function ProfileHoverCard({
-  href,
-  trigger,
-  className = linkClass,
-  ariaLabel,
-  align = "start",
-  children,
-}: {
-  href: string;
-  trigger: React.ReactNode;
-  className?: string;
-  ariaLabel?: string;
-  align?: "start" | "center" | "end";
-  children: React.ReactNode;
-}) {
-  return (
-    <HoverCard.Root openDelay={200} closeDelay={150}>
-      <HoverCard.Trigger asChild>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={ariaLabel}
-          className={className}
-        >
-          {trigger}
-        </a>
-      </HoverCard.Trigger>
-      {/* Portal escapes the page frame so the card is never clipped */}
-      <HoverCard.Portal>
-        <HoverCard.Content
-          side="top"
-          align={align}
-          sideOffset={10}
-          collisionPadding={16}
-          className="hover-card glass-card z-[60] w-72 rounded-md p-4 text-sm text-foreground"
-        >
-          {children}
-        </HoverCard.Content>
-      </HoverCard.Portal>
-    </HoverCard.Root>
-  );
-}
 
 export function XLogo({ className }: { className?: string }) {
   return (
@@ -195,7 +149,7 @@ function MiniHeatmap({ data }: { data: ContributionData }) {
 export function BookCallLink({ children, className, ariaLabel, align }: TriggerProps) {
   const calendly = siteConfig.profiles.calendly;
   return (
-    <ProfileHoverCard
+    <LinkHoverCard
       href={siteConfig.links.calendar}
       trigger={children ?? "Book a Call"}
       className={className}
@@ -223,14 +177,14 @@ export function BookCallLink({ children, className, ariaLabel, align }: TriggerP
         Pick a time
         <ArrowUpRight className="h-3.5 w-3.5" />
       </a>
-    </ProfileHoverCard>
+    </LinkHoverCard>
   );
 }
 
 export function XProfileLink({ children, className, ariaLabel, align }: TriggerProps) {
   const x = siteConfig.profiles.x;
   return (
-    <ProfileHoverCard
+    <LinkHoverCard
       href={siteConfig.links.twitter}
       trigger={children ?? `@${x.handle}`}
       className={className}
@@ -246,14 +200,14 @@ export function XProfileLink({ children, className, ariaLabel, align }: TriggerP
         platform="X"
       />
       <p className="mt-3 whitespace-pre-line text-muted leading-relaxed">{x.bio}</p>
-    </ProfileHoverCard>
+    </LinkHoverCard>
   );
 }
 
 export function LinkedInProfileLink({ children, className, ariaLabel, align }: TriggerProps) {
   const linkedin = siteConfig.profiles.linkedin;
   return (
-    <ProfileHoverCard
+    <LinkHoverCard
       href={siteConfig.links.linkedin}
       trigger={children ?? "LinkedIn"}
       className={className}
@@ -269,7 +223,7 @@ export function LinkedInProfileLink({ children, className, ariaLabel, align }: T
         platform="LinkedIn"
         wrapSubtitle
       />
-    </ProfileHoverCard>
+    </LinkHoverCard>
   );
 }
 
@@ -299,7 +253,7 @@ export function GitHubProfileLink({
     );
   }
   return (
-    <ProfileHoverCard
+    <LinkHoverCard
       href={siteConfig.links.github}
       trigger={children ?? "GitHub"}
       className={className}
@@ -319,6 +273,6 @@ export function GitHubProfileLink({
         {profile.publicRepos} repositories · {profile.followers} followers
       </p>
       {contributions && <MiniHeatmap data={contributions} />}
-    </ProfileHoverCard>
+    </LinkHoverCard>
   );
 }

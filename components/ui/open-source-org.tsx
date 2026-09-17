@@ -4,7 +4,7 @@ import { useState } from "react";
 import { GitMerge } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { MergedPullRequest } from "@/lib/github";
-import { ProfileHoverCard } from "@/components/ui/profile-hover-cards";
+import { LinkHoverCard } from "@/components/ui/link-hover-card";
 import PixelGlow from "@/components/ui/pixel-glow";
 
 const formatMonth = (iso: string) =>
@@ -32,7 +32,7 @@ export default function OpenSourceOrg({
       onFocus={() => setActive(true)}
       onBlur={() => setActive(false)}
     >
-      <ProfileHoverCard
+      <LinkHoverCard
         href={`https://github.com/${repo}/pulls?q=${encodeURIComponent("is:pr is:merged")}`}
         ariaLabel={`${repo}: ${count} merged pull request${count === 1 ? "" : "s"}`}
         align="center"
@@ -81,7 +81,7 @@ export default function OpenSourceOrg({
             </li>
           ))}
         </ul>
-      </ProfileHoverCard>
+      </LinkHoverCard>
     </li>
   );
 }

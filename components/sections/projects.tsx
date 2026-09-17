@@ -1,14 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
+import { LiveSiteLink, RepoLink } from "@/components/ui/project-links";
+import { repoFromUrl, type RepoPreview } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
-// First project gets the full width; the rest sit two to a row
-export default function Projects() {
+// First project gets the full width; the rest sit two to a row. Repo previews come
+// from the server, keyed by "owner/repo"; missing ones leave the links plain.
+export default function Projects({ repos }: { repos: Record<string, RepoPreview> }) {
   return (
     <section id="projects" className="section">
       <SectionHeading title="Projects" />
@@ -17,6 +19,7 @@ export default function Projects() {
         {siteConfig.projects.map((project, index) => {
           // A live link that's just the repo would duplicate the GitHub icon
           const liveUrl = project.liveUrl !== project.githubUrl ? project.liveUrl : "";
+          const repoName = repoFromUrl(project.githubUrl);
           return (
             <motion.article
               key={project.title}
@@ -39,25 +42,21 @@ export default function Projects() {
                     </span>
                   )}
                   {liveUrl && (
-                    <a
+                    <LiveSiteLink
                       href={liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      preview={project.preview || undefined}
+                      title={project.title}
+                      summary={project.summary}
                       className="group/link flex items-center gap-0.5 text-foreground/80 hover:text-foreground transition-colors"
-                    >
-                      {new URL(liveUrl).hostname.replace(/^www\./, "")}
-                      <ArrowUpRight className="h-3 w-3 opacity-50 group-hover/link:opacity-100 transition-opacity" />
-                    </a>
+                    />
                   )}
-                  <a
+                  <RepoLink
                     href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${project.title} source code on GitHub`}
+                    repo={repoName ? repos[repoName] : undefined}
+                    title={project.title}
+                    summary={project.summary}
                     className="text-muted hover:text-foreground transition-colors"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
+                  />
                 </div>
               </div>
 
