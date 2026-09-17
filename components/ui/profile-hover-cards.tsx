@@ -82,12 +82,17 @@ function CardHeader({
   name,
   subtitle,
   icon,
+  href,
+  platform,
   wrapSubtitle = false,
 }: {
   avatar: string;
   name: string;
   subtitle: string;
   icon: React.ReactNode;
+  // The corner platform icon links to the profile
+  href: string;
+  platform: string;
   // Handles stay on one line; longer text like a LinkedIn headline wraps instead of truncating
   wrapSubtitle?: boolean;
 }) {
@@ -106,7 +111,15 @@ function CardHeader({
           {subtitle}
         </p>
       </div>
-      <span className="text-muted">{icon}</span>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${platform} profile`}
+        className="-m-1.5 rounded-md p-1.5 text-muted hover:text-foreground hover:bg-overlay/10 transition-colors"
+      >
+        {icon}
+      </a>
     </div>
   );
 }
@@ -160,6 +173,8 @@ export function XProfileLink({ children, className, ariaLabel, align }: TriggerP
         name={x.name}
         subtitle={`@${x.handle}`}
         icon={<XLogo className="h-4 w-4" />}
+        href={siteConfig.links.twitter}
+        platform="X"
       />
       <p className="mt-3 whitespace-pre-line text-muted leading-relaxed">{x.bio}</p>
     </ProfileHoverCard>
@@ -181,6 +196,8 @@ export function LinkedInProfileLink({ children, className, ariaLabel, align }: T
         name={linkedin.name}
         subtitle={linkedin.headline}
         icon={<Linkedin className="h-4 w-4" />}
+        href={siteConfig.links.linkedin}
+        platform="LinkedIn"
         wrapSubtitle
       />
     </ProfileHoverCard>
@@ -225,6 +242,8 @@ export function GitHubProfileLink({
         name={profile.name ?? profile.login}
         subtitle={`@${profile.login}`}
         icon={<Github className="h-4 w-4" />}
+        href={siteConfig.links.github}
+        platform="GitHub"
       />
       {profile.bio && <p className="mt-3 text-muted">{profile.bio}</p>}
       <p className="mt-2 text-xs text-muted">
