@@ -151,10 +151,9 @@ export const siteConfig = {
         "Autonomous reasoning system designed to solve high-school and undergraduate level mathematics problems with high reliability. Unlike typical chat interfaces, this application decouples semantic understanding from deterministic computation. The system accepts multimodal inputs (text, image, audio) and employs a Human-in-the-Loop (HITL) workflow to handle ambiguity before it propagates to the solver.",
       image: "/projects/math-mentor.jpg",
       tags: ["Python", "RAG", "Multi-Agent", "HITL", "Multimodal"],
-      // Cloud Run demo returns 500; re-add liveUrl and isLive once it is back up
-      liveUrl: "",
+      liveUrl: "https://github.com/himax12/MathPilot",
       githubUrl: "https://github.com/himax12/MathPilot",
-      isLive: false,
+      isLive: true,
     },
     {
       title: "AI Medical Scheduling Agent",
