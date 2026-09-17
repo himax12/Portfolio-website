@@ -1,62 +1,50 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
-import Image from "next/image";
 
 export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
-    >
-      <div>
-        <SectionHeading title="Experience" />
+    <section id="experience" className="section">
+      <SectionHeading title="Experience" />
 
-        <div className="space-y-4">
-          {/* Experience */}
-          {siteConfig.experience.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass rounded-md p-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
-            >
-              <div>
-                <h3 className="flex items-center gap-2 text-lg font-semibold mb-1">
-                  {exp.logo && (
-                    <Image src={exp.logo} alt="" width={14} height={19} className="h-[1em] w-auto" />
-                  )}
-                  {exp.company}
-                </h3>
-                <p className="text-sm text-muted">{exp.duration}</p>
-              </div>
-              <div className="md:col-span-2">
-                <p className="text-base font-medium mb-3">{exp.role}</p>
-                {exp.summary && (
-                  <p className="-mt-2 text-sm text-muted mb-3">{exp.summary}</p>
+      <div className="grid gap-3">
+        {siteConfig.experience.map((exp, index) => (
+          <motion.article
+            key={exp.company}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="glass rounded-md px-5 py-[18px]"
+          >
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+              <h3 className="flex items-center gap-2 text-[16.5px] font-semibold">
+                {exp.logo && (
+                  <Image src={exp.logo} alt="" width={12} height={16} className="h-4 w-auto" />
                 )}
-                {exp.highlights && (
-                  <ul className="mb-4 space-y-1.5 text-sm md:text-base text-muted leading-relaxed list-disc pl-5 marker:text-overlay/30">
-                    {exp.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                )}
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech) => (
-                    <Tag key={tech}>{tech}</Tag>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-
-        </div>
+                {exp.company}
+              </h3>
+              <p className="whitespace-nowrap text-[13px] text-muted">{exp.duration}</p>
+            </div>
+            <p className="mt-0.5 text-[14.5px] text-foreground/80">{exp.role}</p>
+            {exp.highlights && (
+              <ul className="mt-2.5 ml-[18px] list-disc space-y-0.5 text-sm leading-relaxed text-muted marker:text-overlay/30">
+                {exp.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            )}
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {exp.technologies.map((tech) => (
+                <Tag key={tech}>{tech}</Tag>
+              ))}
+            </div>
+          </motion.article>
+        ))}
       </div>
     </section>
   );

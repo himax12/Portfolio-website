@@ -79,13 +79,9 @@ export const siteConfig = {
       summary:
         "Tech Department, worked on OCR pipelines, ML/DL model training, and data automation.",
       highlights: [
-        "Assisted in building OCR pipelines using EasyOCR, Tesseract, OpenCV, and preprocessing techniques",
-        "Supported training and fine-tuning ML/DL models using PyTorch/TensorFlow and YOLO via Roboflow",
-        "Wrote Python scripts for data cleaning, automation, and dataset preparation",
-        "Used FFmpeg for video/frame extraction and media processing tasks",
-        "Worked with MongoDB to store and manage OCR/model outputs",
-        "Tested model outputs, documented issues, and helped improve accuracy and performance",
-        "Collaborated with the team, maintained clean code, and followed Git-based workflows",
+        "Built OCR pipelines with EasyOCR, Tesseract and OpenCV preprocessing",
+        "Trained and fine-tuned PyTorch / TensorFlow and YOLO models",
+        "Automated data cleaning and FFmpeg media extraction; stored outputs in MongoDB",
       ],
       technologies: [
         "Python",
@@ -113,7 +109,7 @@ export const siteConfig = {
     backend: ["Node.js", "Express.js", "Python", "FastAPI"],
     database: ["MongoDB", "PostgreSQL", "SQLite", "Supabase"],
     languages: ["Python", "JavaScript", "TypeScript", "C++", "C", "SQL"],
-    tools: ["Git", "GitHub", "FFmpeg", "Streamlit", "Pandas", "NumPy"],
+    tools: ["Git", "GitHub", "Google Cloud", "FFmpeg", "Streamlit", "Pandas", "NumPy"],
     ai: [
       "TensorFlow",
       "PyTorch",
@@ -137,6 +133,9 @@ export const siteConfig = {
   projects: [
     {
       title: "ClipSync",
+      // Short card copy on the homepage; the full description feeds llms.txt and structured data
+      summary:
+        "AI video editing pipeline that merges A-Roll with contextually relevant B-Roll in a single API call, using Gemini VLM for visual analysis.",
       description:
         "AI-powered video editing automation system that intelligently merges A-Roll with contextually relevant B-Roll footage through a single API call. Uses Gemini VLM for visual analysis and implements intelligent placement algorithms for optimal narrative flow.",
       image: "/projects/clipsync.jpg",
@@ -147,6 +146,8 @@ export const siteConfig = {
     },
     {
       title: "Math Mentor",
+      summary:
+        "Multi-agent math reasoning with RAG memory, multimodal input and human-in-the-loop review.",
       // Freelance engagement; previously also listed separately as the "MathPilot" venture
       context: "Freelance · MathPilot",
       description:
@@ -159,6 +160,9 @@ export const siteConfig = {
     },
     {
       title: "AI Medical Scheduling Agent",
+      context: "Healthcare",
+      summary:
+        "Conversational booking agent with LangGraph state, Groq (Llama 3 70B) and Calendly.",
       description:
         "Autonomous conversational AI agent that streamlines patient booking through natural language. Features LangGraph state management, multi-API orchestration with Groq API (Llama 3 70B), and Calendly integration for intelligent appointment scheduling.",
       image: "/projects/medical-agent.jpg",

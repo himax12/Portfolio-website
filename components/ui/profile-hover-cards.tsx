@@ -29,7 +29,7 @@ type TriggerProps = {
 
 // Hover (or keyboard focus) reveals a profile preview; the link itself still navigates,
 // so touch devices, which have no hover, simply open the profile
-function ProfileHoverCard({
+export function ProfileHoverCard({
   href,
   trigger,
   className = linkClass,

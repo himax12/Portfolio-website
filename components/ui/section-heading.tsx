@@ -17,11 +17,9 @@ export default function SectionHeading({
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className={cn("mb-10 flex items-baseline justify-between gap-4", className)}
+      className={cn("mb-5 flex items-baseline justify-between gap-4", className)}
     >
-      <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-        {title}
-      </h2>
+      <h2 className="text-xl sm:text-[22px] font-bold tracking-tight">{title}</h2>
       {action}
     </motion.div>
   );

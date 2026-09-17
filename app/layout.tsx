@@ -101,13 +101,13 @@ export default async function RootLayout({
           />
         </div>
         <div className="relative flex min-h-screen items-center justify-center">
-          <div className="relative z-10 w-full max-w-4xl mx-auto glass-frame rounded-b-md">
+          <div className="relative z-10 w-full max-w-[720px] mx-auto glass-frame">
             {/* Glass effect lives on its own layer: backdrop-filter on an ancestor
                 would turn it into the containing block for fixed-position children
-                (navbar, mobile menu), pinning them to this box instead of the viewport */}
+                (hover cards, dock), pinning them to this box instead of the viewport */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 -z-10 rounded-b-md backdrop-blur-xl"
+              className="absolute inset-0 -z-10 backdrop-blur-xl"
             />
             <div className="relative z-30">
               <MotionProvider>{children}</MotionProvider>

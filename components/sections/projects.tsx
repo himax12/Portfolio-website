@@ -5,79 +5,72 @@ import { Github, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
+import { cn } from "@/lib/utils";
 
+// First project gets the full width; the rest sit two to a row
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
-    >
-      <div>
-        <SectionHeading title="Selected Work" />
+    <section id="projects" className="section">
+      <SectionHeading title="Projects" />
 
-        {/* Projects List */}
-        <div className="space-y-4">
-          {siteConfig.projects.map((project, index) => (
+      <div className="grid gap-3 sm:grid-cols-2">
+        {siteConfig.projects.map((project, index) => {
+          // A live link that's just the repo would duplicate the GitHub icon
+          const liveUrl = project.liveUrl !== project.githubUrl ? project.liveUrl : "";
+          return (
             <motion.article
               key={project.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass rounded-md p-6 space-y-3"
+              className={cn("glass flex flex-col rounded-md p-[18px]", index === 0 && "sm:col-span-2")}
             >
-              {/* Title and Status */}
-              <div className="flex items-baseline gap-3 flex-wrap">
-                <h3 className="text-lg font-semibold">{project.title}</h3>
-                {project.context && (
-                  <span className="text-xs text-muted">{project.context}</span>
-                )}
-                <div className="flex items-center gap-3 text-sm">
-                  {project.isLive && (
-                    <span className="flex items-center gap-1.5 text-xs text-muted">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="text-base font-semibold">{project.title}</h3>
+                  {project.context && <p className="mt-0.5 text-xs text-muted">{project.context}</p>}
+                </div>
+                <div className="flex shrink-0 items-center gap-2.5 pt-0.5 text-[13px]">
+                  {project.isLive && liveUrl && (
+                    <span className="flex items-center gap-1.5 text-foreground/80">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                       Live
                     </span>
                   )}
-                  {project.liveUrl && (
+                  {liveUrl && (
                     <a
-                      href={project.liveUrl}
+                      href={liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/link flex items-center gap-0.5 border-b border-foreground hover:border-muted transition-colors"
+                      className="group/link flex items-center gap-0.5 text-foreground/80 hover:text-foreground transition-colors"
                     >
-                      View
+                      {new URL(liveUrl).hostname.replace(/^www\./, "")}
                       <ArrowUpRight className="h-3 w-3 opacity-50 group-hover/link:opacity-100 transition-opacity" />
                     </a>
                   )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${project.title} source code on GitHub`}
-                      className="group/link flex items-center gap-1 text-muted hover:text-foreground transition-colors"
-                    >
-                      <Github className="h-3.5 w-3.5" />
-                    </a>
-                  )}
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} source code on GitHub`}
+                    className="text-muted hover:text-foreground transition-colors"
+                  >
+                    <Github className="h-4 w-4" />
+                  </a>
                 </div>
               </div>
 
-              {/* Description */}
-              <p className="text-sm sm:text-base text-muted leading-relaxed max-w-3xl">
-                {project.description}
-              </p>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{project.summary}</p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2">
-                {project.tags?.map((tag) => (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {project.tags.map((tag) => (
                   <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
             </motion.article>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -118,20 +118,16 @@ export default function GitHubActivity({
       : undefined;
 
   return (
-    <section
-      id="github"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
-    >
+    <section id="github" className="section">
       <div>
         <SectionHeading
           title="GitHub Activity"
-          className="mb-6"
           action={
             <a
               href={`https://github.com/${siteConfig.githubUsername}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
+              className="group flex items-center gap-1 text-[13px] text-muted hover:text-foreground transition-colors"
             >
               View Profile
               <ArrowUpRight className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -146,7 +142,7 @@ export default function GitHubActivity({
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
           onMouseLeave={() => setTooltip(null)}
-          className="glass relative rounded-md p-4 sm:p-6"
+          className="glass relative rounded-md p-4 sm:p-[18px]"
         >
           {failed ? (
             <p className="text-sm text-muted">

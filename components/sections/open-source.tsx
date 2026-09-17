@@ -1,94 +1,68 @@
-import { ArrowUpRight, GitPullRequest, GitMerge } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
+import OpenSourceOrg from "@/components/ui/open-source-org";
 import type { MergedPullRequest } from "@/lib/github";
 
-const formatDate = (dateString: string) =>
-  new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-  });
-
-// Server-rendered: PRs are fetched in app/page.tsx so they're in the page HTML
+// Server-rendered: PRs are fetched in app/page.tsx so they're in the page HTML.
+// Shown as one tile per repository, most recently merged first.
 export default function OpenSource({
   pullRequests,
 }: {
   pullRequests: MergedPullRequest[] | null;
 }) {
-  const githubUsername = siteConfig.githubUsername;
+  const username = siteConfig.githubUsername;
   const allContributionsUrl = `https://github.com/pulls?q=${encodeURIComponent(
-    `author:${githubUsername} is:merged -user:${githubUsername}`,
+    `author:${username} is:merged -user:${username}`,
   )}`;
 
+  // PRs arrive newest first, so insertion order keeps repos sorted by latest merge
+  const byRepo = new Map<string, MergedPullRequest[]>();
+  for (const pr of pullRequests ?? []) {
+    byRepo.set(pr.repo, [...(byRepo.get(pr.repo) ?? []), pr]);
+  }
+
   return (
-    <section
-      id="opensource"
-      className="px-6 sm:px-8 lg:px-12 py-24 border-t border-overlay/10"
-    >
-      <div>
-        <SectionHeading title="Open Source Contributions" />
-
-        {pullRequests === null ? (
-          <p className="text-sm text-muted">
-            Couldn&apos;t load contributions right now.{" "}
+    <section id="opensource" className="section">
+      <SectionHeading
+        title="Open Source"
+        action={
+          pullRequests?.length ? (
             <a
               href={allContributionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-b border-foreground text-foreground hover:border-muted transition-colors"
+              className="group inline-flex items-center gap-1 text-[13px] text-muted hover:text-foreground transition-colors"
             >
-              View them on GitHub
+              {pullRequests.length} merged PRs · {byRepo.size} projects
+              <ArrowUpRight className="h-3 w-3 opacity-50 group-hover:opacity-100 transition-opacity" />
             </a>
-          </p>
-        ) : pullRequests.length === 0 ? (
-          <p className="text-sm text-muted">No merged pull requests yet.</p>
-        ) : (
-          <div className="glass rounded-md p-2 space-y-1">
-            {pullRequests.map((pr) => (
-              <article key={pr.url} className="group">
-                <a
-                  href={pr.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block space-y-2 px-4 py-3 rounded-md hover:bg-overlay/5 transition-colors"
-                >
-                  {/* Repository Name */}
-                  <div className="flex items-center gap-2 text-xs text-muted">
-                    {/* GitHub colors per theme: purple for merged, green for the pull request */}
-                    <GitMerge className="h-3.5 w-3.5 text-[#8250df] dark:text-[#a371f7]" />
-                    <span className="font-medium">{pr.repo}</span>
-                    <span>•</span>
-                    <time dateTime={pr.mergedAt}>{formatDate(pr.mergedAt)}</time>
-                  </div>
+          ) : null
+        }
+      />
 
-                  {/* PR Title */}
-                  <div className="flex items-start gap-2">
-                    <GitPullRequest className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#1a7f37] dark:text-[#3fb950]" />
-                    <h3 className="text-base leading-relaxed flex-1">
-                      {pr.title}
-                    </h3>
-                    <ArrowUpRight className="h-4 w-4 opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {pullRequests && pullRequests.length > 0 && (
-          <div className="mt-12">
-            <a
-              href={allContributionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm border-b border-foreground hover:border-muted transition-colors"
-            >
-              View all contributions
-              <ArrowUpRight className="h-3 w-3" />
-            </a>
-          </div>
-        )}
-      </div>
+      {pullRequests === null ? (
+        <p className="text-sm text-muted">
+          Couldn&apos;t load contributions right now.{" "}
+          <a
+            href={allContributionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-b border-foreground text-foreground hover:border-muted transition-colors"
+          >
+            View them on GitHub
+          </a>
+        </p>
+      ) : pullRequests.length === 0 ? (
+        <p className="text-sm text-muted">No merged pull requests yet.</p>
+      ) : (
+        // Thin separators between tiles, like a segmented row
+        <ul className="grid grid-cols-3 sm:grid-cols-5 gap-y-2 [&>li+li]:before:absolute [&>li+li]:before:left-0 [&>li+li]:before:top-[18%] [&>li+li]:before:bottom-[18%] [&>li+li]:before:border-l [&>li+li]:before:border-overlay/10 [&>li+li]:before:content-['']">
+          {Array.from(byRepo, ([repo, prs]) => (
+            <OpenSourceOrg key={repo} repo={repo} pullRequests={prs} />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
