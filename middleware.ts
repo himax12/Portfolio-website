@@ -19,6 +19,14 @@ export function middleware(request: NextRequest) {
       : NextResponse.next();
   // Both variants share a URL, so caches must key on the Accept header
   response.headers.set("Vary", "Accept");
+  // Advertise the Markdown twin and llms.txt in headers too, so agents find them
+  // with a HEAD request instead of parsing HTML
+  if (markdownPath) {
+    response.headers.set(
+      "Link",
+      `<${markdownPath}>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"; type="text/plain"`,
+    );
+  }
   return response;
 }
 

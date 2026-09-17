@@ -17,6 +17,12 @@ const resumeHeaders = [
   { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
 ];
 
+// Markdown and text twins point search engines back to the HTML page they mirror,
+// so they stay readable for AI assistants without competing as duplicate content
+const canonical = (path) => [
+  { key: "Link", value: `<https://www.himex.tech${path}>; rel="canonical"` },
+];
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -27,13 +33,21 @@ const nextConfig = {
     ],
   },
   async rewrites() {
-    return [{ source: "/resume", destination: RESUME_FILE }];
+    return [
+      { source: "/resume", destination: RESUME_FILE },
+      // llmstxt.org convention: a page's Markdown lives at its URL + ".md"
+      { source: "/index.html.md", destination: "/index.md" },
+    ];
   },
   async headers() {
     return [
       { source: "/resume", headers: resumeHeaders },
       // The underlying file path points search engines back to /resume
       { source: RESUME_FILE, headers: resumeHeaders },
+      { source: "/index.md", headers: canonical("/") },
+      { source: "/index.html.md", headers: canonical("/") },
+      { source: "/llms-full.txt", headers: canonical("/") },
+      { source: "/blogs.md", headers: canonical("/blogs") },
     ];
   },
 };
