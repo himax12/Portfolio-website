@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FileText, Calendar } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { BookCallLink } from "@/components/ui/profile-hover-cards";
 
 // Rendered without entrance animations so the above-the-fold content
 // (name, title, CTAs) is visible in the server HTML before JS loads
@@ -46,15 +47,13 @@ export default function Hero() {
 
         {/* One primary action; email and other links live in the social bar */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center items-center mb-4">
-          <a
-            href={siteConfig.links.calendar}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookCallLink
+            align="center"
             className="flex w-full sm:w-auto items-center gap-2 px-6 py-3 bg-foreground text-background hover:bg-foreground/85 transition-colors justify-center font-semibold rounded-md"
           >
             <Calendar className="h-5 w-5" />
             Book a Call
-          </a>
+          </BookCallLink>
           <a
             href={siteConfig.links.resume}
             target="_blank"

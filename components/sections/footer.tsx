@@ -1,6 +1,7 @@
 import { ArrowUpRight, Calendar, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
+import { BookCallLink } from "@/components/ui/profile-hover-cards";
 
 const PROFILE_LINKS = [
   { label: "GitHub", href: siteConfig.links.github },
@@ -22,15 +23,10 @@ export default function Footer() {
       <div className="glass rounded-md p-6 sm:p-8">
         <p className="text-base sm:text-lg mb-6">{siteConfig.availability}.</p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href={siteConfig.links.calendar}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background font-semibold hover:bg-foreground/85 transition-colors"
-          >
+          <BookCallLink className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background font-semibold hover:bg-foreground/85 transition-colors">
             <Calendar className="h-4 w-4" />
             Book a Call
-          </a>
+          </BookCallLink>
           <a
             href={`mailto:${siteConfig.links.email}`}
             className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-md glass-subtle font-semibold hover:bg-overlay/10 transition-colors"

@@ -2,7 +2,7 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import Image from "next/image";
-import { Github, Linkedin } from "lucide-react";
+import { ArrowUpRight, Calendar, Clock, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import type { ContributionData, GitHubProfile } from "@/lib/github";
 
@@ -155,6 +155,42 @@ function MiniHeatmap({ data }: { data: ContributionData }) {
         {recent} contributions in {HEATMAP_WEEKS} weeks · {data.total} this year
       </p>
     </div>
+  );
+}
+
+export function BookCallLink({ children, className, ariaLabel, align }: TriggerProps) {
+  const calendly = siteConfig.profiles.calendly;
+  return (
+    <ProfileHoverCard
+      href={siteConfig.links.calendar}
+      trigger={children ?? "Book a Call"}
+      className={className}
+      ariaLabel={ariaLabel}
+      align={align}
+    >
+      <CardHeader
+        avatar={calendly.avatar}
+        name={calendly.name}
+        subtitle={calendly.event}
+        icon={<Calendar className="h-4 w-4" />}
+        href={siteConfig.links.calendar}
+        platform="Calendly"
+      />
+      <p className="mt-3 flex items-center gap-2 text-muted">
+        <Clock className="h-4 w-4" />
+        {calendly.durationMinutes} min
+      </p>
+      <p className="mt-2 text-muted leading-relaxed">{siteConfig.availability}.</p>
+      <a
+        href={siteConfig.links.calendar}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex items-center gap-1 font-medium text-foreground border-b border-overlay/30 hover:border-foreground transition-colors"
+      >
+        Pick a time
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </a>
+    </ProfileHoverCard>
   );
 }
 

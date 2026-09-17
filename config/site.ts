@@ -42,6 +42,13 @@ export const siteConfig = {
       headline: "Full Stack AI Engineer @ Sparkonomy",
       avatar: "/avatars/linkedin.png",
     },
+    // Mirrors the Calendly event at links.calendar
+    calendly: {
+      name: "Himanshu Gupta",
+      event: "30 Minute Meeting",
+      durationMinutes: 30,
+      avatar: "/avatars/linkedin.png",
+    },
   },
 
   // Experience (most recent first); summary and highlights are optional
