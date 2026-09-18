@@ -124,7 +124,7 @@ ${project.description}
 > ${siteConfig.shortDescription}
 
 - Location: ${siteConfig.location}
-- Education: ${siteConfig.education}
+- Education: ${siteConfig.education.degree}, ${siteConfig.education.school} (${siteConfig.education.duration})
 - Experience: ${experience}
 - Website: ${siteConfig.url}
 

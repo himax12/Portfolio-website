@@ -3,8 +3,17 @@ export const siteConfig = {
   title: "Full Stack AI Engineer",
   url: "https://www.himex.tech",
   location: "Delhi, India",
-  education:
-    "B.Tech in AI & Data Science, Maharaja Agrasen Institute of Technology (MAIT), Delhi",
+  // Shown in its own section and as alumniOf in the structured data
+  education: {
+    school: "Maharaja Agrasen Institute of Technology",
+    shortName: "MAIT",
+    degree: "B.Tech in Artificial Intelligence & Data Science",
+    duration: "2022 - 2026",
+    location: "Delhi, India",
+    website: "https://www.mait.ac.in/",
+    // Crest from mait.ac.in; without a logo the tile falls back to a monogram
+    logo: "/logos/mait.png",
+  },
   // Short summary for search results and link previews (~155 characters)
   shortDescription:
     "Full Stack AI Engineer in Delhi building production AI systems: agent workflows, OCR pipelines and multi-agent RAG.",

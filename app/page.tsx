@@ -5,6 +5,7 @@ import Projects from "@/components/sections/projects";
 import Hackathons from "@/components/sections/hackathons";
 import OpenSource from "@/components/sections/open-source";
 import GitHubActivity from "@/components/sections/github-activity";
+import Education from "@/components/sections/education";
 import Footer from "@/components/sections/footer";
 import { siteConfig } from "@/config/site";
 import {
@@ -40,6 +41,7 @@ export default async function Home() {
         <OpenSource pullRequests={pullRequests} />
         <Skills />
         <GitHubActivity initialData={contributions} />
+        <Education />
       </main>
       <Footer />
     </>

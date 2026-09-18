@@ -48,7 +48,8 @@ export function homepageStructuredData() {
         },
         alumniOf: {
           "@type": "CollegeOrUniversity",
-          name: "Maharaja Agrasen Institute of Technology",
+          name: siteConfig.education.school,
+          url: siteConfig.education.website,
         },
         ...(currentEmployers.length ? { worksFor: currentEmployers } : {}),
         knowsAbout: Array.from(new Set(stack)),
