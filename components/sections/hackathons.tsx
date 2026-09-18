@@ -6,6 +6,7 @@ import { Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import { LinkHoverCard } from "@/components/ui/link-hover-card";
+import { LiveSiteLink } from "@/components/ui/project-links";
 import { cn } from "@/lib/utils";
 
 type Hackathon = (typeof siteConfig.hackathons)[number];
@@ -122,8 +123,17 @@ export default function Hackathons() {
                 </div>
               )}
 
-              {(hackathon.repoUrl || hackathon.postUrl) && (
+              {(hackathon.liveUrl || hackathon.repoUrl || hackathon.postUrl) && (
                 <div className="mt-2.5 flex flex-wrap gap-2">
+                  {hackathon.liveUrl && (
+                    <LiveSiteLink
+                      href={hackathon.liveUrl}
+                      preview={hackathon.livePreview || undefined}
+                      title={hackathon.event}
+                      icon={<span className="h-1.5 w-1.5 rounded-full bg-green-500" />}
+                      className={cn(linkChip, "group/link")}
+                    />
+                  )}
                   {hackathon.repoUrl && (
                     <a href={hackathon.repoUrl} target="_blank" rel="noopener noreferrer" className={linkChip}>
                       <Github className="h-3.5 w-3.5" />

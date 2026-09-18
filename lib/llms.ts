@@ -109,7 +109,7 @@ ${project.description}
   const hackathons = siteConfig.hackathons
     .map(
       (hackathon) =>
-        `- ${hackathon.event}${hackathon.award ? ` (${hackathon.award})` : ""} - ${hackathon.date}${hackathon.location ? `, ${hackathon.location}` : ""}${hackathon.description ? `: ${hackathon.description}` : ""}${hackathon.repoUrl ? ` Source: ${hackathon.repoUrl}` : ""}`,
+        `- ${hackathon.event}${hackathon.award ? ` (${hackathon.award})` : ""} - ${hackathon.date}${hackathon.location ? `, ${hackathon.location}` : ""}${hackathon.description ? `: ${hackathon.description}` : ""}${hackathon.repoUrl ? ` Source: ${hackathon.repoUrl}` : ""}${hackathon.liveUrl ? ` Live: ${hackathon.liveUrl}` : ""}`,
     )
     .join("\n");
   const stack = Object.entries(siteConfig.stack)

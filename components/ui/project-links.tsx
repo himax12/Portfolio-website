@@ -118,17 +118,21 @@ export function LiveSiteLink({
   href,
   preview,
   title,
+  icon,
   className,
 }: {
   href: string;
   // Screenshot in public/previews; without one the link stays plain
   preview: string | undefined;
   title: string;
+  // Optional mark before the hostname, e.g. a live dot
+  icon?: React.ReactNode;
   className?: string;
 }) {
   const hostname = new URL(href).hostname.replace(/^www\./, "");
   const trigger = (
     <>
+      {icon}
       {hostname}
       <ArrowUpRight className="h-3 w-3 opacity-50 group-hover/link:opacity-100 transition-opacity" />
     </>

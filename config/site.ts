@@ -163,6 +163,8 @@ export const siteConfig = {
       logo: "/logos/cyborgdb.png",
       repoUrl: "",
       postUrl: "",
+      liveUrl: "",
+      livePreview: "",
       // Photos or screenshots from the event, shown as thumbnails that enlarge on hover
       images: [] as { src: string; alt: string }[],
     },
@@ -177,6 +179,8 @@ export const siteConfig = {
       logo: "/logos/tesco.png",
       repoUrl: "https://github.com/ImAshishChoudhary/ReTexture",
       postUrl: "",
+      liveUrl: "https://retexture.vercel.app/",
+      livePreview: "/previews/retexture.jpg",
       images: [
         {
           src: "/hackathons/tesco-schedule.jpg",
@@ -197,6 +201,8 @@ export const siteConfig = {
       description:
         "Competing as team MotionMinds, built an integrated machine learning and computer vision system to analyse tennis matches, with real-time player and ball tracking plus event analysis, using OpenCV, TensorFlow, YOLOv5, PyTorch and ResNet-50.",
       logo: "/logos/adobe.png",
+      liveUrl: "",
+      livePreview: "",
       images: [
         {
           src: "/hackathons/adobe-finalists.jpg",
