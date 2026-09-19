@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
 import SocialIconsBar from "@/components/ui/social-icons-bar";
+import CursorBuddy from "@/components/ui/cursor-buddy";
 import { getContributions, getGitHubProfile } from "@/lib/github";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
@@ -119,6 +120,7 @@ export default async function RootLayout({
           </div>
         </div>
         <SocialIconsBar githubProfile={githubProfile} contributions={contributions} />
+        <CursorBuddy />
       </body>
     </html>
   );
