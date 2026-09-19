@@ -8,14 +8,21 @@ const CHARS =
     "",
   );
 const FONT_SIZE = 14;
-// ~20fps keeps the effect smooth enough while staying cheap
-const FRAME_MS = 50;
-// Frames pre-rendered to build a still texture when motion is reduced
+// ~12fps: the glyphs step down a row at a time, so more frames buy very little
+const FRAME_MS = 80;
+// Frames pre-rendered to build a still texture when the rain does not animate
 const STATIC_FRAMES = 40;
 
 // Trails fade into the black page background
 const TRAIL = "rgba(0, 0, 0, 0.08)";
-const RAIN = "0, 255, 65";
+const RAIN = "rgb(0, 255, 65)";
+
+// The reading column (see layout.tsx) sits on frosted glass. Anything repainted
+// underneath it forces the browser to re-blur every glass surface above, which is
+// far more expensive than the drawing itself, so the animation stays in the gutters.
+const COLUMN_WIDTH = 720;
+// Below this a gutter is too narrow to be worth animating; the rain is drawn once instead
+const MIN_GUTTER = 48;
 
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -31,45 +38,45 @@ export default function MatrixRain() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     let drops: number[] = [];
+    // Columns that sit in a gutter, so each frame only walks the ones it will draw
+    let animated: number[] = [];
+    let gutter = 0;
 
-    const draw = () => {
-      // Semi-transparent background fill for the trail effect
-      ctx.fillStyle = TRAIL;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const drawColumn = (i: number) => {
+      const text = CHARS[Math.floor(Math.random() * CHARS.length)];
+      ctx.fillText(text, i * FONT_SIZE, drops[i] * FONT_SIZE);
 
-      ctx.font = `${FONT_SIZE}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = CHARS[Math.floor(Math.random() * CHARS.length)];
-
-        // Gradient effect - brighter at the bottom
-        const gradient = ctx.createLinearGradient(
-          0,
-          drops[i] * FONT_SIZE - FONT_SIZE * 5,
-          0,
-          drops[i] * FONT_SIZE,
-        );
-
-        gradient.addColorStop(0, `rgba(${RAIN}, 0.1)`);
-        gradient.addColorStop(0.5, `rgba(${RAIN}, 0.5)`);
-        gradient.addColorStop(1, `rgba(${RAIN}, 1)`);
-
-        ctx.fillStyle = gradient;
-        ctx.fillText(text, i * FONT_SIZE, drops[i] * FONT_SIZE);
-
-        // Reset drop to top randomly
-        if (drops[i] * FONT_SIZE > canvas.height && Math.random() > 0.95) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
+      // Reset drop to top randomly
+      if (drops[i] * FONT_SIZE > canvas.height && Math.random() > 0.95) {
+        drops[i] = 0;
       }
+
+      drops[i]++;
     };
 
+    // One frame of the gutters: fade what is there, then step every drop down a row.
+    // The fade is what produces the trail, so no per-glyph gradient is needed.
+    const draw = () => {
+      ctx.fillStyle = TRAIL;
+      ctx.fillRect(0, 0, gutter, canvas.height);
+      ctx.fillRect(canvas.width - gutter, 0, gutter, canvas.height);
+
+      ctx.fillStyle = RAIN;
+      ctx.font = `${FONT_SIZE}px monospace`;
+      for (const i of animated) drawColumn(i);
+    };
+
+    // Full-width still frame, used on narrow screens and for reduced motion
     const drawStatic = () => {
       const rows = canvas.height / FONT_SIZE;
       drops = drops.map(() => Math.random() * rows);
-      for (let f = 0; f < STATIC_FRAMES; f++) draw();
+      for (let f = 0; f < STATIC_FRAMES; f++) {
+        ctx.fillStyle = TRAIL;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = RAIN;
+        ctx.font = `${FONT_SIZE}px monospace`;
+        for (let i = 0; i < drops.length; i++) drawColumn(i);
+      }
     };
 
     const resizeCanvas = () => {
@@ -81,7 +88,13 @@ export default function MatrixRain() {
         { length: columns },
         (_, i) => drops[i] ?? Math.random() * -100,
       );
-      if (reduceMotion) drawStatic();
+      gutter = Math.max(0, (canvas.width - COLUMN_WIDTH) / 2);
+      animated = [];
+      for (let i = 0; i < columns; i++) {
+        const x = i * FONT_SIZE;
+        if (x < gutter || x > canvas.width - gutter) animated.push(i);
+      }
+      if (reduceMotion || gutter < MIN_GUTTER) drawStatic();
     };
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
@@ -95,11 +108,17 @@ export default function MatrixRain() {
       lastFrame = time;
       draw();
     };
-    if (!reduceMotion) rafId = requestAnimationFrame(tick);
+    const start = () => {
+      cancelAnimationFrame(rafId);
+      if (!reduceMotion && gutter >= MIN_GUTTER) rafId = requestAnimationFrame(tick);
+    };
+    start();
+    window.addEventListener("resize", start);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", start);
     };
   }, []);
 

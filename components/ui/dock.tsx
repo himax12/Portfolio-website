@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
-import { createContext, useContext, useRef } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 const BASE_SIZE = 36;
 // Slot width at the cursor; the icon inside scales by the same ratio (52/36 ≈ 1.44, so a
@@ -18,7 +11,16 @@ const MAX_SIZE = 52;
 // How far (px) from an item's center the cursor still magnifies it
 const MAGNIFY_RANGE = 120;
 
-const DockMouseX = createContext<MotionValue<number> | null>(null);
+type Register = (element: HTMLElement) => () => void;
+
+const DockRegister = createContext<Register | null>(null);
+
+// Sizes are written straight to the DOM rather than through React state: the cursor
+// moves every frame, and re-rendering the whole bar that often is wasteful.
+const sizeFor = (distance: number) => {
+  const ratio = Math.max(0, 1 - Math.abs(distance) / MAGNIFY_RANGE);
+  return BASE_SIZE + (MAX_SIZE - BASE_SIZE) * ratio;
+};
 
 // macOS-style dock: as the cursor approaches, an item's slot widens and its icon grows,
 // while the button (and its hover highlight) keeps a fixed size so nothing leaves the bar
@@ -27,7 +29,36 @@ export function Dock({
   children,
   ...props
 }: React.ComponentProps<"nav">) {
-  const mouseX = useMotionValue(Infinity);
+  const items = useRef(new Set<HTMLElement>());
+  const frame = useRef(0);
+  const reduceMotion = usePrefersReducedMotion();
+
+  const register = useCallback<Register>((element) => {
+    items.current.add(element);
+    return () => {
+      items.current.delete(element);
+    };
+  }, []);
+
+  const apply = (mouseX: number) => {
+    for (const element of items.current) {
+      const bounds = element.getBoundingClientRect();
+      const size = Number.isFinite(mouseX)
+        ? sizeFor(mouseX - bounds.left - bounds.width / 2)
+        : BASE_SIZE;
+      element.style.width = `${size}px`;
+      element.style.setProperty("--dock-icon-scale", `${size / BASE_SIZE}`);
+    }
+  };
+
+  const track = (mouseX: number) => {
+    if (reduceMotion) return;
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => apply(mouseX));
+  };
+
+  useEffect(() => () => cancelAnimationFrame(frame.current), []);
+
   return (
     <nav
       {...props}
@@ -35,14 +66,12 @@ export function Dock({
       // track the cursor while it's over the bar itself; otherwise the icons keep
       // magnifying and shift the open card sideways under the cursor
       onMouseMove={(e) =>
-        mouseX.set(
-          e.currentTarget.contains(e.target as Node) ? e.clientX : Infinity,
-        )
+        track(e.currentTarget.contains(e.target as Node) ? e.clientX : Infinity)
       }
-      onMouseLeave={() => mouseX.set(Infinity)}
+      onMouseLeave={() => track(Infinity)}
       className={cn("flex items-center", className)}
     >
-      <DockMouseX.Provider value={mouseX}>{children}</DockMouseX.Provider>
+      <DockRegister.Provider value={register}>{children}</DockRegister.Provider>
     </nav>
   );
 }
@@ -56,34 +85,20 @@ export function DockItem({
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  // Outside a Dock there's no cursor tracking; stay at base size
-  const fallbackMouseX = useMotionValue(Infinity);
-  const mouseX = useContext(DockMouseX) ?? fallbackMouseX;
-  const reduceMotion = useReducedMotion();
+  const register = useContext(DockRegister);
 
-  const distance = useTransform(mouseX, (x) => {
-    const bounds = ref.current?.getBoundingClientRect();
-    return bounds ? x - bounds.left - bounds.width / 2 : Infinity;
-  });
-  const targetSize = useTransform(
-    distance,
-    [-MAGNIFY_RANGE, 0, MAGNIFY_RANGE],
-    [BASE_SIZE, MAX_SIZE, BASE_SIZE],
-  );
-  const size = useSpring(targetSize, { mass: 0.1, stiffness: 170, damping: 14 });
-  const iconScale = useTransform(size, (s) => s / BASE_SIZE);
+  useEffect(() => {
+    // Outside a Dock there is no cursor tracking; the slot just stays at base size
+    if (!register || !ref.current) return;
+    return register(ref.current);
+  }, [register]);
 
   return (
-    <motion.div
+    <div
       ref={ref}
       // Only the slot width animates; the height stays fixed inside the bar
-      style={{
-        width: reduceMotion ? BASE_SIZE : size,
-        height: BASE_SIZE,
-        // Read by the icon (svg) inside the button, so the glyph grows but the button doesn't
-        ["--dock-icon-scale" as string]: reduceMotion ? 1 : iconScale,
-      }}
-      className="group relative flex items-center justify-center [&_svg]:[transform:scale(var(--dock-icon-scale,1))] [&_svg]:origin-center"
+      style={{ width: BASE_SIZE, height: BASE_SIZE }}
+      className="group relative flex items-center justify-center transition-[width] duration-150 ease-out [&_svg]:[transform:scale(var(--dock-icon-scale,1))] [&_svg]:origin-center [&_svg]:transition-transform [&_svg]:duration-150 [&_svg]:ease-out motion-reduce:transition-none"
     >
       {children}
       {label && (
@@ -94,6 +109,6 @@ export function DockItem({
           {label}
         </span>
       )}
-    </motion.div>
+    </div>
   );
 }

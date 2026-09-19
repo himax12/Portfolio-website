@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 const CELL = 5;
 const GAP = 1;
@@ -17,7 +17,7 @@ type Pixel = { x: number; y: number; alpha: number; delay: number };
 export default function PixelGlow({ active }: { active: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pixelsRef = useRef<Pixel[]>([]);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   // Lay out the pixel field once, at the canvas's rendered size
   useEffect(() => {

@@ -4,7 +4,7 @@ import Skills from "@/components/sections/skills";
 import Projects from "@/components/sections/projects";
 import Hackathons from "@/components/sections/hackathons";
 import OpenSource from "@/components/sections/open-source";
-import GitHubActivity from "@/components/sections/github-activity";
+import GitHubActivity from "@/components/sections/github-activity-lazy";
 import Education from "@/components/sections/education";
 import Footer from "@/components/sections/footer";
 import { siteConfig } from "@/config/site";
@@ -14,6 +14,7 @@ import {
   getProjectRepos,
 } from "@/lib/github";
 import { homepageStructuredData } from "@/lib/structured-data";
+import { packContributions } from "@/lib/contributions";
 
 // Rebuild hourly so GitHub data stays fresh without fetching on every request
 export const revalidate = 3600;
@@ -40,7 +41,7 @@ export default async function Home() {
         <Hackathons />
         <OpenSource pullRequests={pullRequests} />
         <Skills />
-        <GitHubActivity initialData={contributions} />
+        <GitHubActivity initialData={contributions ? packContributions(contributions) : null} />
         <Education />
       </main>
       <Footer />

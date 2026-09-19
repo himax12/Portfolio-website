@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import MatrixRain from "@/components/matrix-rain";
-import MotionProvider from "@/components/motion-provider";
 import SocialIconsBar from "@/components/ui/social-icons-bar";
 import { getContributions, getGitHubProfile } from "@/lib/github";
 import { Inter } from "next/font/google";
@@ -115,7 +114,7 @@ export default async function RootLayout({
               className="absolute inset-0 -z-10 backdrop-blur-xl"
             />
             <div className="relative z-30">
-              <MotionProvider>{children}</MotionProvider>
+              {children}
             </div>
           </div>
         </div>

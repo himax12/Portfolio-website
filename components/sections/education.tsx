@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
@@ -14,13 +11,7 @@ export default function Education() {
     <section id="education" className="section">
       <SectionHeading title="Education" />
 
-      <motion.article
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="glass flex gap-4 rounded-md px-5 py-[18px]"
-      >
+      <article className="reveal glass flex gap-4 rounded-md px-5 py-[18px]">
         <span
           className={cn(
             "flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-overlay/15 text-[13px] font-semibold text-muted",
@@ -57,7 +48,7 @@ export default function Education() {
           <p className="mt-0.5 text-[14.5px] text-foreground/80">{degree}</p>
           <p className="mt-0.5 text-[13px] text-muted">{location}</p>
         </div>
-      </motion.article>
+      </article>
     </section>
   );
 }

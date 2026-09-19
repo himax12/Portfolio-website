@@ -134,6 +134,34 @@
   }
 }
 
+/* Scroll reveal without JavaScript: the animation is driven by the element's own
+   position in the viewport. Browsers without scroll-driven animations (Safari,
+   Firefox) get no duration, so the content simply starts in its final state. */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 20%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

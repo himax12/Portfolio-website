@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
@@ -23,13 +20,12 @@ export default function Projects({ repos }: { repos: Record<string, RepoPreview>
           const liveUrl = project.liveUrl !== project.githubUrl ? project.liveUrl : "";
           const repoName = repoFromUrl(project.githubUrl);
           return (
-            <motion.article
+            <article
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={cn("glass flex flex-col rounded-md p-[18px]", featureFirst && index === 0 && "sm:col-span-2")}
+              className={cn(
+                "reveal glass flex flex-col rounded-md p-[18px]",
+                featureFirst && index === 0 && "sm:col-span-2",
+              )}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -76,7 +72,7 @@ export default function Projects({ repos }: { repos: Record<string, RepoPreview>
                   <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
-            </motion.article>
+            </article>
           );
         })}
       </div>

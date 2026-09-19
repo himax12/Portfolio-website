@@ -1,12 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import ActivityCalendar from "react-activity-calendar";
 import type { ContributionData } from "@/lib/github";
-import { CONTRIBUTION_COLORS, formatContribution } from "@/lib/contributions";
+import {
+  CONTRIBUTION_COLORS,
+  formatContribution,
+  unpackContributions,
+  type CompactContributions,
+} from "@/lib/contributions";
 import { cloneElement, useEffect, useRef, useState } from "react";
 
 const CONTRIBUTIONS_API = "https://github-contributions-api.jogruber.de/v4";
@@ -26,13 +30,16 @@ const EDGE_FADE = "32px";
 
 type Tooltip = { text: string; x: number; y: number };
 
-// initialData comes from the server (ISR); the browser only fetches if that failed
+// initialData comes from the server (ISR) in its compact form; the browser only
+// fetches if that failed
 export default function GitHubActivity({
   initialData,
 }: {
-  initialData: ContributionData | null;
+  initialData: CompactContributions | null;
 }) {
-  const [data, setData] = useState<ContributionData | null>(initialData);
+  const [data, setData] = useState<ContributionData | null>(() =>
+    initialData ? unpackContributions(initialData) : null,
+  );
   const [failed, setFailed] = useState(false);
   const [blockSize, setBlockSize] = useState(12);
   const [compact, setCompact] = useState(false);
@@ -136,14 +143,10 @@ export default function GitHubActivity({
           }
         />
 
-        <motion.div
+        <div
           ref={panelRef}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
           onMouseLeave={() => setTooltip(null)}
-          className="glass relative rounded-md p-4 sm:p-[18px]"
+          className="reveal glass relative rounded-md p-4 sm:p-[18px]"
         >
           {failed ? (
             <p className="text-sm text-muted">
@@ -223,7 +226,7 @@ export default function GitHubActivity({
               {tooltip.text}
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

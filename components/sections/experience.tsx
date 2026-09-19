@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import SectionHeading from "@/components/ui/section-heading";
 import Tag from "@/components/ui/tag";
@@ -12,15 +9,8 @@ export default function Experience() {
       <SectionHeading title="Experience" />
 
       <div className="grid gap-3">
-        {siteConfig.experience.map((exp, index) => (
-          <motion.article
-            key={exp.company}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="glass rounded-md px-5 py-[18px]"
-          >
+        {siteConfig.experience.map((exp) => (
+          <article key={exp.company} className="reveal glass rounded-md px-5 py-[18px]">
             <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
               <h3 className="flex items-center gap-2 text-[16.5px] font-semibold">
                 {exp.logo && (
@@ -43,7 +33,7 @@ export default function Experience() {
                 <Tag key={tech}>{tech}</Tag>
               ))}
             </div>
-          </motion.article>
+          </article>
         ))}
       </div>
     </section>
