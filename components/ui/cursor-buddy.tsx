@@ -35,6 +35,9 @@ const ARRIVED = 2;
 const RUNNING_MS = 140;
 // Movement below this doesn't change which way he faces, so jitter can't spin him
 const TURN = 2;
+// Pose changes are ignored for this long after a scroll: the pointer hasn't moved, the
+// page has, and reacting to every element sliding past makes him flicker
+const SCROLL_SETTLE_MS = 160;
 // He stands below and to the right of the click point, the way an arrow's tip sits
 // above its body: standing on the point would hide the link being clicked
 const OFFSET_X = 4;
@@ -69,6 +72,8 @@ export default function CursorBuddy() {
     let angry = false;
     let shown = false;
     let movedAt = 0;
+    let scrollingUntil = 0;
+    let settleTimer = 0;
 
     const setPose = (value: string) => {
       if (element.style.backgroundPosition !== value) {
@@ -139,12 +144,26 @@ export default function CursorBuddy() {
     const isInteractive = (target: EventTarget | null) =>
       target instanceof Element && Boolean(target.closest("a, button, [role='button']"));
 
+    const setAngry = (next: boolean) => {
+      if (next === angry) return;
+      angry = next;
+      wake();
+    };
+
     const onOver = (event: PointerEvent) => {
-      const next = isInteractive(event.target);
-      if (next !== angry) {
-        angry = next;
-        wake();
-      }
+      // Mid-scroll these fire for whatever slid under a stationary pointer
+      if (performance.now() < scrollingUntil) return;
+      setAngry(isInteractive(event.target));
+    };
+
+    // Once the page stops moving, catch up with whatever is under the pointer now
+    const settle = () => setAngry(isInteractive(document.elementFromPoint(targetX, targetY)));
+
+    const onScroll = () => {
+      scrollingUntil = performance.now() + SCROLL_SETTLE_MS;
+      setAngry(false);
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settle, SCROLL_SETTLE_MS);
     };
     const onDown = () => {
       angry = true;
@@ -169,6 +188,7 @@ export default function CursorBuddy() {
       ? window.requestIdleCallback(warmUp, { timeout: 3000 })
       : window.setTimeout(warmUp, 1500);
 
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerover", onOver, { passive: true });
     window.addEventListener("pointerdown", onDown, { passive: true });
@@ -180,6 +200,8 @@ export default function CursorBuddy() {
       cancelAnimationFrame(frame);
       if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
       else window.clearTimeout(idle);
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerover", onOver);
       window.removeEventListener("pointerdown", onDown);
