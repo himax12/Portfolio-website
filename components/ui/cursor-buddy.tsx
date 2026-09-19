@@ -11,17 +11,18 @@ const FRAMES = {
 
 // Fraction of the remaining distance covered each frame: the lag is what makes him
 // look like he is chasing the cursor rather than stuck to it
-const EASE = 0.13;
+const EASE = 0.28;
 // Milliseconds between the two running frames
 const STEP_MS = 110;
 // Close enough to the cursor to stand still, in px
 const ARRIVED = 2;
-// Far enough away to be running rather than shuffling, in px
-const RUNNING = 6;
-// He hangs below and to the right of the pointer, so he never covers the thing
-// being pointed at or the line of text above it
-const OFFSET_X = 14;
-const OFFSET_Y = 6;
+// He keeps running for this long after the last pointer movement: now that he keeps
+// up with the cursor, distance alone would have him standing still most of the time
+const RUNNING_MS = 140;
+// The sprite is drawn from its top-left, so shift it until his head covers the
+// real (hidden) pointer: that is the spot a click actually lands on
+const OFFSET_X = -18;
+const OFFSET_Y = -4;
 
 export default function CursorBuddy() {
   const ref = useRef<HTMLImageElement>(null);
@@ -36,6 +37,8 @@ export default function CursorBuddy() {
     ) {
       return;
     }
+
+    document.documentElement.classList.add("cursor-hidden");
 
     // Swapping to a frame the browser has not fetched yet would blink, but the other
     // frames must not compete with the page itself for bandwidth, so they wait for idle
@@ -59,6 +62,7 @@ export default function CursorBuddy() {
     let frame = 0;
     let angry = false;
     let shown = false;
+    let movedAt = 0;
 
     const setSrc = (src: string) => {
       if (!element.src.endsWith(src)) element.src = src;
@@ -77,7 +81,7 @@ export default function CursorBuddy() {
 
       if (angry) {
         setSrc(FRAMES.angry);
-      } else if (distance > RUNNING) {
+      } else if (time - movedAt < RUNNING_MS) {
         if (time - steppedAt > STEP_MS) {
           step ^= 1;
           steppedAt = time;
@@ -88,7 +92,8 @@ export default function CursorBuddy() {
       }
 
       // Stop the loop once he has caught up; the next pointer move wakes it again
-      frame = distance > ARRIVED ? requestAnimationFrame(tick) : 0;
+      const busy = distance > ARRIVED || time - movedAt < RUNNING_MS;
+      frame = busy ? requestAnimationFrame(tick) : 0;
     };
 
     const wake = () => {
@@ -98,6 +103,7 @@ export default function CursorBuddy() {
     const onMove = (event: PointerEvent) => {
       targetX = event.clientX;
       targetY = event.clientY;
+      movedAt = performance.now();
       if (!shown) {
         shown = true;
         element.style.opacity = "1";
@@ -136,6 +142,7 @@ export default function CursorBuddy() {
     document.addEventListener("pointerleave", onLeave);
 
     return () => {
+      document.documentElement.classList.remove("cursor-hidden");
       cancelAnimationFrame(frame);
       if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
       else window.clearTimeout(idle);

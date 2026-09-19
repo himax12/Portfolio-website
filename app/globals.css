@@ -134,6 +134,13 @@
   }
 }
 
+/* The pixel sidekick stands in for the pointer; the class is only ever set by the
+   script that draws him, so without it the normal cursor stays */
+.cursor-hidden,
+.cursor-hidden * {
+  cursor: none !important;
+}
+
 /* Scroll reveal without JavaScript: the animation is driven by the element's own
    position in the viewport. Browsers without scroll-driven animations (Safari,
    Firefox) get no duration, so the content simply starts in its final state. */
