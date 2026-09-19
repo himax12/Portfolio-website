@@ -15,6 +15,14 @@ const position = (direction: Direction, state: (typeof COLUMNS)[number]) =>
   `${COLUMNS.indexOf(state) * STEP}% ${ROWS.indexOf(direction) * STEP}%`;
 // Arms up, whichever way he happens to be facing
 const ANGRY = position("up", "angry");
+// Both profile rows in the sheet are drawn facing right, so travelling left reuses the
+// right-hand poses mirrored rather than a row that would point the wrong way
+const POSE_ROW: Record<Direction, Direction> = {
+  up: "up",
+  down: "down",
+  left: "right",
+  right: "right",
+};
 
 // Fraction of the remaining distance covered each frame
 const EASE = 0.28;
@@ -88,7 +96,9 @@ export default function CursorBuddy() {
         facing = next;
       }
 
-      element.style.transform = `translate3d(${x + OFFSET_X}px, ${y + OFFSET_Y}px, 0)`;
+      // Only the profile poses are mirrored; the arms-up pose faces front either way
+      const flip = !angry && facing === "left" ? " scaleX(-1)" : "";
+      element.style.transform = `translate3d(${x + OFFSET_X}px, ${y + OFFSET_Y}px, 0)${flip}`;
       // The dot tracks the pointer exactly, while he lopes along behind it
       dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
 
@@ -99,9 +109,9 @@ export default function CursorBuddy() {
           step ^= 1;
           steppedAt = time;
         }
-        setPose(position(facing, step ? "walk-1" : "walk-2"));
+        setPose(position(POSE_ROW[facing], step ? "walk-1" : "walk-2"));
       } else {
-        setPose(position(facing, "idle"));
+        setPose(position(POSE_ROW[facing], "idle"));
       }
 
       // Stop the loop once he has caught up; the next pointer move wakes it again
@@ -194,7 +204,7 @@ export default function CursorBuddy() {
           backgroundSize: "400% 400%",
           backgroundPosition: position("down", "idle"),
         }}
-        className="pointer-events-none fixed left-0 top-0 z-[70] h-16 w-10 origin-top-left select-none bg-no-repeat opacity-0 transition-opacity duration-300 [image-rendering:pixelated]"
+        className="pointer-events-none fixed left-0 top-0 z-[70] h-16 w-10 origin-center select-none bg-no-repeat opacity-0 transition-opacity duration-300 [image-rendering:pixelated]"
       />
     </>
   );
