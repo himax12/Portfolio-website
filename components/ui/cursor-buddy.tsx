@@ -19,17 +19,19 @@ const ARRIVED = 2;
 // He keeps running for this long after the last pointer movement: now that he keeps
 // up with the cursor, distance alone would have him standing still most of the time
 const RUNNING_MS = 140;
-// The sprite is drawn from its top-left, so shift it until his head covers the
-// real (hidden) pointer: that is the spot a click actually lands on
-const OFFSET_X = -18;
-const OFFSET_Y = -4;
+// He stands below and to the right of the click point, the way an arrow's tip sits
+// above its body: standing on the point would hide the link being clicked
+const OFFSET_X = 4;
+const OFFSET_Y = 10;
 
 export default function CursorBuddy() {
   const ref = useRef<HTMLImageElement>(null);
+  const dotRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
+    const dot = dotRef.current;
+    if (!element || !dot) return;
     // Nothing to follow on touch screens, and it is pure motion, so respect the setting
     if (
       !window.matchMedia("(pointer: fine)").matches ||
@@ -78,6 +80,8 @@ export default function CursorBuddy() {
       if (Math.abs(dx) > 1) facing = dx > 0 ? 1 : -1;
 
       element.style.transform = `translate3d(${x + OFFSET_X}px, ${y + OFFSET_Y}px, 0) scaleX(${facing})`;
+      // The dot tracks the pointer exactly, while he lopes along behind it
+      dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
 
       if (angry) {
         setSrc(FRAMES.angry);
@@ -107,6 +111,7 @@ export default function CursorBuddy() {
       if (!shown) {
         shown = true;
         element.style.opacity = "1";
+        dot.style.opacity = "1";
       }
       wake();
     };
@@ -133,6 +138,7 @@ export default function CursorBuddy() {
     const onLeave = () => {
       shown = false;
       element.style.opacity = "0";
+      dot.style.opacity = "0";
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -155,14 +161,21 @@ export default function CursorBuddy() {
   }, []);
 
   return (
-    /* eslint-disable-next-line @next/next/no-img-element -- swapped every few frames; the optimizer only adds latency */
-    <img
-      ref={ref}
-      src={FRAMES.idle}
-      alt=""
+    <>
+      <span
+        ref={dotRef}
+          aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[71] h-[7px] w-[7px] rounded-full bg-[#00ff41] opacity-0 shadow-[0_0_6px_rgba(0,255,65,0.9)] transition-opacity duration-300"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element -- swapped every few frames; the optimizer only adds latency */}
+      <img
+        ref={ref}
+        src={FRAMES.idle}
+        alt=""
       aria-hidden="true"
-      draggable={false}
-      className="pointer-events-none fixed left-0 top-0 z-[55] h-16 w-auto origin-top-left select-none opacity-0 transition-opacity duration-300 [image-rendering:pixelated]"
-    />
+        draggable={false}
+        className="pointer-events-none fixed left-0 top-0 z-[70] h-16 w-auto origin-top-left select-none opacity-0 transition-opacity duration-300 [image-rendering:pixelated]"
+      />
+    </>
   );
 }
